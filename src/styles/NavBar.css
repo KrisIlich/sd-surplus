@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+
+#nav-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+    overflow-y: visible;
+    margin: 0 auto;
+    background-color: #F4F3F4;
+    padding:0;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+#nav-bar-logo {
+    display:flex;
+    align-items: center;
+    margin: 1em;
+    margin-left: 50px;
+    color: #2F4858;
+    cursor: pointer;
+}
+
+#logo-span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    margin-left: 20px; 
+    letter-spacing: -0.01em;
+}
+
+#nav-bar-logo img {
+    width: 60px;
+    border-radius: 8px;
+}
+
+#nav-bar-links {
+    display:flex;
+    flex-direction: row;
+    gap: 0em;
+    margin: 0;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 550;
+    font-size: 16px;
+    color: #2F4858;
+    letter-spacing: -0.01em;
+}
+
+
+#nav-bar-links span {
+    display: flex;
+    align-self: center;
+    cursor: pointer;
+}
+
+.nav-item-wrapper.is-active .nav-link {
+    color: #d18426; /* your orange color */
+  }
+  
+
+.nav-item-wrapper.is-active .nav-bar-link span{
+    color: #d18426;
+}
+
+#nav-bar-cta {
+    margin: 1em;
+    margin-right: 50px; 
+}
+
+#nav-bar-cta button {
+    height: 50px;
+    width: 250px;
+    font-size: 12px;
+    background-color: #33658A;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.16em;
+    font-weight: 700;
+    border-radius: 8px;
+    border: none;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .7) 0 7px 13px -3px,rgba(58, 65, 111, .8) 0 -3px 0 inset;
+    font-stretch: extra-condensed;
+    cursor: pointer;
+}
+
+  
+  #nav-bar-cta button:hover {
+    background-color: #e3a04e;
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #8594a3 0 -3px 0 inset;
+
+  }
+  
+  #nav-bar-cta button:active {
+    box-shadow: #797979 0 3px 7px inset;
+    transform: translateY(3px);
+  }
+
+
+#nav-bar-left-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+}
+
+#nav-bar-right-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10em;
+    margin-left: auto;
+}
+
+.nav-item-wrapper {
+    display: flex;
+    position: relative;
+    padding: 0 1em;
+    height: 100px;
+
+}
+
+.dropdown-menu {
+    position: absolute;
+    justify-content: center;
+    height: auto;
+    top: 100px;
+    left: 0;
+    right: 0;
+    background-color: #F4F3F4;
+    border-top: 0.03px solid #e6e6e6;
+    padding: 0;
+    padding-bottom: 0px;
+    padding-bottom: 20px;
+}
+
+.dropdown-inner {
+  padding: 0;       
+  display: flex;
+  gap: 0;
+}
+
+/* Each column of your mega menu */
+.dropdown-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+
+.dropdown-row {
+    display: flex;
+    justify-content: flex-start; /* spread columns across row */
+    gap: 1em;                        /* space between columns */
+    max-width: 1200px;
+    margin: 0;
+  }
+
+  .dropdown-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    font-family: 'Open Sans', sans-serif;
+    color: #2F4858;
+    gap: .3em;
+  }
+  
+  .dropdown-column h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.04em;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #2F4858;
+    padding-left: 10px;
+  }
+  
+  .dropdown-button {
+    background: none;     /* or a color if you prefer */
+    border: none;
+    padding-left: 10px;      /* spacing similar to old <p> margin */
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+    text-align: left;
+    outline: none;
+    transition: color 0.2s ease-in-out;
+    display: block;       /* makes them stack vertically */
+    width: 200px;
+    height: 50px;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Optional hover/focus states */
+  .dropdown-button:hover,
+  .dropdown-button:focus {
+    color: #d18426;  /* your orange color */
+    background-color: rgb(237, 237, 237);
+  }
+  
+  .dropdown-button:active {
+    transform: translateY(1px);
+  }
+
+ 
+  
+  .dropdown-column p:hover {
+    color: #d18426;
+  }
+
+  .nav-item-wrapper.is-open .nav-link {
+    color: #d18426; /* same orange */
+  }
+
+
+
+  /* Entering: initial state */
+.dropdown-anim-enter {
+  transform: translateY(-100px);
+}
+/* Entering: active state (applied during transition) */
+.dropdown-anim-enter-active {
+  transform: translateY(0);
+  transition: transform 350ms ease-in-out;
+}
+
+/* Exiting: initial state */
+.dropdown-anim-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+/* Exiting: active state (applied during transition) */
+.dropdown-anim-exit-active {
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: transform 350ms ease-in-out;
+}

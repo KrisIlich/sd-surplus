@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+#homepage-container {
+    padding-top: 100px;
+}
+
+#home-banner-container {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    background-color: #0a3759;
+}
+
+#home-banner-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.4;
+}
+
+#home-banner-text {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    z-index: 1;
+    color: white;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    max-width: 600px;
+    letter-spacing: 0.08em;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  #home-banner-text span {
+    color: #E58E27; /* Highlighted "TRANSFORMERS" */
+  }
