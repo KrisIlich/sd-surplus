@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 import DropdownPortal from './DropdownPortal';
 
 function App() {
+  const [navHeight, setNavHeight] = useState(100);
   const [activeMenu, setActiveMenu] = useState(null);
   const [dropdownOffset, setDropdownOffset] = useState(null);
 
@@ -17,6 +18,7 @@ function App() {
       activeMenu={activeMenu} 
       setActiveMenu={setActiveMenu}
       setDropdownOffset={setDropdownOffset}
+      onHeightChange={setNavHeight}
       />
 
       {/* 2) Dropdown container (renders menus) */}
@@ -24,6 +26,7 @@ function App() {
       activeMenu={activeMenu} 
       setActiveMenu={setActiveMenu} 
       dropdownOffset={dropdownOffset}
+      baseTop={navHeight}
       />
 
       {/* 3) Routes/Pages below */}

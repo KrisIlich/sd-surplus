@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-#homepage-container {
-    padding-top: 100px;
+home-container {
+    background-color: #0a3759;
 }
 
 #home-banner-container {
@@ -9,6 +9,28 @@
     width: 100%;
     height: 700px;
     background-color: #0a3759;
+}
+
+#home-banner-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;              /* 50% opacity */
+  z-index: 0;                /* behind overlay */
+}
+
+/* The 80% gray overlay */
+#home-banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(48, 48, 48, 0.5);   /* 80% gray overlay */
+  z-index: 1;                      /* above video, below text */
 }
 
 #home-banner-background {
@@ -20,14 +42,16 @@
     object-fit: cover;
     z-index: 0;
     opacity: 0.4;
+    max-height: 800px;
+    
 }
 
 #home-banner-text {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 5%;
     transform: translateY(-50%);
-    z-index: 1;
+    z-index: 2;
     color: white;
     font-size: 2.8rem;
     font-weight: 700;
@@ -40,3 +64,185 @@
   #home-banner-text span {
     color: #E58E27; /* Highlighted "TRANSFORMERS" */
   }
+
+/*----------------------------*/
+/*-------FORM CONTENT---------*/
+/*----------------------------*/
+
+  #home-form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #33658A;
+    height: 400px;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* The heading + subtext */
+#home-form-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white; /* on top of #33658A or your banner background */
+}
+#home-form-text h1 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.5em;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+#home-form-text p {
+  color: #f2f2f2;
+  font-size: 1rem;
+  margin-bottom: 1.5em;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+/* The form wrapper */
+#home-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+/* White border container for SELL, dropdown, and GET QUOTE */
+#equipment-form-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 75px;
+  width: 800px;
+  padding: 0;
+  outline: 1px solid #fff;
+  border-radius: 6px;
+  background: none; /* fully transparent container */
+}
+
+/* SELL text style */
+#sell-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0; /* remove default <h4> margin */
+  padding-left: 15px;
+  letter-spacing: 0.05em;
+}
+
+/* The dropdown wrapper (optional) */
+.dropdown-wrapper {
+  position: relative;
+}
+
+#equipment-select {
+  width: 500px;
+  height: 75px;
+  appearance: none;
+  background: #33658A;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  border: 0;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  outline: none;
+
+  /* Default state: Up arrow (white fill) */
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23fff' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 6 L6 14 L18 14 Z' /%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75em center;
+  background-size: 1em;
+
+  transition: color 0.2s;
+}
+
+/* On hover => up arrow with orange fill + text orange (still not “open/focused”) */
+#equipment-select:hover {
+  color: #f29d3b;
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23f29d3b' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 6 L6 14 L18 14 Z' /%3E%3C/svg%3E");
+}
+
+/* On focus => arrow flips down, orange fill, text orange */
+#equipment-select:focus {
+  color: #f29d3b;
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23f29d3b' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 10 L18 10 L12 16 Z' /%3E%3C/svg%3E");
+}
+
+
+#quote-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 180px;
+  background-color: #cf8b3d;
+  border: none;
+  color: #fff;
+  border-radius: 0 4px 4px 0;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background-color 0.2s, box-shadow 0.1s;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.15), /* subtle outer shadow */
+    inset 0 0 0 rgba(0, 0, 0, 0);  /* no inset by default */
+}
+
+#quote-button:hover {
+  background-color: #f29d3b; /* a bit lighter or darker on hover */
+}
+
+/* The “active” pressed state */
+#quote-button:active {
+  /* lighten or darken color a bit if you want */
+  background-color: #d68f3c; 
+  /* Add a short inset shadow to simulate downward press */
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.1),  /* slightly reduced outer shadow */
+    inset 0 2px 4px rgba(0,0,0,0.2); /* a bit of inset shadow */
+}
+
+
+
+/*----------------------------*/
+/*-------Large Content--------*/
+/*----------------------------*/
+
+
+.large-content-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 2000px;
+  background-color: #ffffff;
+}
+
+#large-content-cta{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#floating-container{
+  height: 1500px;
+  background-color: #F4F3F4;
+  width: 80%;
+  border-radius: 16px;
+
+}
