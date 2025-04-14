@@ -14,7 +14,27 @@
     position: fixed;
     top: 0;
     z-index: 10;
+    transition: all 0.3s ease-in-out;
+}
 
+#nav-bar.shrink {
+  background-color: #F4F3F4;
+  height: 60px; /* smaller height */
+}
+
+/* (Optional) If you want to shrink the logo or text as well */
+#nav-bar.shrink #nav-bar-logo img {
+  width: 40px; /* smaller logo */
+  transition: width 0.3s ease;
+}
+
+#nav-bar-logo img {
+  width: 60px; /* normal size */
+  transition: width 0.3s ease;
+}
+
+#nav-bar.shrink.dropdown-menu {
+  top: 60px;
 }
 
 a {
@@ -24,21 +44,21 @@ a {
 #nav-bar-logo {
     display:flex;
     align-items: center;
-    margin: 1em;
-    margin-left: 50px;
+    margin: 0.5em;
+    margin-left: 30px;
     color: #2F4858;
     cursor: pointer;
 }
 
 #logo-span {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 34px;
-    margin-left: 20px; 
+    font-size: 24px;
+    margin-left: 10px; 
     letter-spacing: -0.01em;
 }
 
 #nav-bar-logo img {
-    width: 60px;
+    width: 40px;
     border-radius: 8px;
 }
 
@@ -50,7 +70,7 @@ a {
     align-items: center;
     font-family: 'Open Sans', sans-serif;
     font-weight: 550;
-    font-size: 16px;
+    font-size: 12px;
     color: #2F4858;
     letter-spacing: -0.01em;
 }
@@ -77,9 +97,9 @@ a {
 }
 
 #nav-bar-cta button {
-    height: 50px;
-    width: 250px;
-    font-size: 12px;
+    height: 40px;
+    width: 225px;
+    font-size: 11px;
     background-color: #33658A;
     color: white;
     font-family: 'Montserrat', sans-serif;
@@ -109,21 +129,20 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3em;
+    gap: 1em;
 }
 
 #nav-bar-right-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10em;
     margin-left: auto;
 }
 
 .nav-item-wrapper {
     display: flex;
     position: relative;
-    padding: 0 1em;
+    padding: 0 .5em;
     height: 100px;
 
 }
@@ -140,25 +159,26 @@ a {
     padding: 0;
     padding-bottom: 0px;
     padding-bottom: 20px;
+    transition: top 0.3s ease-in-out, transform 150ms ease-in-out; 
 }
 
 .dropdown-inner {
   padding: 0;       
   display: flex;
-  gap: 0;
+  gap: 0em;
 }
 
 /* Each column of your mega menu */
 .dropdown-column {
   flex: 1;
-  min-width: 200px;
+  min-width: 150px;
 }
 
 
 .dropdown-row {
     display: flex;
     justify-content: flex-start; /* spread columns across row */
-    gap: 1em;                        /* space between columns */
+    gap: 0em;                        /* space between columns */
     max-width: 1200px;
     margin: 0;
   }
@@ -166,16 +186,16 @@ a {
   .dropdown-column {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
+    max-width: 150px;
     font-family: 'Open Sans', sans-serif;
     color: #2F4858;
-    gap: .3em;
+    gap: 0em;
   }
   
   .dropdown-column h3 {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.04em;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 10px;
@@ -187,15 +207,14 @@ a {
     background: none;     /* or a color if you prefer */
     border: none;
     padding-left: 10px;      /* spacing similar to old <p> margin */
-    font-size: 14px;
+    font-size: 13px;
     font-family: 'Open Sans', sans-serif;
     cursor: pointer;
     text-align: left;
     outline: none;
-    transition: color 0.2s ease-in-out;
     display: block;       /* makes them stack vertically */
-    width: 200px;
-    height: 50px;
+    width: 130px;
+    height: 40px;
     border-radius: 12px;
     align-items: center;
     justify-content: center;
@@ -205,11 +224,16 @@ a {
   .dropdown-button:hover,
   .dropdown-button:focus {
     color: #d18426;  /* your orange color */
-    background-color: rgb(237, 237, 237);
+    background-color: rgb(233, 233, 233);
+    transition: background-color 0.1s ease-in-out;
   }
   
   .dropdown-button:active {
     transform: translateY(1px);
+  }
+
+  .dropdown-menu.inactive {
+    display: none;
   }
 
  
@@ -222,26 +246,49 @@ a {
     color: #d18426; /* same orange */
   }
 
+/* -------------------------------------------
+   React Transition Group Classes
+------------------------------------------- */
+/* We'll do transform slides on the child element 
+   that is actually entering/exiting, not .dropdown-menu 
+   if we want a vertical motion on show/hide. */
 
-
-  /* Entering: initial state */
-.dropdown-anim-enter {
-  transform: translateY(-100px);
+/* Appear (optional if you want the first mount to animate) */
+.dropdown-anim-appear {
+  transform: translateY(-40px);
 }
-/* Entering: active state (applied during transition) */
+.dropdown-anim-appear-active {
+  transform: translateY(0);
+  transition: transform 150ms ease-in-out;
+}
+
+/* Enter */
+.dropdown-anim-enter {
+  transform: translateY(-40px);
+}
 .dropdown-anim-enter-active {
   transform: translateY(0);
-  transition: transform 350ms ease-in-out;
+  transition: transform 150ms ease-in-out;
 }
 
-/* Exiting: initial state */
+/* Exit */
 .dropdown-anim-exit {
   transform: translateY(0);
   opacity: 1;
 }
-/* Exiting: active state (applied during transition) */
 .dropdown-anim-exit-active {
-  transform: translateY(-100px);
-  opacity: 0;
-  transition: transform 350ms ease-in-out;
+  transform: translateY(-5px);
+  transition: transform 150ms ease-in-out;
+  opacity: 1; /* or fade out if you want: opacity: 0; */
+}
+
+/* Overlay behind the dropdown */
+.dropdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(38, 38, 38, 0.8);
+  z-index: 3;  /* behind the menu but above page content */
 }

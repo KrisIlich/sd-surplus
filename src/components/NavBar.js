@@ -4,12 +4,41 @@ import ReactDOM from 'react-dom/client';
 import "../styles/NavBar.css";
 import logo from "../assets/logo.png";
 import {Link} from 'react-router-dom';
-import  { useRef, useState } from 'react';
+import  { useRef, useState, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 
 //Nav Bar
-function NavBar({activeMenu, setActiveMenu, setDropdownOffset}) {
+function NavBar({
+    activeMenu, 
+    setActiveMenu, 
+    setDropdownOffset, 
+    onHeightChange  //from App
+    }) {
+
+
+const [isShrunk, setIsShrunk] = useState(false);
+
+
+useEffect(() => {
+    function handleScroll() {
+      // If scrolled more than 1px, shrink
+      if (window.scrollY > 1) {
+        setIsShrunk(true);
+        onHeightChange(60);
+      } else {
+        setIsShrunk(false);
+        onHeightChange(100);
+      }
+    }
+
+    // Attach the scroll listener
+    window.addEventListener('scroll', handleScroll);
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
 
 function handleMouseEnter(e, menuKey) {
@@ -27,7 +56,11 @@ function handleMouseLeave() {
 
     return (
 
-        <div id="nav-bar">
+        <div
+      id="nav-bar"
+      // Condition for shrink class if scrolled down
+      className={isShrunk ? 'shrink' : ''}
+        >
             <div id="nav-bar-left-section">
                 <div id="nav-bar-logo">
                     <img src={logo} alt="logo" />
@@ -87,8 +120,8 @@ function NavArrow() {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="18"
+            width="12"
+            height="14"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
