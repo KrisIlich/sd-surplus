@@ -1,13 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 home-container {
     background-color: #0a3759;
 }
 
 #home-banner-container {
+    display: flex;
+    flex-direction: column;
     position: relative;
     width: 100%;
-    height: 700px;
+    height: 100vh;
     background-color: #0a3759;
 }
 
@@ -47,17 +53,19 @@ home-container {
 }
 
 #home-banner-text {
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    top: 55%;
-    left: 5%;
-    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+    top: 20%;
     z-index: 2;
     color: white;
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-weight: 700;
     line-height: 1.2;
-    max-width: 600px;
-    letter-spacing: 0.08em;
+    max-width: 100%;
+    letter-spacing: 0.05em;
     font-family: 'Bebas Neue', sans-serif;
   }
 
@@ -74,10 +82,11 @@ home-container {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: #33658A;
-    height: 400px;
     padding: 0;
     margin: 0;
+    z-index: 2;
+    height: 100%;
+    margin-top: 150px;
   }
 
   /* The heading + subtext */
@@ -87,23 +96,25 @@ home-container {
   justify-content: center;
   align-items: center;
   color: white; /* on top of #33658A or your banner background */
+  gap: .5em;
+  width: 100%;
 }
 #home-form-text h1 {
   font-size: 2rem;
   color: #fff;
   margin-bottom: 0.5em;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open sans', sans-serif;
   font-weight: 600;
   margin: 0;
   padding: 0;
 }
 #home-form-text p {
   color: #f2f2f2;
+  font-family: 'Open sans', sans-serif;
   font-size: 1rem;
   margin-bottom: 1.5em;
   margin: 0;
   padding: 0;
-  padding-bottom: 10px;
 }
 
 /* The form wrapper */
@@ -111,6 +122,14 @@ home-container {
   display: flex;
   justify-content: center;
   margin-top: 1em;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* Safari */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
 }
 
 /* White border container for SELL, dropdown, and GET QUOTE */
@@ -121,7 +140,7 @@ home-container {
   height: 75px;
   width: 800px;
   padding: 0;
-  outline: 1px solid #fff;
+  outline: 1px solid #c1c1c173;
   border-radius: 6px;
   background: none; /* fully transparent container */
 }
@@ -146,7 +165,7 @@ home-container {
   width: 500px;
   height: 75px;
   appearance: none;
-  background: #33658A;
+  background: #33648a00;
   color: #fff;
   font-family: 'Bebas Neue', sans-serif;
   font-weight: 600;
@@ -186,7 +205,7 @@ home-container {
   justify-content: center;
   height: 100%;
   width: 180px;
-  background-color: #cf8b3d;
+  background-color: #cf8b3db8;
   border: none;
   color: #fff;
   border-radius: 0 4px 4px 0;
@@ -217,6 +236,42 @@ home-container {
 }
 
 
+#mission-statement-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #33658A;
+  color: white;
+  height: 300px;
+}
+
+#mission-text {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: 0 auto;
+}
+
+#mission-statement-container h1, p {
+  margin: 0;
+}
+
+#mission-statement-container h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+}
+
+#mission-statement-container p{
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+
 
 /*----------------------------*/
 /*-------Large Content--------*/
@@ -227,8 +282,8 @@ home-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
   align-items: center;
-  height: 2000px;
   background-color: #ffffff;
 }
 
@@ -239,10 +294,309 @@ home-container {
   align-items: center;
 }
 
+/*--------------------------------------------*/
+/*-------First Div in Large Content ----------*/
+/*--------------------------------------------*/
+
+.images-div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.images-row {
+  position: relative;
+  height: 1000px;
+  margin: auto 0;
+}
+
+#left-image, #right-image {
+  position: absolute;
+}
+
+#left-image {
+  top: 320px;
+  left: 18%;
+  height: auto;
+  width: 600px;
+  z-index: 2;
+  border-radius: 30px;
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 22px,rgba(45, 35, 66, .7) 0 7px 13px -3px,rgba(58, 65, 111, .8) 0 -3px 0 inset;
+}
+
+#right-image {
+  top: 200px;
+  right: 20%;
+  width: auto;
+  height: 600px;
+  z-index: 1;
+}
+
+
+/*--------------------------------------------*/
+/*-------Second Div in Large Content ---------*/
+/*--------------------------------------------*/
+
+.text-cta-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  width: 800px;
+  padding: 0;
+}
+
+.cta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.text-cta-container h1 {
+font-size: 2rem;
+color: #474747;
+margin-bottom: 0.5em;
+font-family: 'open sans', sans-serif;
+font-weight: 600;
+margin: 0;
+padding: 0;
+}
+
+.text-cta-container p {
+align-items: center;
+font-family: 'Open sans', sans-serif;
+font-size: 1rem;
+margin-bottom: 1.5em;
+margin: 0;
+padding: 0;
+padding-bottom: 10px;
+}
+
+/* Container that holds your two CTA buttons side by side */
+.cta-button-div {
+  display: flex;
+  gap: 1rem;               /* space between the buttons */
+  justify-content: center; /* center them horizontally */
+  margin-top: 1.5rem;
+}
+
+/* Base CTA button style */
+.cta-button {
+  /* Sizing & shape */
+  padding: 12px 24px; 
+  border-radius: 8px;
+  width: 170px;
+  border: none;      /* no outline border */
+  cursor: pointer;
+
+  /* Font & text */
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 0.95rem;    /* adjust as you like */
+  font-weight: 600;      /* medium-bold text */
+  text-align: center;
+
+  /* Colors */
+  background-color: #33658A;  /* or your brand color */
+  color: #fff;
+
+  /* Transitions for hover effect */
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover state for slightly darker background */
+.cta-button:hover {
+  background-color: #20415a; /* a bit darker than base */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);  /* subtle shadow on hover */
+}
+
+/* Active state when clicked */
+.cta-button:active {
+  transform: translateY(1px); 
+}
+
+/* Optional: for a lighter or secondary button style, like if you want a second CTA color */
+.cta-button.secondary {
+  background-color: #cdcdcd; 
+  color: #474747;
+}
+
+.cta-button.secondary:hover {
+  background-color: #afafaf;
+}
+
+
+/*--------------------------------------------*/
+/*-------floating Div in Large Content -------*/
+/*--------------------------------------------*/
+
+
 #floating-container{
-  height: 1500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 2500px;
   background-color: #F4F3F4;
   width: 80%;
   border-radius: 16px;
+  margin: 100px 0;
+}
 
+/* The row for your trio images */
+.trio-div {
+  display: flex;
+  width: 100%;
+  height: 700px;
+}
+
+.trio-images-row {
+  position: relative;
+  width: 100%;
+}
+
+#image-one,
+#image-two,
+#image-three {
+  position: absolute;
+  object-fit: cover;
+}
+
+/* Example offsets for the 3 images */
+#image-one {
+  top: 30%;
+  left: 50%;
+  width: 550px;
+  height: auto;
+  z-index: 3;
+}
+#image-two {
+  top: 10%;
+  left: 15%;
+  width: 250px;
+  height: auto;
+  z-index: 1;
+  
+}
+#image-three {
+  top: 20%;
+  left: 35%;
+  width: 450px;
+  height: auto;
+  z-index: 2;
+  border-radius: 30px;
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 22px,rgba(45, 35, 66, .7) 0 7px 13px -3px,rgba(58, 65, 111, .8) 0 -3px 0 inset;
+}
+
+/* The text + button CTA inside #floating-container */
+#floating-container-cta {
+  text-align: center;
+  margin-bottom: 40px; /* spacing under CTA if needed */
+}
+
+#floating-container-cta h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+#floating-container-cta p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+/* Reuse the .cta-button-div from earlier */
+.cta-button-div {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/*--------------------------------------------*/
+/* 4) The placeholders for review + logos */
+/* The outer container that holds the review cards */
+
+#review-carosuel {
+  width: 100%;
+  /* We'll rely on the parent container (#floating-container) for background color or padding */
+  margin: 2rem 0; /* some spacing above/below if desired */
+}
+
+.review-wrapper {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 100%;
+  padding: 4rem;
+  box-sizing: border-box;
+
+  /* Hide scrollbar if you want: */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; 
+}
+.review-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Responsive card widths with clamp() */
+.review-card {
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 400px; 
+  box-sizing: border-box;
+  background: #c8c8c8;
+  padding: 16px;
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-shadow: rgba(10, 25, 25, .4) 0 14px 12px;
+}
+
+
+/* Image at top or side, depending on your design */
+.review-image {
+  width: 120px;
+  height: 80px;          /* fixed height for uniformity */
+  object-fit: cover;      /* to maintain aspect ratio without distortion */
+  display: block;
+}
+
+/* The textual content of the card */
+.review-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* The "Testimonial" text */
+.review-title {
+  font-size: 0.85rem;
+  color: #00c2ff;        /* or your brand's accent color */
+  margin: 0 0 0.5rem 0;
+}
+
+/* The main quote text */
+.review-quote {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  /* possibly a color highlight or italic style? */
+}
+
+/* Optional paragraph styling */
+.review-content p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+#logo-carousel {
+  width: 100%;
+  max-height: 100px;
+  background: #ccc; /* placeholder */
+  border-radius: 8px;
 }
