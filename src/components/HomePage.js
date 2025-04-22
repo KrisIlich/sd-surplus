@@ -58,45 +58,45 @@ function HomeBanner() {
                     WE BUY <span>TRANSFORMERS</span><br/> PVF & ELECTRICAL EQUIPMENT
                     </h1>
             </div>
-            <div id="home-form-container">
-              <div id="home-form-text">
-                <h1>Find Out How Much Your Equipment Is Worth</h1>
-                <p>We are the largest buyer in the US and offer the best rates for your equipment</p>
-              </div>
+              <div id="home-form-container">
+                <div id="home-form-text">
+                  <h1>Find out how much your equipment is worth</h1>
+                  <p>We are the largest buyer in the US and offer the best rates for your equipment</p>
+                </div>
 
-              <div id="home-form">
-                {/* White border container for SELL text, dropdown, and GET QUOTE */}
-                <div id="equipment-form-box">
-                  {/* SELL is now static text (e.g. <h4>) */}
-                  <h4 id="sell-label">SELL</h4>
+                <div id="home-form">
+                  {/* White border container for SELL text, dropdown, and GET QUOTE */}
+                  <div id="equipment-form-box">
+                    {/* SELL is now static text (e.g. <h4>) */}
+                    <h4 id="sell-label">SELL</h4>
 
-                  {/* Transparent dropdown */}
-                  <div className="dropdown-wrapper">
-                    <select
-                      id="equipment-select"
-                      name="equipmentType"
-                      defaultValue="transformers"
+                    {/* Transparent dropdown */}
+                    <div className="dropdown-wrapper">
+                      <select
+                        id="equipment-select"
+                        name="equipmentType"
+                        defaultValue="transformers"
+                      >
+                        <option value="transformers">TRANSFORMERS</option>
+                        <option value="pvf">PIPES, VALVES, FITTINGS</option>
+                        <option value="electrical">ELECTRICAL</option>
+                        <option value="other">OTHER EQUIPMENT</option>
+                      </select>
+                    </div>
+
+                    {/* GET QUOTE button */}
+                    <button
+                      id="quote-button"
+                      onClick={(e) => {
+                        // placeholder: handle navigation / form submission
+                        console.log('Form submitted for type...');
+                      }}
                     >
-                      <option value="transformers">TRANSFORMERS</option>
-                      <option value="pvf">PIPES, VALVES, FITTINGS</option>
-                      <option value="electrical">ELECTRICAL</option>
-                      <option value="other">OTHER EQUIPMENT</option>
-                    </select>
+                      GET QUOTE
+                    </button>
                   </div>
-
-                  {/* GET QUOTE button */}
-                  <button
-                    id="quote-button"
-                    onClick={(e) => {
-                      // placeholder: handle navigation / form submission
-                      console.log('Form submitted for type...');
-                    }}
-                  >
-                    GET QUOTE
-                  </button>
                 </div>
               </div>
-            </div>
             </div>
             );
 }
@@ -106,7 +106,7 @@ function MissionStatement() {
       <div id="mission-statement-container">
         <div id="mission-text">
           <h1>
-            Maximizing Value For Your Industrial Equipment
+            Maximizing <span>Value</span> For Your Industrial Equipment
           </h1>
           <p>
             We specialize in buying and reprocessing industrial machinery like transformers, switchgear, and breakers. With years of expertise, we ensure fair, transparent deals and the best

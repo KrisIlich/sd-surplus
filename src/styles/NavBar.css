@@ -13,7 +13,7 @@
     padding:0;
     position: fixed;
     top: 0;
-    z-index: 5;
+    z-index: 10;
     transition: all 0.3s ease-in-out;
 }
 
@@ -114,7 +114,7 @@ a {
 
   
   #nav-bar-cta button:hover {
-    background-color: #e3a04e;
+    background-color: #d68f3c;
     box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #8594a3 0 -3px 0 inset;
 
   }
@@ -290,5 +290,5 @@ a {
   right: 0;
   bottom: 0;
   background: rgba(38, 38, 38, 0.8);
-  z-index: 5;  /* behind the menu but above page content */
+  z-index: 4;  /* behind the menu but above page content */
 }
