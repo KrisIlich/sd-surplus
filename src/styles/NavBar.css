@@ -292,3 +292,13 @@ a {
   background: rgba(38, 38, 38, 0.8);
   z-index: 4;  /* behind the menu but above page content */
 }
+
+/* make the whole logo area clickable with no under-line */
+.logo-link{display:inline-block;text-decoration:none;color:inherit}
+
+/* remove default <Link> focus ring around the button */
+.cta-link:focus{outline:none}
+
+#nav-bar-logo {
+  cursor: pointer;
+}
