@@ -1,0 +1,222 @@
+/* -----------------------------------------------------------
+   VARIABLES – change once, reuse everywhere
+   -----------------------------------------------------------*/
+   :root{
+    --c-bg-light : #F7F8FA;      /* page background */
+    --c-surface  : #FFFFFF;      /* card surface   */
+    --c-primary  : #33658A;      /* your blue      */
+    --c-accent   : #E58E27;      /* orange         */
+    --c-border   : rgba(0,0,0,.10);
+    --radius     : 10px;
+    --shadow     : 0 12px 24px rgba(0,0,0,.08);
+    --shadow-lg  : 0 18px 28px rgba(0,0,0,.10);
+    --t          : 280ms cubic-bezier(.4,0,.2,1); /* material-ish */
+  }
+  
+  /* -----------------------------------------------------------
+     OUTER SECTION  (kept, only colours tweaked)
+     -----------------------------------------------------------*/
+  .offer-form-section{
+    background:var(--c-bg-light);
+    box-shadow:var(--shadow);
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:0;               /* no gutters – image hits the edge   */
+    border-radius:var(--radius);
+    overflow:hidden;
+    width:min(90%,1200px);
+    margin:5rem auto;
+  }
+  
+  .form-left img{
+    width:100%;height:100%;object-fit:cover;
+  }
+  
+  /* -----------------------------------------------------------
+     RESPONSIVE GRID
+     -----------------------------------------------------------*/
+  @media (max-width:992px){
+    .offer-form-section{grid-template-columns:1fr;} /* stack */
+    .form-left{display:none;}                       /* optional – hide img on small */
+  }
+  
+  /* -----------------------------------------------------------
+     FORM CARD
+     -----------------------------------------------------------*/
+  .modern-form{
+    background:var(--c-surface);
+    display:flex;
+    flex-direction:column;
+    padding:3.5rem 3rem;
+    gap:1.5rem;
+  }
+  
+  /* big title */
+  .modern-form h2{
+    font:3rem/1.05 'Bebas Neue',sans-serif;
+    color:var(--c-primary);
+    letter-spacing:.01em;
+    margin:0 0 .5rem;
+  }
+  
+  /* -----------------------------------------------------------
+     GRID rows inside the form
+     -----------------------------------------------------------*/
+  .form-row{display:flex;gap:1.25rem;flex-wrap:wrap;}
+  @media (max-width:600px){.form-row{flex-direction:column;}}
+  
+  /* each .form-group acts as a mini-stack */
+  .form-group{
+    flex:1;
+    position:relative;
+  }
+  
+  /* -----------------------------------------------------------
+     FLOATING LABEL
+     -----------------------------------------------------------*/
+  .form-group label{
+    position:absolute;
+    inset-inline: 0;
+    top:50%;left:1rem;
+    translate:0 -50%;
+    padding:0 .25rem;
+    background:var(--c-surface);
+    font:600 .75rem/1 'Open Sans',sans-serif;
+    color:var(--c-primary);
+    pointer-events:none;
+    transition:var(--t);
+    opacity:.65;
+    background-color: transparent;
+  }
+    /* raised label on focus OR when the field already has a value  */
+  .form-group:focus-within label,
+  .form-group input:not(:placeholder-shown) + label,
+  .form-group textarea:not(:placeholder-shown) + label,
+  .form-group select:valid + label          /* ← add this */
+  {
+    top:-.6rem;
+    font-size:.68rem;
+    opacity:1;
+  }
+
+  .form-group:focus-within label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group textarea:not(:placeholder-shown) + label,
+    .form-group select:valid + label{
+      top:-.6rem;font-size:.68rem;opacity:1;
+    }
+
+
+  .form-group select:invalid{ color:#1a1a1a; }
+
+  .form-row.photos {
+    padding-top: 1rem;
+  }
+
+  /* -----------------------------------------------------------
+   HOVER FEEDBACK  – same accent as .file-btn:hover
+   -----------------------------------------------------------*/
+    .form-group input:hover,
+    .form-group textarea:hover,
+    .form-group select:hover{
+      border-color: var(--c-primary);               /* blue border */
+      box-shadow: 0 0 0 2px color-mix(in srgb,
+                        var(--c-primary) 25%, transparent); /* subtle glow */
+      transition: border-color var(--t), box-shadow var(--t);
+      cursor: text;                                 /* I-beam stays the same */
+    }
+      
+  
+  /* -----------------------------------------------------------
+     INPUTS
+     -----------------------------------------------------------*/
+  .form-group input,
+  .form-group select,
+  .form-group textarea{
+    width:100%;
+    padding:1rem .9rem .9rem;
+    font:400 .95rem/1.4 'Open Sans',sans-serif;
+    border:1px solid var(--c-border);
+    border-radius:var(--radius);
+    background:var(--c-surface);
+    transition:border-color var(--t), box-shadow var(--t);
+  }
+  .form-group textarea{resize:vertical;min-height:120px;}
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus{
+    outline:none;
+    border-color:var(--c-primary);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--c-primary) 40%, transparent);
+  }
+  
+  /* little helper text */
+  .form-group small{
+    font-size:.75rem;
+    color:#666;
+    margin-top:.4rem;
+  }
+
+  
+  /* -----------------------------------------------------------
+     FILE UPLOADER
+     -----------------------------------------------------------*/
+  input[type="file"]{
+    padding:.8rem 0;          /* remove left/right pad */
+  }
+  
+  /* -----------------------------------------------------------
+     SUBMIT BUTTON  (shares style with your orange CTA)
+     -----------------------------------------------------------*/
+  .btn-submit{
+    align-self:flex-start;
+    padding:1.2rem 2.5rem;
+    border-radius:var(--radius);
+    border:1px solid transparent;
+    background:var(--c-primary);
+    color:#fff;
+    font:600 1rem/1 'Open Sans',sans-serif;
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    transition:background var(--t), box-shadow var(--t), transform .18s;
+  }
+  .btn-submit:hover{
+    background:color-mix(in srgb,var(--c-primary) 85%, #000);
+    box-shadow:var(--shadow-lg);
+    transform:translateY(-2px);
+  }
+  .btn-submit:active{
+    box-shadow:0 3px 6px rgba(0,0,0,.25) inset;
+    transform:translateY(0);
+  }
+  
+  /* -----------------------------------------------------------
+     XL screens – give the card more air
+     -----------------------------------------------------------*/
+  @media (min-width:1600px){
+    .offer-form-section{width:80%;}
+    .modern-form{padding:4.5rem 4rem;}
+    .modern-form h2{font-size:3.5rem;}
+  }
+  
+
+  .file-btn{
+    width:100%;
+    min-height:110px;              /* large drop-zone */
+    padding:1.6rem .9rem;
+    font:400 .95rem/1.4 'Open Sans',sans-serif;
+    border:2px dashed var(--c-border);
+    border-radius:var(--radius);
+    background:var(--c-surface);
+    color:#6b6b6b;
+    display:flex;                  /* center text nicely */
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color var(--t), color var(--t);
+  }
+  .file-btn:hover{
+    border-color:var(--c-primary);
+    color:var(--c-primary);
+  }

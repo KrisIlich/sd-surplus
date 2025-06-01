@@ -62,10 +62,12 @@ function handleMouseLeave() {
       className={isShrunk ? 'shrink' : ''}
         >
             <div id="nav-bar-left-section">
-                <div id="nav-bar-logo">
-                    <img src={logo} alt="logo" />
-                    <span id="logo-span">S&D Industrial Surplus</span>
-                </div>
+                <Link to="/" className="logo-link" onClick={() => window.scrollTo(0, 0)}>
+                    <div id="nav-bar-logo">
+                        <img src={logo} alt="logo" />
+                        <span id="logo-span">S&D Industrial Surplus</span>
+                    </div>
+                </Link>
 
                 <div id="nav-bar-links">
 
@@ -101,11 +103,15 @@ function handleMouseLeave() {
                 </div>
             </div>
 
+            
             <div id="nav-bar-right-section">
                 <div id="nav-bar-cta">
-                    <button>SELL YOUR SURPLUS</button>
+                    <Link to="/sell-surplus" className="cta-link">
+                        <button>SELL YOUR SURPLUS</button>
+                    </Link>
                 </div>
             </div>
+            
         </div>
     );
 }

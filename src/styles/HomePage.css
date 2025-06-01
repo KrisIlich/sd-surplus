@@ -240,16 +240,27 @@ home-container {
   display: flex;
   flex-direction: column;
   text-align: center;
+  position: relative;
   justify-content: center;
   font-family: 'Open Sans', sans-serif;
-  background-color: #33658A;
   color: white;
   height: 350px;
+  transform-origin: top center;
+}
+
+.mission-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #33658A;
+  transform-origin: top center;
+  z-index: 0;
 }
 
 #mission-text {
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
   width: 800px;
   margin: 0 auto;
 }
@@ -270,7 +281,7 @@ home-container {
 }
 
 #mission-statement-container p{
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-family: 'Open Sans', sans-serif;
   letter-spacing: 0.02em;
 }
@@ -300,7 +311,7 @@ home-container {
 }
 
 /*--------------------------------------------*/
-/*-------First Div in Large Content ----------*/
+/*-------images Div in Large Content ----------*/
 /*--------------------------------------------*/
 
 .images-div {
@@ -311,8 +322,8 @@ home-container {
 
 .images-row {
   position: relative;
-  height: 1000px;
-  margin: auto 0;
+  height: 850px;
+  margin: 0;
 }
 
 #left-image, #right-image {
@@ -320,12 +331,12 @@ home-container {
 }
 
 #left-image {
-  top: 320px;
+  top: 45%;
   left: 18%;
   height: auto;
   width: 600px;
   z-index: 2;
-  border-radius: 30px;
+  border-radius: 12px;
   box-shadow: rgba(45, 35, 66, .4) 0 4px 22px,rgba(45, 35, 66, .7) 0 7px 13px -3px,rgba(58, 65, 111, .8) 0 -3px 0 inset;
 }
 
@@ -335,6 +346,60 @@ home-container {
   width: auto;
   height: 600px;
   z-index: 1;
+}
+
+#left-image {
+  position: absolute;
+  width: clamp(520px, 40vw, 650px);
+  height: auto;
+}
+
+#right-image {
+  position: absolute;
+  width: clamp(400px, 40vw, 550px);
+  height: auto;
+}
+
+@media (max-width: 1600px) {
+  #left-image {
+    top: 30%;
+    left: 10%;
+  }
+  #right-image {
+    top: 15%;
+    right: 15%;
+  }
+}
+
+/* 2) Tweak your offsets for medium screens */
+@media (max-width: 1200px) {
+  #left-image {
+    top: 35%;
+    left: 15%;
+  }
+  #right-image {
+    top: 15%;
+    right: 10%;
+  }
+}
+
+/* 3) Below ~800px, go “mobile” and stack them normally */
+@media (max-width: 800px) {
+  .images-row {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;           /* remove that huge padding */
+    gap: 1.5rem;          /* some breathing room */
+  }
+  #left-image,
+  #right-image {
+    position: static;     /* so they flow in the flex container */
+    width: 80%;           /* or whatever makes sense in your design */
+    max-width: 400px;
+    margin: 0 auto;
+  }
 }
 
 
@@ -348,7 +413,7 @@ home-container {
   text-align: center;
   align-items: center;
   justify-content: center;
-  height: 400px;
+  height: 300px;
   width: 800px;
   padding: 0;
 }
@@ -441,11 +506,13 @@ padding-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 2500px;
-  background-color: #F4F3F4;
-  width: 80%;
+  height: 1800px;
+  background: #efefef;
+  width: 93%;
   border-radius: 16px;
-  margin: 100px 0;
+  margin: 0px;
+  box-shadow: -17px -7px 16px 0 #FFFFFF, 7px 7px 10px -4px rgba(165, 187, 207, 0.57);
+  margin-bottom: 20px;
 }
 
 /* The row for your trio images */
@@ -467,32 +534,86 @@ padding-bottom: 10px;
   object-fit: cover;
 }
 
-/* Example offsets for the 3 images */
 #image-one {
-  top: 30%;
-  left: 50%;
-  width: 550px;
+  top: 35%;
+  left: 55%;
+  width: clamp(400px, 35vw, 550px);
   height: auto;
   z-index: 3;
 }
+
 #image-two {
   top: 10%;
-  left: 15%;
-  width: 250px;
+  left: 18%;
+  width: clamp(200px, 20vw, 350px);
   height: auto;
   z-index: 1;
-  
 }
+
 #image-three {
   top: 20%;
   left: 35%;
-  width: 450px;
+  width: clamp(300px, 30vw, 450px);
   height: auto;
   z-index: 2;
-  border-radius: 30px;
-  box-shadow: rgba(45, 35, 66, .4) 0 4px 22px,rgba(45, 35, 66, .7) 0 7px 13px -3px,rgba(58, 65, 111, .8) 0 -3px 0 inset;
+  border-radius: 8px;
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 22px,
+              rgba(45, 35, 66, .7) 0 7px 13px -3px,
+              rgba(58, 65, 111, .8) 0 -3px 0 inset;
 }
 
+/* 1) Tweak offsets for slightly smaller desktops */
+@media (max-width: 1600px) {
+  #image-one {
+    top: 40%;
+    left: 50%;
+  }
+  #image-two {
+    top: 12%;
+    left: 17%;
+  }
+  #image-three {
+    top: 22%;
+    left: 30%;
+  }
+}
+
+/* 2) Medium screens: adjust again */
+@media (max-width: 1200px) {
+  #image-one {
+    top: 28%;
+    left: 40%;
+  }
+  #image-two {
+    top: 15%;
+    left: 18%;
+  }
+  #image-three {
+    top: 25%;
+    left: 28%;
+  }
+}
+
+/* 3) Mobile: stack them vertically in a flex container */
+@media (max-width: 800px) {
+  .trio-images-row {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    height: auto;
+  }
+
+  #image-one,
+  #image-two,
+  #image-three {
+    position: static;
+    width: 80%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}
 /* The text + button CTA inside #floating-container */
 #floating-container-cta {
   text-align: center;
@@ -551,7 +672,7 @@ padding-bottom: 10px;
 .review-card {
   display: flex;
   flex-direction: row;
-  flex: 0 0 400px; 
+  flex: 0 0 450px; 
   box-sizing: border-box;
   background: #c8c8c8;
   padding: 16px;
@@ -560,7 +681,7 @@ padding-bottom: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   justify-content: flex-start;
   align-items: flex-start;
-  box-shadow: rgba(10, 25, 25, .4) 0 14px 12px;
+  box-shadow: 7px 7px 10px -4px rgba(116,150,179,0.57);
 }
 
 
@@ -580,9 +701,12 @@ padding-bottom: 10px;
 
 /* The "Testimonial" text */
 .review-title {
-  font-size: 0.85rem;
-  color: #00c2ff;        /* or your brand's accent color */
-  margin: 0 0 0.5rem 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #33658A;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
 }
 
 /* The main quote text */
@@ -602,6 +726,12 @@ padding-bottom: 10px;
 #logo-carousel {
   width: 100%;
   max-height: 100px;
-  background: #ccc; /* placeholder */
-  border-radius: 8px;
+}
+
+
+.logo-text {
+  color: #767676;
+  font-family: 'Open sans', sans-serif;
+  padding: 0;
+  margin: -20px;
 }

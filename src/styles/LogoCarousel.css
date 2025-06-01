@@ -1,0 +1,55 @@
+.logos {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0px 0;
+    margin: 0;
+    position: relative;       /* for positioning the button */
+    box-sizing: border-box;
+    padding-bottom: 5px;
+  }
+  
+  @keyframes slide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+  }
+  
+  .logos-slide {
+    display: inline-block;
+    animation: slide 70s linear infinite;
+  }
+  
+  /* when parent has .paused, freeze the animation */
+  .logos.paused .logos-slide {
+    animation-play-state: paused;
+  }
+  
+  .logo-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 1rem;
+    width: 250px;
+    height: auto;
+  }
+  
+  /* the circular play/pause button */
+  .carousel-control {
+    width: 100%;
+    margin: 0 auto;
+    top: 0px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: 1px solid #474747;
+  }
+  
+  .carousel-control svg {
+    display: block;
+  }
+  

@@ -1,0 +1,131 @@
+/* ==========================================================================
+   Footer Styles
+   ========================================================================== */
+
+/* 1) Centering wrapper */
+.site-footer {
+  background-color: #33658A;           /* match your black background */
+  color: #fff;
+  padding: 4rem 0;                  /* vertical padding only */
+  font-family: 'Open Sans', sans-serif;
+}
+.site-footer .footer-container {
+  max-width: 1200px;                /* center constraint */
+  margin: 0 auto;
+  padding: 0 1.5rem;                /* small side padding */
+}
+
+/* 2) Top links row */
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;      /* left-align columns */
+  gap: 2rem;                        /* horizontal gap between cols */
+  margin-bottom: 3rem;
+}
+.footer-col {
+  flex: 0 0 160px;                  /* fixed base width */
+}
+.footer-col h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.footer-col li {
+  margin-bottom: 0.5rem;
+}
+.footer-col a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color .2s;
+}
+.footer-col a:hover {
+  color: #e3a04e;
+}
+
+/* 3) Divider line */
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin: 0 0 2rem;                /* bottom margin to separate from socials */
+  margin-top: 100px;
+
+}
+
+/* 4) Social + language row */
+.footer-social-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;     /* left-align inside container */
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.footer-social-row .social-link {
+  display: inline-block;
+}
+.footer-social-row .social-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: filter .2s;
+}
+.footer-social-row .social-link:hover .social-icon {
+  filter: brightness(0) invert(0.8);
+}
+.footer-social-row .language-selector {
+  margin-left: auto;               /* push language select to right edge */
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.footer-social-row .language-selector svg {
+  margin-left: 0.5rem;
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+
+/* —————————————————————————— */
+/*   Footer address styling */
+/* —————————————————————————— */
+
+.address {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+/* company name in Bebas Neue + orange */
+.address-company {
+  display: block; /* ensures it sits on its own line */
+  font-family: 'Bebas Neue', sans-serif;
+  color: #E58E27;
+  font-size: 2rem;  /* bump up a bit if you like */
+  margin: 0;
+}
+
+/* 5) Bottom copyright or extra if needed */
+/* (omit if you don’t have any) */
+
+/* 6) Responsive tweaks */
+@media (max-width: 800px) {
+  .footer-top {
+    justify-content: center;
+    gap: 1rem;
+  }
+  .footer-social-row {
+    justify-content: center;
+    gap: 1rem;
+  }
+}

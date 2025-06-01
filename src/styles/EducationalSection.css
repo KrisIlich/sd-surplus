@@ -1,0 +1,109 @@
+/* 1) Section wrapper + heading */
+.edu-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8rem;
+    background-color: #F4F3F4;
+    width: 100%;
+    padding-bottom: 12rem;
+  }
+  .edu-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: #2f4858;
+    margin-bottom: 2rem;
+    text-align: center;
+    letter-spacing: 0.03em;
+    margin-bottom: 5rem;
+  }
+  
+  /* 2) 3-column responsive grid */
+  .edu-card-grid {
+    display: grid;
+    width: 100%;
+    max-width: 1200px;
+    gap: 2rem 3rem;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(300px, 1fr)
+    );
+    justify-items: center;
+  }
+  
+  /* 3) Individual card, vertical layout */
+  .edu-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    background: #fafafa;
+    border-radius: 12px;
+    box-shadow: rgba(45, 35, 66, .1) 0 4px 8px;
+    overflow: hidden;
+    opacity: 0;
+    filter:  blur(20px);
+    transform: scale(1.1);
+    transition: none; /* GSAP will drive the animation */
+  }
+  .edu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: rgba(45, 35, 66, .15) 0 8px 16px;
+  }
+  
+  /* 4) Top image */
+  .edu-card-image {
+    width: 100%;
+    height: 300px;       /* adjust as you like */
+    object-fit: cover;
+  }
+  
+  /* 5) Body/content */
+  .edu-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  /* 6) Type label */
+  .edu-card-type {
+    font-family: 'Open Sans', sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  
+  /* 7) Title */
+  .edu-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    color: #2f4858;
+    margin: 0 0 .75rem;
+    letter-spacing: 0.03em;
+  }
+  
+  /* 8) Description */
+  .edu-card-desc {
+    flex: 1;
+    font-family: 'Open Sans', sans-serif;
+    font-size: .9rem;
+    line-height: 1.4;
+    color: #555;
+    margin: 0 0 1rem;
+  }
+  
+  /* 9) Read link */
+  .edu-learn-more {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #33658A;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+  .edu-learn-more:hover {
+    color: #20415a;
+  }
+  
