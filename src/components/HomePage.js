@@ -17,6 +17,7 @@ import imageTwo from '../assets/image-two.png'
 import imageThree from '../assets/image-three.png'
 import EducationalSection from './EducationalSection.js';
 import Footer from './Footer.js';
+import { useNavigate } from 'react-router-dom';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -46,6 +47,32 @@ export default HomePage;
 // ---------------------------------------------------------------
 
 function HomeBanner() {
+
+  const navigate = useNavigate();
+
+  const handleQuoteClick = () => {
+    const selected = document.getElementById('equipment-select').value;
+    switch (selected) {
+      case 'other':
+        navigate('/sell-surplus')
+        break; 
+
+        case 'transformers':   // TRANSFORMERS
+        navigate('/sell-transformers')
+        break;
+
+        case 'pvf':            // PIPES, VALVES, FITTINGS
+        navigate('/sell-PVF')
+        break;
+
+      case 'electrical':     // ELECTRICAL
+        navigate('/sell-electrical')
+        break;
+
+      default:
+        console.warn('Unknown selection:', selected);
+        } 
+  }
   
     return (
         <div id="home-banner-container">
@@ -96,10 +123,7 @@ function HomeBanner() {
                     {/* GET QUOTE button */}
                     <button
                       id="quote-button"
-                      onClick={(e) => {
-                        // placeholder: handle navigation / form submission
-                        console.log('Form submitted for type...');
-                      }}
+                      onClick={handleQuoteClick}
                     >
                       GET QUOTE
                     </button>

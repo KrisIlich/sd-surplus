@@ -360,6 +360,18 @@ home-container {
   height: auto;
 }
 
+@media (min-width: 2000px) {
+  #left-image {
+    top: 30%;
+    left: 20%;
+  }
+  #right-image {
+    top: 15%;
+    right: 28%;
+  }
+}
+
+
 @media (max-width: 1600px) {
   #left-image {
     top: 30%;
@@ -560,6 +572,22 @@ padding-bottom: 10px;
   box-shadow: rgba(45, 35, 66, .4) 0 4px 22px,
               rgba(45, 35, 66, .7) 0 7px 13px -3px,
               rgba(58, 65, 111, .8) 0 -3px 0 inset;
+}
+
+/* 1) Tweak offsets for slightly smaller desktops */
+@media (min-width: 2000px) {
+  #image-one {
+    top: 34%;
+    left: 53%;
+  }
+  #image-two {
+    top: 10%;
+    left:20%;
+  }
+  #image-three {
+    top: 22%;
+    left: 35%;
+  }
 }
 
 /* 1) Tweak offsets for slightly smaller desktops */
