@@ -234,7 +234,7 @@
   .sbs-content {flex:1 1 50%;}
   
   /* ----------   alternate on every even section  ---------- */
-  .side-by-side-section:nth-child(even) .sbs-image  {order:2;} /* push image to the right  */
+  .side-by-side-section:nth-child(odd) .sbs-image  {order:2;} /* push image to the right  */
   .side-by-side-section:nth-child(even) .sbs-content{order:1;} /* text comes first        */
   
   /* ----------   the rest (unchanged)  ---------- */

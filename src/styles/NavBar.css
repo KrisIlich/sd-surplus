@@ -165,7 +165,7 @@ a {
 .dropdown-inner {
   padding: 0;       
   display: flex;
-  gap: 0em;
+  gap: 1.5em;
 }
 
 /* Each column of your mega menu */
@@ -178,7 +178,7 @@ a {
 .dropdown-row {
     display: flex;
     justify-content: flex-start; /* spread columns across row */
-    gap: 0em;                        /* space between columns */
+    gap: 1em;                        /* space between columns */
     max-width: 1200px;
     margin: 0;
   }
@@ -213,7 +213,7 @@ a {
     text-align: left;
     outline: none;
     display: block;       /* makes them stack vertically */
-    width: 130px;
+    width: 150px;
     height: 40px;
     border-radius: 12px;
     align-items: center;

@@ -8,6 +8,12 @@ import DropdownPortal from './DropdownPortal';
 import Lenis from 'lenis'
 import ChatButton    from './ChatButton';
 import SellSurplus from './SellSurplus';
+import SellTransformers from './SellTransformers';
+import SellPVF from './SellPVF';
+import SellElectrical from './SellElectrical';
+import KvaCalculator from './KvaCalculator';
+import FaultCurrentCalculator from './FaultCurrentCalculator';
+import RoiCalculator from './RoiCalculator';
 
 function App() {
   const [navHeight, setNavHeight] = useState(100);
@@ -63,7 +69,13 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/sell-surplus" element={<SellSurplus />} />
-      </Routes>
+        <Route path ="/sell-transformers" element={<SellTransformers/>}/>
+        <Route path="/sell-pvf" element={<SellPVF />} />
+        <Route path="/sell-electrical" element={<SellElectrical />} />
+        <Route path="/kva-calculator" element={<KvaCalculator />} />
+        <Route path="/fault-current-calculator" element={<FaultCurrentCalculator />} />
+        <Route path="/roi-calculator" element={<RoiCalculator />} />
+        </Routes>
       <ChatButton />
     </BrowserRouter>
   );

@@ -1,6 +1,7 @@
 // DropdownPortal.js
 import React, { useRef } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import {Link} from 'react-router-dom';
 import '../styles/NavBar.css';
 
 function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 100 }) {
@@ -38,11 +39,17 @@ function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 1
             </div>
             <div className="dropdown-column">
               <h3>Tools</h3>
-              <button className="dropdown-button">Pricing Tools</button>
+              <Link to="/roi-calculator">
               <button className="dropdown-button">ROI Calculator</button>
+              </Link>
+              <Link to="/kva-calculator">
+              <button className="dropdown-button">kVA Calculator</button>
+              </Link>
+              <Link to="/fault-current-calculator">
+              <button className="dropdown-button">Fault Current Calculator</button>
+              </Link>
               <button className="dropdown-button">Customer Feedback</button>
               <button className="dropdown-button">FAQ</button>
-              <button className="dropdown-button">Contact Us</button>
             </div>
           </div>
         );
@@ -59,10 +66,18 @@ function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 1
           >
             <div className="dropdown-column">
               <h3>Products</h3>
+              <Link to='/sell-transformers'>
               <button className="dropdown-button">Transformers</button>
+              </Link>
+              <Link to='/sell-pvf'>
               <button className="dropdown-button">Pipes, Valves, Fittings</button>
+              </Link>
+              <Link to='/sell-electrical'>
               <button className="dropdown-button">Electrical</button>
+              </Link>
+              <Link to='/sell-surplus'>
               <button className="dropdown-button">Other Industrial Equipment</button>
+              </Link>
             </div>
             <div className="dropdown-column">
               <h3>Services</h3>
