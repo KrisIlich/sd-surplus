@@ -231,6 +231,8 @@
   border-radius: 0;
   padding: 4rem 1rem;
   text-align: left;
+  max-width: 760px;
+  margin: 0 auto;
 }
 
 .tab-panel h3 {
@@ -338,9 +340,10 @@
 /* --- ROI results card ------------------------------------------------ */
 .roi-box{
   width: 100%;
-  max-width: 860px;
-  margin:3rem auto 0;
-  padding:2.5rem 1.5rem;
+  max-width: 960px;
+  margin: 5rem auto;
+  margin-top: .3rem;
+  padding:1.5rem 1.5rem;
   border:1px solid #e4e4e4;
   border-radius:12px;
   background:#fafafa;
@@ -352,25 +355,24 @@
   color:var(--grey-mid);
 }
 
-/* grid of figures */
+/* six equal columns, centred content */
 .roi-grid{
   display:grid;
-  grid-template-columns: repeat(7,1fr);
-  align-items:center;
+  grid-template-columns: repeat(6, 1fr);
+  gap:0;                       /* equal cell widths */
   text-align:center;
   border-top:1px solid #e4e4e4;
 }
 
 .roi-grid>div{
-  padding:1rem .8rem;
+  padding:1.5rem .8rem;
   border-right:1px solid #e4e4e4;
+  display:flex; flex-direction:column; justify-content:center;
 }
-
 .roi-grid>div:last-child{ border-right:none; }
 
-/* label / value pair */
+/* labels & values */
 .roi-grid .label{
-  display:block;
   font-size:.85rem;
   color:#6b6b6b;
   margin-bottom:.25rem;
@@ -379,6 +381,11 @@
   font-size:1.1rem;
   font-weight:600;
   color:var(--grey-mid);
+}
+
+/* highlight best cell but keep same size */
+.best-cell .value{
+  color:var(--orange-mid);
 }
 
 /* ROI block */

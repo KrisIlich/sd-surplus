@@ -1,22 +1,25 @@
 .sell-surplus-container {
     width: 100%;
+    height: 100vh;
   }
   
 
 .get-offer-cta {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     background-color: #33658A;   /* your homepage blue */
     color: white;
     gap: 2rem;
     overflow: hidden;
-    margin-top:2rem;
+    min-height:clamp(450px,60vw,850px);
   }
   .offer-left {
-    flex-direction: column;
-    flex: 1;
-    max-width: 580px;
-    padding: 40px;
+    flex:0 1 480px;     /* 0 grow | 1 shrink | 580 basis  */
+    min-inline-size:300px;
+    padding:40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center
   }
   .offer-left h2 {
     font-family:'Bebas Neue',sans-serif;
@@ -86,29 +89,31 @@
     
   }
   .offer-right {
-    display: flex;
-    flex: 1;
-    text-align: right;
+    flex:1 1 0;             /* take the rest, allow shrink  */
+    position:relative;      /* context for absolutely-placed img */
+    min-inline-size:0;      /* ← critical in flex layouts     */
   }
   .offer-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 8px 24px;
-    min-height: 430px;
+    position:absolute;      /* stretches to the wrapper’s edges */
+    inset:0;
+    width:100%;
+    height:100%;
+
+    /* pick ONE of the two object-fit modes below               */
+    object-fit:cover;       /* fills width & height (will crop)  */
+    /* object-fit:contain;  /* shows *all* of the truck, may letter-box */
+
+    /* if you stay with “cover”, bias the crop so the truck’s cab
+      never gets sliced off the edge:                           */
+    object-position:right center;
+    
+    box-shadow:0 8px 24px rgba(0,0,0,.20);
   }
   
-  /* Mobile fallback */
-  @media (max-width: 768px) {
-    .get-offer-cta {
-      flex-direction: column;
-      text-align: center;
-    }
-    .offer-right {
-      text-align: center;
-      margin-top: 2rem;
-    }
-  }
+  @media (max-width:768px){
+    .get-offer-cta{flex-direction:column;}
+    .offer-right{height:280px;}   /* keeps a nice banner height */
+}
 
 
 
@@ -258,3 +263,6 @@
     font:1rem/1.5 'Open Sans',sans-serif;color:#333
   }
   .sbs-content ul{list-style:disc inside;margin-left:1rem}
+
+
+  
