@@ -1,258 +1,239 @@
 // --------------------------------------------------------------
-// RoiCalculator.js  –  Keep ▸ Repair ▸ Replace ▸ Sell
+// KvaCalculator.js   –   Converts Volts & Amps to kVA
 // --------------------------------------------------------------
 import React, { useState } from "react";
 import "../styles/KvaCalculator.css";
-import Footer from "./Footer";
 
 import transformerImg from "../assets/transformer-offer-image.png";
 import pvfImg         from "../assets/pvf-offer-image2.png";
 import electricalImg  from "../assets/electrical-offer-image2.png";
 import surplusImg     from "../assets/other-offer-image.png";
 
-export default function RoiCalculator() {
-  /* ─────────── state (trimmed for clarity) */
-  const [currency,setCurrency]   = useState("USD");
-  const [discount,setDiscount]   = useState("7");
-  const [analysis,setAnalysis]   = useState("15");
+import Footer from "./Footer";
 
-  const [failRate,setFailRate]   = useState("0.4");
-  const [failCost,setFailCost]   = useState("250000");
-  const [downHrs,setDownHrs]     = useState("168");
-  const [downCost,setDownCost]   = useState("100000");
+export default function KvaCalculator() {
+  /* ────────────── state */
+  const [phase, setPhase]         = useState("single"); // 'single' | 'three'
+  const [volts, setVolts]         = useState("");
+  const [amps,  setAmps]          = useState("");
+  const [kva,   setKva]           = useState("");
+  const [tab,   setTab]           = useState("how");   // how | equation | defs
 
-  const [repairCost,setRepairCost] = useState("400000");
-  const [repairFail,setRepairFail] = useState("0.15");
+  /* ────────────── helpers */
+  const reset = () => { setVolts(""); setAmps(""); setKva(""); };
 
-  const [replaceCost,setReplaceCost] = useState("1600000");
-  const [salePrice,setSalePrice]     = useState("250000");
+  const calculate = () => {
+    const V = parseFloat(volts);
+    const A = parseFloat(amps);
+    if (isNaN(V) || isNaN(A)) { setKva(""); return; }
 
-  const [results,setResults] = useState(null);
-  const [tab,setTab]         = useState("how");
+    const result = phase === "single"
+      ? (V * A) / 1000
+      : (Math.sqrt(3) * V * A) / 1000;
 
-  /* ─────────── helpers */
-  const sym = currency==="EUR"?"€":`${currency} $`;
-  const fmt = v=>`${sym} ${Number(v).toLocaleString()}`;
-  const pv  = (a,r,n)=>a*((1-1/Math.pow(1+r,n))/r);
-
-  /* ─────────── calc */
-  const calc=()=>{
-    const r=parseFloat(discount)/100, N=+analysis;
-    const keepAnn=(+failRate/100)*(+failCost+ +downHrs*+downCost);
-    const keepNPC=pv(keepAnn,r,N);
-
-    const repAnn=(+repairFail/100)*(+failCost+ +downHrs*+downCost);
-    const repairNPC = +repairCost+pv(repAnn,r,N);
-    const replaceNPC= +replaceCost;
-    const sellNPC   = -+salePrice;
-
-    const repairROI =(keepNPC-repairNPC)/repairNPC*100;
-    const replaceROI=(keepNPC-replaceNPC)/replaceNPC*100;
-
-    const best=Math.min(keepNPC,repairNPC,replaceNPC,sellNPC);
-    const bestLbl=best===repairNPC?"Repair":best===replaceNPC?
-                  "Replace":best===sellNPC?"Sell":"Keep";
-
-    setResults({keepNPC,repairNPC,replaceNPC,sellNPC,repairROI,replaceROI,bestLbl});
+    setKva(result.toFixed(2));
   };
 
-  /* ─────────── JSX */
-  return(
-  <div className="kva-page">
-    {/* HERO */}
-    <header className="kva-hero bg-blue">
-      <h1>Transformer ROI Calculator</h1>
-      <p>See whether you should keep, repair, replace, or sell your transformer.</p>
-    </header>
+  /* ────────────── JSX */
+  return (
+    <div className="kva-page">
+      {/* HERO */}
+      <header className="kva-hero bg-blue">
+        <h1>kVA Calculator</h1>
+        <p>Quickly convert Amps & Volts into kVA for single-phase or three-phase loads.</p>
+      </header>
 
-    {/* FORM */}
-    <section className="kva-calc-section bg-white">
-      <form className="kva-form" onSubmit={e=>{e.preventDefault();calc();}}>
+      {/* CALCULATOR */}
+      <section className="kva-calc-section bg-white">
+        <form className="kva-form" onSubmit={e=>{e.preventDefault();calculate();}}>
 
-        {/* Currency */}
-        <div className="phase-selector currency-selector">
-          {["USD","CAD","EUR"].map(cur=>(
-            <label key={cur} className={currency===cur?"selected":""}>
-              <input type="radio" value={cur}
-                     checked={currency===cur}
-                     onChange={()=>setCurrency(cur)}/>
-              {cur==="EUR"?"EUR €":`${cur} $`}
+          {/* Phase selector pills */}
+          <div className="phase-selector">
+            <label className={phase==="single"?"selected":""}>
+              <input
+                type="radio"
+                name="phase"
+                value="single"
+                checked={phase==="single"}
+                onChange={()=>setPhase("single")}
+              />Single-Phase
             </label>
+            <label className={phase==="three"?"selected":""}>
+              <input
+                type="radio"
+                name="phase"
+                value="three"
+                checked={phase==="three"}
+                onChange={()=>setPhase("three")}
+              />Three-Phase
+            </label>
+          </div>
+
+          {/* Volt / Amp / kVA fields */}
+          <div className="field-row">
+            <div className="field">
+              <label htmlFor="volts">Volts (V)</label>
+              <input
+                id="volts"
+                type="number"
+                placeholder="(avg 480)"
+                value={volts}
+                onChange={e=>setVolts(e.target.value)}
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="amps">Amps (A)</label>
+              <input
+                id="amps"
+                type="number"
+                placeholder="(avg 100)"
+                value={amps}
+                onChange={e=>setAmps(e.target.value)}
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="kva">kVA</label>
+              <input id="kva" type="text" value={kva} readOnly />
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="btn-row">
+            <button type="submit" className="cta-btn">Calculate</button>
+            <button type="button" className="cta-btn secondary" onClick={reset}>Reset</button>
+          </div>
+        </form>
+      </section>
+
+      {/* INFO TABS */}
+      <section className="kva-tabs bg-grey">
+        <nav className="tab-nav">
+          {["how","equation","defs"].map(id=>(
+            <button key={id}
+              className={tab===id?"active":""}
+              onClick={()=>setTab(id)}>
+              {id==="how" ? "How It Works" :
+               id==="equation" ? "Equations Used" : "Definitions"}
+            </button>
           ))}
+        </nav>
+
+        <div className="tab-panel">
+          {tab==="how" && (
+            <>
+              <h3>How the kVA Calculator Works</h3>
+
+              <p>
+                This free <b>kVA converter</b> lets <b>electrical engineers</b>, <b>facility
+                managers</b> and <b>field electricians</b> turn measured
+                <b>volts (V)</b> and <b>amps (A)</b> into <b>apparent power (kVA)</b> in
+                seconds—perfect for <b>transformer sizing</b>, <b>generator checks</b> and
+                <b>panel-load studies</b>.
+              </p>
+
+              <ul className="roi-list">
+                <li>
+                  Select <b>Single-Phase</b> or <b>Three-Phase</b> (the latter
+                  auto-applies √3&nbsp;≈ 1.732).
+                </li>
+                <li>
+                  Type your <b>line voltage</b> and <b>current draw</b>. Values can come
+                  from a clamp meter or nameplate.
+                </li>
+                <li>
+                  Click&nbsp;<em>Calculate</em>. The tool runs
+                  <code>kVA = (V × A)/1000</code> (1-phase) or
+                  <code>kVA = (√3 × V × A)/1000</code> (3-phase) and shows the result.
+                </li>
+              </ul>
+
+              <p>
+                Typical uses include validating <b>transformer kVA ratings</b>,
+                confirming <b>generator standby load</b>, planning <b>UPS capacity</b>,
+                and estimating <b>power-factor correction banks</b>.
+              </p>
+            </>
+
+          )}
+          {tab==="equation" && (
+            <>
+              <h3>Equations</h3>
+              <ul className="roi-list">
+                <li><b>Single-phase:</b> kVA = (Volts × Amps) / 1000</li>
+                <li><b>Three-phase:</b> kVA = (√3 × Volts × Amps) / 1000</li>
+              </ul>
+            </>
+          )}
+          {tab==="defs" && (
+            <>
+              <h3>Key Electrical Definitions</h3>
+
+              <ul className="roi-list">
+                <li>
+                  <b>Voltage (V)</b> – The electrical “pressure” that pushes electrons
+                  through a conductor. Common service voltages include 208 V,
+                  480 V (industrial three-phase) and 600 V (Canada).
+                </li>
+
+                <li>
+                  <b>Ampere (A)</b> – The rate of current flow. Accurate amp readings are
+                  critical when sizing <b>transformers</b>, <b>generators</b> and
+                  <b>motor-control centres</b>.
+                </li>
+
+                <li>
+                  <b>kVA (kilovolt-ampere)</b> – Unit of <em>apparent power</em>. One kVA
+                  equals 1000 volt-amps. Used by utilities, UPS vendors and NEC load
+                  tables when specifying equipment capacity.
+                </li>
+
+                <li>
+                  <b>Single-Phase vs Three-Phase</b> – Single-phase supplies homes and
+                  light commercial sites; three-phase delivers balanced power for heavy
+                  industry, data centres and HVAC chillers. Our calculator applies the
+                  √3 factor for three-phase loads automatically.
+                </li>
+
+                <li>
+                  <b>Power Factor (PF)</b> – Ratio of real power (kW) to apparent power
+                  (kVA). While PF isn’t needed for a straight kVA conversion, knowing it
+                  helps when choosing <b>capacitor banks</b> or estimating <b>energy
+                  efficiency</b>.
+                </li>
+
+                <li>
+                  <b>Transformer Rating</b> – Nameplate capacity expressed in kVA. Always
+                  pick a rating higher than your calculated demand to allow for
+                  <b>inrush current</b> and <b>future load growth</b>.
+                </li>
+              </ul>
+            </>
+
+          )}
         </div>
+      </section>
 
-        {/* Economic */}
-        <fieldset className="scenario">
-          <legend>
-            Economic&nbsp;Assumptions
-            <span className="hint-icon" data-hint="Discount rate converts future cash-flows to present dollars. Horizon = evaluation period.">?</span>
-          </legend>
-          <div className="field-row">
-            <div className="field">
-              <label>Discount&nbsp;%</label>
-              <input type="number" value={discount} onChange={e=>setDiscount(e.target.value)}/>
-            </div>
-            <div className="field">
-              <label>Horizon&nbsp;(yrs)</label>
-              <input type="number" value={analysis} onChange={e=>setAnalysis(e.target.value)}/>
-            </div>
-          </div>
-        </fieldset>
-
-        {/* Keep */}
-        <fieldset className="scenario">
-          <legend>
-            Keep&nbsp;Running
-            <span className="hint-icon" data-hint="Run to failure; calculate expected annual cost.">?</span>
-          </legend>
-          <div className="field-row">
-            <div className="field"><label>Fail&nbsp;%/yr</label><input type="number" value={failRate} onChange={e=>setFailRate(e.target.value)}/></div>
-            <div className="field"><label>Repair&nbsp;cost</label><input type="number" value={failCost} onChange={e=>setFailCost(e.target.value)}/></div>
-            <div className="field"><label>Outage&nbsp;hrs</label><input type="number" value={downHrs} onChange={e=>setDownHrs(e.target.value)}/></div>
-            <div className="field"><label>Outage&nbsp;$&nbsp;/hr</label><input type="number" value={downCost} onChange={e=>setDownCost(e.target.value)}/></div>
-          </div>
-        </fieldset>
-
-        {/* Repair */}
-        <fieldset className="scenario">
-          <legend>
-            Repair
-            <span className="hint-icon" data-hint="Major overhaul then residual failure risk.">?</span>
-          </legend>
-          <div className="field-row">
-            <div className="field"><label>Repair&nbsp;cost</label><input type="number" value={repairCost} onChange={e=>setRepairCost(e.target.value)}/></div>
-            <div className="field"><label>Post-repair fail&nbsp;%/yr</label><input type="number" value={repairFail} onChange={e=>setRepairFail(e.target.value)}/></div>
-          </div>
-        </fieldset>
-
-        {/* Replace */}
-        <fieldset className="scenario">
-          <legend>
-            Replace
-            <span className="hint-icon" data-hint="Purchase new or reconditioned unit.">?</span>
-          </legend>
-          <div className="field-row">
-            <div className="field"><label>New unit cost</label><input type="number" value={replaceCost} onChange={e=>setReplaceCost(e.target.value)}/></div>
-          </div>
-        </fieldset>
-
-        {/* Sell */}
-        <fieldset className="scenario">
-          <legend>
-            Sell
-            <span className="hint-icon" data-hint="Immediate cash-in if liquidated.">?</span>
-          </legend>
-          <div className="field-row">
-            <div className="field"><label>Sale&nbsp;price</label><input type="number" value={salePrice} onChange={e=>setSalePrice(e.target.value)}/></div>
-          </div>
-        </fieldset>
-
-        {/* Buttons */}
-        <div className="btn-row">
-          <button type="submit" className="cta-btn">Calculate ROI</button>
-          <button type="button" className="cta-btn secondary" onClick={()=>setResults(null)}>Reset</button>
+      {/* CTA GRID */}
+      <section className="quote-cta bg-white">
+        <h2>Ready to Sell Your Equipment?</h2>
+        <div className="cta-grid">
+          <a className="cta-tile" href="/sell-transformers">
+            <img src={transformerImg} alt="Transformers"/><span>Transformers</span>
+          </a>
+          <a className="cta-tile" href="/sell-PVF">
+            <img src={pvfImg} alt="PVF"/><span>PVF</span>
+          </a>
+          <a className="cta-tile" href="/sell-electrical">
+            <img src={electricalImg} alt="Electrical"/><span>Electrical</span>
+          </a>
+          <a className="cta-tile" href="/sell-surplus">
+            <img src={surplusImg} alt="Other"/><span>Other Equipment</span>
+          </a>
         </div>
-      </form>
-    </section>
+      </section>
 
-    {/* RESULTS */}
-    <section className="roi-box bg-white">
-      {!results ? (
-        <p className="roi-placeholder">Results will appear here after you press <em>Calculate ROI</em>.</p>
-      ) : (
-        <>
-          <h2>Results</h2>
-          <div className="roi-flex">
-            {["keep","repair","replace","sell"].map(key=>(
-              <div key={key} className="roi-item">
-                <span className="label">NPC – {key.charAt(0).toUpperCase()+key.slice(1)}</span>
-                <span className="value">{fmt(results[`${key}NPC`].toFixed(0))}</span>
-              </div>
-            ))}
-            <div className="roi-item">
-              <span className="label">ROI&nbsp;Repair</span>
-              <span className="value">{results.repairROI.toFixed(1)}%</span>
-            </div>
-            <div className="roi-item">
-              <span className="label">ROI&nbsp;Replace</span>
-              <span className="value">{results.replaceROI.toFixed(1)}%</span>
-            </div>
-            <div className="roi-item best">
-              Best:&nbsp;<strong>{results.bestLbl}</strong>
-            </div>
-          </div>
-        </>
-      )}
-    </section>
-
-    {/* TABS */}
-    <section className="kva-tabs bg-grey">
-      <nav className="tab-nav">
-        {["how","equation","defs","client"].map(id=>(
-          <button key={id} className={tab===id?"active":""} onClick={()=>setTab(id)}>
-            {id==="how"?"How it Works":id==="equation"?"Equations":id==="defs"?"Definitions":"What It Means"}
-          </button>
-        ))}
-      </nav>
-
-      <div className="tab-panel">
-        {tab==="how" && (
-          <>
-            <h3>How it Works</h3>
-            <ul className="roi-list">
-              <li>We discount every future cash-flow with your chosen discount&nbsp;rate.</li>
-              <li>Net Present Cost (NPC) is calculated for each scenario.</li>
-              <li>The option with the <b>lowest NPC</b> is cheapest over the horizon.</li>
-            </ul>
-
-            {/* CTA grid */}
-            <section className="quote-cta bg-white">
-              <h2>Ready to act?</h2>
-              <div className="cta-grid">
-                <a className="cta-tile" href="/sell-transformers"><img src={transformerImg} alt="Transformers"/><span>Transformers</span></a>
-                <a className="cta-tile" href="/sell-PVF"><img src={pvfImg} alt="PVF"/><span>PVF</span></a>
-                <a className="cta-tile" href="/sell-electrical"><img src={electricalImg} alt="Electrical"/><span>Electrical</span></a>
-                <a className="cta-tile" href="/sell-surplus"><img src={surplusImg} alt="Other"/><span>Other</span></a>
-              </div>
-            </section>
-          </>
-        )}
-
-        {tab==="equation" && (
-          <>
-            <h3>Equations</h3>
-            <ul className="roi-list">
-              <li><b>NPC</b> = Σ cash-flow × (1+r)<sup>-n</sup></li>
-              <li><b>ROI</b> = (NPC<sub>keep</sub> – NPC<sub>option</sub>) ÷ NPC<sub>option</sub></li>
-              <li>Annual expected failure cost = P(fail) × (repair + outage).</li>
-            </ul>
-          </>
-        )}
-
-        {tab==="defs" && (
-          <>
-            <h3>Definitions</h3>
-            <ul className="roi-list">
-              <li><b>Discount Rate</b> – opportunity cost / WACC.</li>
-              <li><b>NPC</b> – sum of discounted costs minus inflows.</li>
-              <li><b>ROI</b> – savings compared to baseline.</li>
-              <li><b>Failure Rate</b> – probability of major failure in a year.</li>
-              <li><b>Outage Cost</b> – revenue lost per hour offline.</li>
-            </ul>
-          </>
-        )}
-
-        {tab==="client" && (
-          <>
-            <h3>What It Means</h3>
-            <p>The scenario with the lowest NPC delivers the least life-cycle cost.
-               Positive ROI indicates a cost-effective move versus doing nothing.</p>
-          </>
-        )}
-      </div>
-    </section>
-
-    {/* FOOTER */}
-    <Footer />
-  </div>
-);}
+      {/* FOOTER */}
+      <Footer />
+    </div>
+  );
+}

@@ -1,0 +1,449 @@
+/* ===============================================================
+   Guides.css – layout & components for transformer-guides pages
+   =============================================================== */
+
+/* ---------- 0. Utility ---------- */
+
+.eyebrow {
+  color: var(--orange-mid);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+/* ---------- 1. Hero (split) ---------- */
+
+.guides-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3rem;
+  padding: 6rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+.guides-hero__text {
+  flex: 0 1 480px;
+}
+
+.guides-hero__text h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.6rem, 4vw, 3.6rem);
+  letter-spacing: 0.04em;
+  margin: 0 0 1.25rem;
+}
+
+.guides-hero__text .subtitle {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin: 0 0 2rem;
+}
+
+.guides-hero__image {
+  flex: 1 1 500px;
+  text-align: center;
+}
+
+.guides-hero__image img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ---------- 2. Overview icon row ---------- */
+
+.icon-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 4rem auto;
+  padding: 0 1rem 6rem;
+  text-align: center;
+}
+
+.overview-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto;
+}
+
+.overview-card h4 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.25rem;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.overview-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--grey-mid);
+}
+
+/* ===============================================================
+   3. Dark / Light “band” slices
+   =============================================================== */
+
+.band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center; /* centres the inner wrapper */
+}
+
+.band--dark {
+  background: #151515;
+  color: #ffffff;
+  padding: 5rem 1rem;
+}
+
+.band--light {
+  background: #f6f4ef;
+  color: var(--grey-mid);
+  padding: 5rem 1rem;
+}
+
+/* --- centred inner wrapper --- */
+.band-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* --- text block --- */
+.band__content {
+  flex: 0 1 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 0 1rem;
+  justify-content: center;
+}
+
+.band__content h2 {
+  margin: 0;
+}
+
+.band__content p {
+  margin: 0;
+}
+
+.band--dark .cta-btn {
+  align-self: flex-start;
+}
+
+/* --- visual block --- */
+.band__visual,
+.band__image-left {
+  flex: 1 1 420px;
+  text-align: center;
+}
+
+.band__visual img,
+.band__image-left img {
+  max-width: 420px;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ---------- Responsive tweaks for bands ---------- */
+
+@media (max-width: 768px) {
+  .band--dark,
+  .band--light {
+    padding: 4rem 1rem;
+  }
+
+  .band__content {
+    padding: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .band__visual,
+  .band__image-left {
+    flex-basis: 100%;
+  }
+
+  .band--dark .cta-btn {
+    align-self: center;
+  }
+}
+
+/* ===============================================================
+   4. Feature / icon grid (6 cards)
+   =============================================================== */
+
+.grid-title {
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  margin: 0 0 2.5rem;
+}
+
+.feature-grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.feature-card {
+  text-align: center;
+}
+
+.feature-card .feat-icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1rem;
+}
+
+/* ===============================================================
+   Guides selector (icon column + sliding panel)
+   =============================================================== */
+.guides-selector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  /* unified spacing */
+  margin: 0 auto 1rem;     /* remove earlier margin override        */
+  padding: 3.5rem 1rem 1rem;/* 3.5 rem top-padding adds clear gap   */
+
+  gap: 3rem;
+  max-width: 1200px;
+  background: #ffffff;
+}
+
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  padding: 0.25rem 0;              /* equal vertical space */
+  color: #666666;
+  font-family: "Bebas Neue", sans-serif;
+  transition: color 0.15s;
+}
+
+.icon-btn img {
+  width: 90px;
+  height: 90px;
+}
+
+.icon-btn span {
+  font-size: 1.5rem;
+}
+
+.icon-btn.active,
+.icon-btn:hover {
+  color: var(--orange-mid);
+}
+
+/* ---------- sliding panel ---------- */
+.selector-panel {
+    flex: 1 1 auto;
+    min-width: 280px;
+    background: #e8e3db;
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    line-height: 1.6;
+}
+
+.selector-panel h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  color: var(--blue-mid);
+  margin: 0;
+}
+
+.selector-panel p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--grey-mid);
+}
+
+/* ===============================================================
+   Desktop: one-row + sticky icon column
+   =============================================================== */
+@media (min-width: 769px) {
+
+  .guides-selector {
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 6rem 0;
+    max-width: 100%;
+  }
+
+  .icons-wrap{
+    flex: 0 0 260px;       /* same width as before            */
+    position: sticky;
+    top: 2rem;             /* sticks 2 rem from viewport top  */
+    align-self: flex-start;
+  }
+
+  /* inner column keeps the flex layout & gaps */
+  .selector-icons{
+    display: flex;
+    flex-direction: column;
+    gap: 2.75rem;
+  }
+
+  .selector-panel {
+    border-radius: 12px 0 0 12px;
+    margin-left: 2rem;
+}
+}
+
+
+
+/* ===============================================================
+   Mobile tweaks
+   =============================================================== */
+@media (max-width: 768px) {
+
+  .guides-selector {
+    flex-direction: column;        /* stack */
+    gap: 2rem;
+  }
+
+  .selector-icons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .selector-panel {
+    margin-top: 2rem;
+    text-align: center;
+    border-radius: 12px;           /* regular radius on all corners */
+  }
+}
+
+
+/* ---------- sub-tabs inside selector panel ---------- */
+.sub-tabs{
+  display:flex;
+  gap:1rem;
+  margin-bottom:1.5rem;
+}
+.sub-tabs button{
+  background:none;
+  border:2px solid transparent;
+  padding:.5rem 1rem;
+  font-family:"Bebas Neue",sans-serif;
+  font-size:1rem;
+  cursor:pointer;
+  transition:.15s;
+  color:var(--grey-mid);
+}
+.sub-tabs button:hover{
+  color:var(--orange-mid);
+}
+.sub-tabs button.active{
+  border-color:var(--orange-mid);
+  color:var(--orange-mid);
+}
+
+/* ---------- modern sizing table ---------- */
+.sizing-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:0.25rem 0 2rem;
+  font-size:.95rem;
+}
+.sizing-table thead{
+  background:#d8d4cc;
+}
+.sizing-table th,
+.sizing-table td{
+  padding:.5rem .0rem;
+  text-align:center;
+}
+.sizing-table tbody tr:nth-child(even){
+  background:#f0efeb;
+}
+
+/* ----- side-by-side transformer tables ----- */
+/* =============================
+   Chart wrapper + two columns
+   ============================= */
+.table-row {
+  display: flex;
+  flex-wrap: nowrap;          /* never wrap on desktop */
+  gap: 1rem;                  /* gutter between columns */
+  margin-top: 1.5rem;
+}
+
+.table-col {
+  flex: 0 0 calc(50% - 0.5rem); /* exactly half width minus half gap */
+}
+
+/* force heading + table to fill the column */
+.table-col .chart-heading,
+.table-col .sizing-table {
+  width: 100%;
+}
+
+/* heading style */
+.chart-heading {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 0.5rem;
+  margin: 0 0 1rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.selector-panel .chart-heading {
+  font-size: 1.3rem;        /* your desired size */
+  line-height: 1.2;
+}
+
+/* sizing table already has width:100% from your existing rules */
+
+/* ================
+   Mobile fallback
+   ================ */
+@media (max-width: 768px) {
+  .table-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .table-col {
+    flex: 0 0 100%;
+  }
+
+  .chart-heading {
+    text-align: left;
+  }
+}
+
+
+/* mobile: stack vertically */
+@media(max-width:768px){
+  .table-row{
+    flex-direction:column;
+  }
+}
+

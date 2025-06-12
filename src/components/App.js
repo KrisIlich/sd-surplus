@@ -1,6 +1,7 @@
 import '../styles/App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import ScrollToTop from './ScrollToTop';
 
 import HomePage from './HomePage';
 import NavBar from './NavBar';
@@ -14,6 +15,7 @@ import SellElectrical from './SellElectrical';
 import KvaCalculator from './KvaCalculator';
 import FaultCurrentCalculator from './FaultCurrentCalculator';
 import RoiCalculator from './RoiCalculator';
+import TransformerGuides from './TransformerGuides';
 
 function App() {
   const [navHeight, setNavHeight] = useState(100);
@@ -29,8 +31,8 @@ function App() {
       gestureOrientation: 'vertical',  // wheel/touch gesture must be in this dir to trigger  
       smoothWheel: true,               // enable smooth inertia for wheel
       smoothTouch: false,              // enable smooth inertia for touch
-      wheelMultiplier: 2,              // multiply wheel delta (1→ more natural; <1→slower)
-      touchMultiplier: 2,              // multiply touch delta
+      wheelMultiplier: .9,              // multiply wheel delta (1→ more natural; <1→slower)
+      touchMultiplier: .9,              // multiply touch delta
       infinite: false                  // wrap scroll so it never ends
     })
 
@@ -49,6 +51,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <ScrollToTop>
       {/* 1) Fixed nav bar at the top */}
       <NavBar 
       activeMenu={activeMenu} 
@@ -75,8 +78,10 @@ function App() {
         <Route path="/kva-calculator" element={<KvaCalculator />} />
         <Route path="/fault-current-calculator" element={<FaultCurrentCalculator />} />
         <Route path="/roi-calculator" element={<RoiCalculator />} />
+        <Route path="/transformer-guides" element={<TransformerGuides/>} />
         </Routes>
       <ChatButton />
+      </ScrollToTop>
     </BrowserRouter>
   );
 }

@@ -26,7 +26,9 @@ function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 1
           >
             <div className="dropdown-column">
               <h3>Product Guides</h3>
+              <Link to="/transformer-guides">
               <button className="dropdown-button">Transformer Guide</button>
+              </Link>
               <button className="dropdown-button">PVF Guide</button>
               <button className="dropdown-button">Electrical Guide</button>
               <button className="dropdown-button">Data Sheets</button>

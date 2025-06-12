@@ -5,6 +5,7 @@ import seamlessImage from '../assets/seamless-image.png';
 import valuationImage from '../assets/valuation-image.png';
 import professionalImage from '../assets/professional-image.png';
 import eqImg from '../assets/pvf-types.png';
+import pvfImg from '../assets/pvf-offer-image2.png'
 import clientsImg from '../assets/our-clients.png';
 import OfferForm from './OfferForm';
 import Footer from './Footer';
@@ -184,7 +185,7 @@ function TechnicalSpecifications() {
         </div>
       </div>
       <div className="sbs-image">
-        <img src={eqImg} alt="PVF technical details" />
+        <img src={pvfImg} alt="PVF technical details" />
       </div>
     </section>
   );

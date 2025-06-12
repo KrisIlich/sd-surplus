@@ -10,12 +10,12 @@ import surplusImg     from '../assets/other-offer-image.png';
 import Footer from './Footer';
 
 export default function FaultCurrentCalculator() {
-  const [phase, setPhase]         = useState('three');     // 'single' | 'three'
+  const [phase, setPhase]         = useState('single');     // 'single' | 'three'
   const [kva,   setKva]           = useState('');          // nameplate kVA
   const [secV,  setSecV]          = useState('');          // secondary voltage (V)
   const [imp,   setImp]           = useState('');          // % impedance Z
   const [faultA,setFaultA]        = useState('');          // computed fault current
-  const [activeTab, setActiveTab] = useState('equation');  // info tabs
+  const [activeTab, setActiveTab] = useState('how');  // info tabs
 
   /* helpers */
   const resetFields = () => {
