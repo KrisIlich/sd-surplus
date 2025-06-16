@@ -29,7 +29,9 @@ function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 1
               <Link to="/transformer-guides">
               <button className="dropdown-button">Transformer Guide</button>
               </Link>
+              <Link to="/pvf-guides">
               <button className="dropdown-button">PVF Guide</button>
+              </Link>
               <button className="dropdown-button">Electrical Guide</button>
               <button className="dropdown-button">Data Sheets</button>
             </div>
@@ -83,7 +85,9 @@ function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 1
             </div>
             <div className="dropdown-column">
               <h3>Services</h3>
+              <Link to="/sell-surplus">
               <button className="dropdown-button">Sell Your Surplus</button>
+              </Link>
               <button className="dropdown-button">Rentals</button>
             </div>
           </div>

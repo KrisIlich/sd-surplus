@@ -167,6 +167,7 @@
     padding: 0;
     margin-bottom: 2rem;
     text-align: center;
+    justify-content: center;
   }
 
   .band__visual,
@@ -215,7 +216,9 @@
 .guides-selector {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 
   /* unified spacing */
   margin: 0 auto 1rem;     /* remove earlier margin override        */
@@ -224,6 +227,10 @@
   gap: 3rem;
   max-width: 1200px;
   background: #ffffff;
+}
+
+.guides-selector .selector-icons {
+  flex: 0 0 auto;         /* icon row stays its intrinsic height */
 }
 
 
@@ -259,7 +266,7 @@
 /* ---------- sliding panel ---------- */
 .selector-panel {
     flex: 1 1 auto;
-    min-width: 280px;
+    min-width: 580px;
     background: #e8e3db;
     padding: 2.5rem 3rem;
     border-radius: 12px;
@@ -268,6 +275,56 @@
     flex-direction: column;
     gap: 1.25rem;
     line-height: 1.6;
+    -ms-overflow-style: none;
+}
+
+/* -----------------------------------------------------------------
+   Modern custom scrollbar for the .selector-panel
+   -----------------------------------------------------------------*/
+
+/* 1 ▸ Firefox & new-Edge (chromium 119+) */
+.selector-panel {
+  scrollbar-width: thin;                                  /* 6-8 px */
+  scrollbar-color: #33658A rgba(0,0,0,0);                 /* thumb / track */
+  user-select: none;
+}
+
+/* 2 ▸ WebKit (Chrome, Safari, old Edge) */
+.selector-panel::-webkit-scrollbar {
+  width: 8px;                                             /* -—  track size  —- */
+}
+.selector-panel::-webkit-scrollbar-track {
+  background: transparent;                                /* invisible track */
+  border-radius: 12px;
+}
+.selector-panel::-webkit-scrollbar-thumb {
+  background: #33658A;                                    /* <-- thumb colour */
+  border-radius: 12px;
+  min-height: 40px;                                       /* nicer feel       */
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.35);       /* subtle inset rim */
+  transition: background .2s ease;
+}
+.selector-panel::-webkit-scrollbar-thumb:hover {
+  background: #28506f;                                    /* slightly darker  */
+}
+.selector-panel::-webkit-scrollbar-thumb:active {
+  background: #1d3a52;                                    /* “pressed” shade  */
+}
+
+/* 3 ▸ Optional: space the thumb a bit from the panel edge */
+.selector-panel::-webkit-scrollbar-track-piece:start {
+  margin-top: 6px;
+}
+.selector-panel::-webkit-scrollbar-track-piece:end {
+  margin-bottom: 6px;
+}
+
+/* cursor change while dragging */
+.selector-panel.drag-scroll {
+  cursor: grabbing;
+}
+.selector-panel {
+  cursor: grab;         /* default */
 }
 
 .selector-panel h3 {
@@ -283,8 +340,69 @@
   color: var(--grey-mid);
 }
 
+/* -------------------- WRAPPER LAYOUT -------------------- */
+.scroll-wrapper{
+  display:flex;
+  position:relative;        /* ➜ lets us absolutely-place the thumb */
+}
+
+/* make the beige panel hide its own scrollbar completely    */
+.selector-panel{
+  overflow-y: scroll;
+  scrollbar-width:none;        /* Firefox                        */
+}
+.selector-panel::-webkit-scrollbar{ display:none;} /* Chrome/Safari */
+
+/* -------------------- EXTERNAL TRACK -------------------- */
+.scroll-track{
+  width: 15px;               /* 8 px × 2.5  ≈ 20 px            */
+  margin-left: 8px;          /* breathing room from the panel  */
+  background: rgba(0,0,0,.06);
+  border-radius: 12px;
+  position: relative;        /* create positioning context     */
+  flex: 0 0 15px;            /* fixed width, no shrink/grow    */
+}
+
+/* -------------------- THUMB -------------------- */
+.scroll-thumb{
+  position: absolute;
+  left: 0;                   /* full width of track            */
+  right: 0;
+  top: 0;
+  height: 40px;              /* will be JS-driven later         */
+  background:#33648aae;        /* brand blue                     */
+  border-radius:12px;
+  cursor:pointer;
+  transition: background .2s;
+}
+/* no arrow buttons ➜ already gone because we hid native bar */
+
+
+/* ------------------------------------------------------------------
+   Guides page – unify CTA button TEXT style with home-page buttons
+   ------------------------------------------------------------------ */
+.guides-selector .cta-btn,
+.band--dark       .cta-btn,
+.quote-cta        .cta-btn,
+.cta-button-div   .cta-btn {          /* add more contexts if needed */
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;      /* ≈15 px */
+  font-weight: 600;
+  letter-spacing: 0;       /* remove the wide tracking we added earlier */
+  text-transform: none;    /* keep normal case; drop ALL-CAPS           */
+}
+
+#cta {
+  width: 400px;
+  margin: 0 auto;
+}
+
+#cta img {
+  height: 350px;
+}
+
 /* ===============================================================
-   Desktop: one-row + sticky icon column
+   Desktop: one-row + icon column
    =============================================================== */
 @media (min-width: 769px) {
 
@@ -299,7 +417,6 @@
     flex: 0 0 260px;       /* same width as before            */
     position: sticky;
     top: 2rem;             /* sticks 2 rem from viewport top  */
-    align-self: flex-start;
   }
 
   /* inner column keeps the flex layout & gaps */
@@ -310,9 +427,48 @@
   }
 
   .selector-panel {
-    border-radius: 12px 0 0 12px;
+    border-radius: 12px;
     margin-left: 2rem;
 }
+}
+
+
+@media (min-width: 769px) {
+  .selector-panel {
+    /* ►  min 440 px, ideal 55 vh, never more than 620 px */
+    height: clamp(640px, 8vh, 620px);
+    overflow-y: auto;
+  }
+}
+
+@media (min-width: 769px) {
+
+  /* keep icon column exactly 260 px (already defined)  */
+  .selector-icons {
+    flex: 0 0 260px;
+  }
+
+  /* NEW — freeze the slide-in panel’s width */
+  .selector-panel {
+    /* 0 0 prevents flex-grow/shrink, 720 px is your chosen width   */
+    flex: 0 0 950px;        /* ⇦ pick any fixed width you prefer   */
+    max-width: 950px;       /* safety: never grow wider            */
+    min-width: 950px;       /* safety: never shrink narrower       */
+  }
+
+  /* because the panel no longer stretches, add a gap once again   */
+  .guides-selector {
+    gap: 2.5rem;            /* visual breathing room */
+  }
+}
+
+/* ---------- mobile / tablet still fluid ---------- */
+@media (max-width: 768px) {
+  .selector-panel {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
 }
 
 
@@ -447,3 +603,39 @@
   }
 }
 
+
+
+
+
+/* ─────────────────────────────────────────────────────────────────────
+   Bolt Chart (compact ASME B16.5)
+───────────────────────────────────────────────────────────────────── */
+.bolt-chart {
+  margin: 2rem 0;
+}
+.bolt-chart__intro {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+.bolt-chart__intro a {
+  text-decoration: underline;
+}
+.bolt-chart__table-wrapper {
+  overflow-x: auto;
+}
+.bolt-table {
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  width: max-content; /* shrink-to-fit */
+}
+.bolt-table th,
+.bolt-table td {
+  padding: 4px 6px;
+  border: 1px solid #ddd;
+  text-align: center;
+  white-space: nowrap;
+}
+.bolt-table th {
+  background: #f7f7f7;
+  font-weight: 600;
+}

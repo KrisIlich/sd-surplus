@@ -16,6 +16,7 @@ import KvaCalculator from './KvaCalculator';
 import FaultCurrentCalculator from './FaultCurrentCalculator';
 import RoiCalculator from './RoiCalculator';
 import TransformerGuides from './TransformerGuides';
+import PvfGuides from './PvfGuides';
 
 function App() {
   const [navHeight, setNavHeight] = useState(100);
@@ -79,6 +80,8 @@ function App() {
         <Route path="/fault-current-calculator" element={<FaultCurrentCalculator />} />
         <Route path="/roi-calculator" element={<RoiCalculator />} />
         <Route path="/transformer-guides" element={<TransformerGuides/>} />
+        <Route path="/pvf-guides" element={<PvfGuides/>} />
+        
         </Routes>
       <ChatButton />
       </ScrollToTop>
