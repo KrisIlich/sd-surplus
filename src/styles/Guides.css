@@ -155,6 +155,24 @@
   border-radius: 8px;
 }
 
+/* 1 ▸ Make the text block & image hug the same max width as the dark band */
+.band--light .band-inner {
+  max-width: 1200px;   /* identical to dark */
+  margin: 0 auto;
+}
+
+/* 2 ▸ Keep the call-to-action button from stretching full-width */
+.band--light .cta-btn {
+  align-self: flex-start;   /* matches dark variant */
+  display: inline-block;    /* prevents 100 % width */
+}
+
+/* 3 ▸ Bring heading colour in line with Transformer dark-band rules */
+.band--light h2,
+.band--light h3 {
+  color: #555;              /* or whatever neutral headline colour you prefer */
+}
+
 /* ---------- Responsive tweaks for bands ---------- */
 
 @media (max-width: 768px) {
@@ -638,4 +656,20 @@
 .bolt-table th {
   background: #f7f7f7;
   font-weight: 600;
+}
+
+.bolt-chart__image-wrapper{
+  /* the wrapper itself scrolls in whichever direction is needed */
+  overflow: auto;
+  max-height: 100%;
+}
+
+.bolt-chart-image{
+  /* don’t let the PNG blow up beyond its native size on small screens  */
+  max-width: 100%;
+  height: auto;
+  /* if you want a minimum width so horizontal scroll always appears,
+     just hard-code it:  width: 1400px; max-width:none;  */
+  pointer-events: none;   /* ignore clicks / drags */
+  user-select: none;      /* prevent text-like selection halo on double-tap */
 }
