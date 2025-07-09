@@ -17,7 +17,7 @@ const ITEMS = [
     title: '3-Phase Padmounted Transformer',
     img: padmountImg,
     desc: 'Highly efficient, outdoor-rated 3-phase padmount transformers for distribution networks.',
-    link: '/products/padmount-transformer'
+    link: '/articles/3-phase-padmount'  
   },
   {
     title: 'Pole-Mounted Transformer',
@@ -74,7 +74,6 @@ export default function ProductCards() {
       gsap.fromTo(
         '.product-card',
         {
-          // from this “out-of-focus” state (matches our CSS)
           opacity: 0,
           filter:  'blur(20px)',
           scale:   1.1
@@ -109,7 +108,7 @@ export default function ProductCards() {
       </h1>
       <div className="product-card-grid">
         {ITEMS.map(({ title, img, desc, link }) => (
-          <div className="product-card" key={title}>
+          <div className="product-card" key={title}> 
             <img src={img} alt={title} className="card-image" />
             <div className="card-body">
               <h2 className="card-title">{title}</h2>

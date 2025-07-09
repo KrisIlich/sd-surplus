@@ -19,11 +19,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 3rem;
+  gap: 5rem;
   padding: 6rem 1rem;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 3rem;
+  margin-top: 7rem;
 }
 
 .guides-hero__text {
@@ -44,15 +44,21 @@
 }
 
 .guides-hero__image {
-  flex: 1 1 500px;
+  flex: 1 1 600px;
   text-align: center;
 }
 
 .guides-hero__image img {
   width: 100%;
-  max-width: 420px;
+  max-width: 620px;
   height: auto;
   border-radius: 8px;
+}
+
+.cta-button-div {
+  margin: 1rem 0;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 /* ---------- 2. Overview icon row ---------- */
@@ -67,22 +73,41 @@
   text-align: center;
 }
 
-.overview-icon {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto;
+/* 1 ▸ keep the whole card vertically stacked & centered */
+.overview-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
 
-.overview-card h4 {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.25rem;
-  margin: 0.75rem 0 0.5rem;
+/* 2 ▸ make the icon area a raised circle */
+.overview-icon{              /* <img> (or <svg>) keeps this class now */
+  width:160px;               /*  ⟶ adjust to taste */
+  height:160px;
+  border-radius:50%;
+  background:#ffffff;        /* white disc */
+  box-shadow:0 6px 14px rgba(0,0,0,.15);   /* drop-shadow */
+  padding: 20px;
+  display:flex;              /* centres the pictogram inside */
+  align-items:center;
+  justify-content:center;
+  
+  margin:0 auto 1.25rem;     /* space below the circle */
+  transition:transform .2s ease, box-shadow .2s ease;
 }
 
-.overview-card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--grey-mid);
+/* 3 ▸ optional hover lift (nice on desktop) */
+.overview-card:hover .overview-icon{
+  transform:translateY(-4px);
+  box-shadow:0 10px 20px rgba(0,0,0,.18);
+}
+
+/* 4 ▸ right-size the actual pictogram */
+.overview-icon img,
+.overview-icon svg{
+  width:64px;                /* or 55–70 px depending on asset */
+  height:auto;
 }
 
 /* ===============================================================
@@ -193,9 +218,7 @@
     flex-basis: 100%;
   }
 
-  .band--dark .cta-btn {
-    align-self: center;
-  }
+
 }
 
 /* ===============================================================
@@ -378,7 +401,7 @@
   background: rgba(0,0,0,.06);
   border-radius: 12px;
   position: relative;        /* create positioning context     */
-  flex: 0 0 15px;            /* fixed width, no shrink/grow    */
+  flex: 0 0 10px;            /* fixed width, no shrink/grow    */
 }
 
 /* -------------------- THUMB -------------------- */
@@ -673,3 +696,161 @@
   pointer-events: none;   /* ignore clicks / drags */
   user-select: none;      /* prevent text-like selection halo on double-tap */
 }
+
+.wire-image {
+  /* don’t let the PNG blow up beyond its native size on small screens  */
+  max-width: 100%;
+  height: auto;
+  /* if you want a minimum width so horizontal scroll always appears,
+     just hard-code it:  width: 1400px; max-width:none;  */
+  pointer-events: none;   /* ignore clicks / drags */
+  user-select: none;      /* prevent text-like selection halo on double-tap */
+}
+
+
+/* ────────────────────────────────────────────────────────────
+   Bolt-Chart spacing + CTA
+   ──────────────────────────────────────────────────────────── */
+.bolt-chart {                /* stack & let `gap` drive spacing  */
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.guide-img-wrap {                /* stack & let `gap` drive spacing  */
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.bolt-chart .chart-heading {
+  margin-bottom: 0;          /* gap already handles it            */
+}
+
+.download-line {
+  font: 400 1rem/1.6 'Open Sans', sans-serif;
+  color: var(--grey-mid);
+  margin: 0 auto;
+}
+
+.download-line .cta-btn .download-btn {            /* slimmer pill */
+  padding: 0.55rem 1.4rem;
+  font-size: 0.9rem;
+  margin-left: 0.4rem;       /* breathing room after the text      */
+}
+
+.chart-button {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+
+
+/* ──────────────────────────────────────────────────────────
+   DownloadChartModal — final polish
+   ────────────────────────────────────────────────────────── */
+
+/* 1 ▸ centred white card */
+.modal {
+  position: relative;
+  max-width: 560px;
+  width: 92%;
+  padding: 2.2rem 2.4rem 2.6rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  font-family: "Open Sans", sans-serif;
+}
+
+/* 2 ▸ title / sub-copy  */
+.modal h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.9rem;
+  margin: 0 0 .75rem;
+  letter-spacing: .5px;
+}
+.modal-sub {
+  font-size: .96rem;
+  margin-bottom: 1.7rem;
+  color: var(--grey-mid);
+}
+
+/* 3 ▸ two-column first / last-name row */
+.field-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+  margin-bottom: .75rem;
+}
+
+/* 4 ▸ inputs & focus style */
+.modal input {
+  width: 100%;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #c4c4c4;
+  border-radius: 6px;
+  transition: border-color .18s;
+  margin-bottom: .75rem;
+}
+.modal input:focus {
+  border-color: var(--blue-mid);
+  outline: none;
+}
+
+/* 5 ▸ submit (inherits .cta-btn colours) */
+.modal button[type="submit"] {
+  margin-top: 1.25rem;
+  width: 100%;
+}
+
+/* 6 ▸ X button */
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--grey-dark);
+}
+.modal-close:hover { color: var(--blue-mid); }
+
+.modal-backdrop {
+  background-color: #c4c4c4;
+  position: fixed; inset: 0;
+  display: flex; justify-content: center; align-items: center;
+  background: rgba(0,0,0,.55);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .25s ease;
+}
+.modal-backdrop.open {
+  opacity: 1; visibility: visible; pointer-events: all;
+}
+
+
+.roi-list{
+  list-style:none;
+  padding:0;
+  margin:0 0 1.5rem;
+}
+.roi-list li{
+  position:relative;
+  padding-left:1.5rem;
+  margin-bottom:.9rem;
+  font-size:1.05rem;
+  line-height:1.7;
+  color:var(--grey-mid);
+}
+.roi-list li::before{
+  content:\"\";                /* little orange square */
+  position:absolute;
+  left:0; top:.55em;
+  width:10px; height:10px;
+  background:var(--orange-mid);
+  border-radius:2px;
+}
+

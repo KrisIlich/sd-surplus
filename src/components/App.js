@@ -17,6 +17,11 @@ import FaultCurrentCalculator from './FaultCurrentCalculator';
 import RoiCalculator from './RoiCalculator';
 import TransformerGuides from './TransformerGuides';
 import PvfGuides from './PvfGuides';
+import PvfSizingCalculator from './PvfSizingCalculator';
+import ElectricalGuides from './ElectricalGuides';
+import UnderConstruction from './UnderConstruction';
+import AboutUs from './AboutUs';
+import PadmountArticle from './Articles/PadmountArticle';
 
 function App() {
   const [navHeight, setNavHeight] = useState(100);
@@ -37,7 +42,7 @@ function App() {
       infinite: false                  // wrap scroll so it never ends
     })
 
-    // 2) create your RAF loop
+    // 2) create RAF loop
     function raf(time) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -81,6 +86,11 @@ function App() {
         <Route path="/roi-calculator" element={<RoiCalculator />} />
         <Route path="/transformer-guides" element={<TransformerGuides/>} />
         <Route path="/pvf-guides" element={<PvfGuides/>} />
+        <Route path="/pvf-sizing" element={<PvfSizingCalculator/>}/>
+        <Route path="/electrical-guides" element={<ElectricalGuides/>} />
+        <Route path="/under-construction" element={<UnderConstruction/>}/>
+        <Route path="/about-us" element={<AboutUs/>}/>
+        <Route path="/articles/3-phase-padmount" element={<PadmountArticle />} />
         
         </Routes>
       <ChatButton />

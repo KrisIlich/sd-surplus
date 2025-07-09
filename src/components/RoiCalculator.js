@@ -3,7 +3,7 @@
 // --------------------------------------------------------------
 import React, { useState } from "react";
 import "../styles/KvaCalculator.css";
-import Footer from "./Footer";                      // ⬅️ already in your repo
+import Footer from "./Footer";                      
 
 export default function RoiCalculator() {
       /* ─────────── state */

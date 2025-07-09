@@ -9,7 +9,6 @@ export default function ChatButton() {
 
   useEffect(() => {
     const el = btnRef.current;
-    // Animate from x=100px (off-screen right), 10px blur & 0 opacity
     gsap.fromTo(
       el,
       {
@@ -23,14 +22,13 @@ export default function ChatButton() {
         filter: 'blur(0px)',
         duration: 1,
         ease: 'power3.out',
-        // optional stagger or delay if you want to sequence with other elements
       }
     );
   }, []);
 
   const handleClick = () => {
     console.log('toggle chat…');
-    // wire up your real chat open/close here
+    // TODO : wire up real chat open/close here
   };
 
   return (
