@@ -2,7 +2,7 @@
   "name": "sd-surplus",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://KrisIlich.github.io/sd-surplus",
+  "homepage": "https://KrisIlich.github.io",
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
     "@testing-library/dom": "^10.4.0",
