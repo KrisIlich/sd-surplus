@@ -56,7 +56,7 @@ function App() {
     }, [])
 
   return (
-    <BrowserRouter basename="/sd-surplus">
+    <BrowserRouter>
     <ScrollToTop>
       {/* 1) Fixed nav bar at the top */}
       <NavBar 
