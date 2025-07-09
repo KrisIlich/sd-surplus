@@ -52,6 +52,10 @@ function handleMouseLeave() {
     setActiveMenu(null);
 }
 
+function handleItemClick() {
+    setActiveMenu(null);
+}
+
 
 
     return (

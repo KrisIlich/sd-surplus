@@ -7,16 +7,14 @@ import '../styles/NavBar.css';
 function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 100 }) {
   const menuRef = useRef(null);
   const showOverlay = !!activeMenu;
+  const handleItemClick = () => setActiveMenu(null);
 
-  // Each chunk of content includes its own onMouseEnter(() => setActiveMenu("..."))
   function renderMenuContent(menuKey) {
     switch (menuKey) {
       case 'resources':
         return (
           <div
             className="dropdown-inner"
-            /* Key fix: reintroduce the old approach:
-               onMouseEnter => keep 'resources' active */
             onMouseEnter={() => setActiveMenu('resources')}
             style={{
               left: dropdownOffset,
@@ -27,33 +25,49 @@ function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 1
             <div className="dropdown-column">
               <h3>Product Guides</h3>
               <Link to="/transformer-guides">
-              <button className="dropdown-button">Transformer Guide</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Transformer Guide</button>
+              
               </Link>
               <Link to="/pvf-guides">
-              <button className="dropdown-button">PVF Guide</button>
+              <button className="dropdown-button" onClick={handleItemClick}>PVF Guide</button>
               </Link>
-              <button className="dropdown-button">Electrical Guide</button>
-              <button className="dropdown-button">Data Sheets</button>
+              <Link to="/electrical-guides">
+              <button className="dropdown-button" onClick={handleItemClick}>Electrical Guide</button>
+              </Link>
+              <Link to ="/under-construction">
+              <button className="dropdown-button" onClick={handleItemClick}>Data Sheets</button>
+              </Link>
             </div>
             <div className="dropdown-column">
               <h3>Educational</h3>
-              <button className="dropdown-button">Case Studies</button>
-              <button className="dropdown-button">Workshops</button>
-              <button className="dropdown-button">Safety & Compliance</button>
+              <Link to ="/under-construction">
+              <button className="dropdown-button" onClick={handleItemClick}>Case Studies</button>
+              </Link>
+              <Link to ="/under-construction">
+              <button className="dropdown-button" onClick={handleItemClick}>Workshops</button>
+              </Link>
+              <Link to ="/under-construction">
+              <button className="dropdown-button" onClick={handleItemClick}>Safety & Compliance</button>
+              </Link>
             </div>
             <div className="dropdown-column">
               <h3>Tools</h3>
               <Link to="/roi-calculator">
-              <button className="dropdown-button">ROI Calculator</button>
+              <button className="dropdown-button" onClick={handleItemClick}>ROI Calculator</button>
               </Link>
               <Link to="/kva-calculator">
-              <button className="dropdown-button">kVA Calculator</button>
+              <button className="dropdown-button" onClick={handleItemClick}>kVA Calculator</button>
               </Link>
               <Link to="/fault-current-calculator">
-              <button className="dropdown-button">Fault Current Calculator</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Fault Current Calculator</button>
               </Link>
-              <button className="dropdown-button">Customer Feedback</button>
-              <button className="dropdown-button">FAQ</button>
+              <Link to="/pvf-sizing">
+              <button className="dropdown-button" onClick={handleItemClick}>PVF Sizing Calculator</button>
+              </Link>
+              <Link to ="/under-construction">
+              <button className="dropdown-button" onClick={handleItemClick}>Customer Feedback</button>
+              </Link>
+              <button className="dropdown-button" onClick={handleItemClick}>FAQ</button>
             </div>
           </div>
         );
@@ -71,24 +85,24 @@ function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 1
             <div className="dropdown-column">
               <h3>Products</h3>
               <Link to='/sell-transformers'>
-              <button className="dropdown-button">Transformers</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Transformers</button>
               </Link>
               <Link to='/sell-pvf'>
-              <button className="dropdown-button">Pipes, Valves, Fittings</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Pipes, Valves, Fittings</button>
               </Link>
               <Link to='/sell-electrical'>
-              <button className="dropdown-button">Electrical</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Electrical</button>
               </Link>
               <Link to='/sell-surplus'>
-              <button className="dropdown-button">Other Industrial Equipment</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Other Industrial Equipment</button>
               </Link>
             </div>
             <div className="dropdown-column">
               <h3>Services</h3>
               <Link to="/sell-surplus">
-              <button className="dropdown-button">Sell Your Surplus</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Sell Your Surplus</button>
               </Link>
-              <button className="dropdown-button">Rentals</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Rentals</button>
             </div>
           </div>
         );
@@ -105,10 +119,11 @@ function DropdownPortal({ activeMenu, setActiveMenu, dropdownOffset, baseTop = 1
           >
             <div className="dropdown-column">
               <h3>About Us</h3>
-              <button className="dropdown-button">Our Story</button>
-              <button className="dropdown-button">Leadership</button>
-              <button className="dropdown-button">History</button>
-              <button className="dropdown-button">Contact</button>
+              <Link to="/about-us">
+              <button className="dropdown-button" onClick={handleItemClick}>About Us</button>
+              </Link>
+              <button className="dropdown-button" onClick={handleItemClick}>History</button>
+              <button className="dropdown-button" onClick={handleItemClick}>Contact</button>
             </div>
           </div>
         );

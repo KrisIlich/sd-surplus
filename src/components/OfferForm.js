@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/OfferForm.css';
-import offerFormImage from '../assets/offer-form-image.png'; // swap in your actual asset
+import offerFormImage from '../assets/offer-form-image.png'; 
 
 export default function OfferForm() {
   const [files, setFiles] = useState([]);
@@ -11,7 +11,7 @@ export default function OfferForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // TODO: hook up to your backend
+    // TODO: hook up to backend
     alert('Form submitted!');
   }
 

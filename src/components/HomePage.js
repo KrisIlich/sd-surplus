@@ -78,14 +78,13 @@ function HomeBanner() {
         <div id="home-banner-container">
               <video 
               id="home-banner-video"
-              autoPlay      // start automatically
-              loop          // repeat endlessly
-              muted         // no audio
-              playsInline   // allows playback on mobile without full screen
+              autoPlay      
+              loop          
+              muted         
+              playsInline   
               style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             >
               <source src={bannerVideo} type="video/mp4" />
-              {/* fallback text if video can't play */}
               Your browser does not support the video tag.
             </video>
             <div id="home-banner-overlay"></div>
@@ -101,12 +100,9 @@ function HomeBanner() {
                 </div>
 
                 <div id="home-form">
-                  {/* White border container for SELL text, dropdown, and GET QUOTE */}
                   <div id="equipment-form-box">
-                    {/* SELL is now static text (e.g. <h4>) */}
                     <h4 id="sell-label">SELL</h4>
 
-                    {/* Transparent dropdown */}
                     <div className="dropdown-wrapper">
                       <select
                         id="equipment-select"
@@ -120,7 +116,6 @@ function HomeBanner() {
                       </select>
                     </div>
 
-                    {/* GET QUOTE button */}
                     <button
                       id="quote-button"
                       onClick={handleQuoteClick}
@@ -141,7 +136,7 @@ function MissionStatement() {
   useEffect(() => {
     let ctx = gsap.context(() => {
       gsap.to(bgRef.current, {
-        scaleY: 1.2 ,                     // grow height by 10%
+        scaleY: 1.2 ,                     
         transformOrigin: 'top center',
         ease: 'none',
         scrollTrigger: {
@@ -272,7 +267,7 @@ function LargeContent() {
       },
       {
         ref: rightRef,
-        from: { y: 0 },      // start 200px above
+        from: { y: 0 },     
         to:   { y:  -100, ease: 'none' },
         position: 0
       }

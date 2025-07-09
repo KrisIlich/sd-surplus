@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import '../styles/EducationalSection.css';
-
-// example hero images (swap in your real assets)
 import imgRoi      from '../assets/ed-roi.png';
 import imgMaintenance from '../assets/ed-maintenance.png';
 import imgPVFGuide from '../assets/ed-pvf.png';
@@ -34,7 +32,6 @@ export default function EducationalSection() {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // grab all of our article cards
       const cards = gsap.utils.toArray('.edu-card');
 
       gsap.fromTo(cards,

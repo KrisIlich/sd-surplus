@@ -283,7 +283,7 @@
 /* ===== CTA Grid ===== */
 .quote-cta {
   text-align: center;
-  padding: 6rem 1rem 7rem;
+  padding: 1rem 1rem 5rem;
 }
 
 /* …continued from earlier … */
@@ -299,8 +299,8 @@
 .cta-grid {
   display: grid;
   gap: 1.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  max-width: 1000px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -312,18 +312,19 @@
   color: var(--grey-mid);
   transition: 0.25s;
   padding-bottom: 14px;
+  box-shadow: 1px 10px 5px 1px #8080804d;
 }
 
 .cta-tile img {
   width: 100%;
-  height: 180px;
+  height: 350px;
   object-fit: cover;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   margin-bottom: 0.85rem;
 }
 
 .cta-tile span {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1rem;
 }
 
@@ -497,4 +498,145 @@
   .cta-grid     { grid-template-columns: 1fr; }
   .cta-tile     { width: 350px; margin: 0 auto; }
   .cta-tile img { height: 220px; }
+}
+
+/* ──────────────────────────────────────────
+   Uniform styling for <select> controls
+   (Pipe Grade dropdown on PVF calculator)
+   ────────────────────────────────────────── */
+.field select {
+  width: 100%;
+  border: 1px solid #c4c4c4;
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  background: #fff
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 12 7' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23333' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat right 0.8rem center;       /* custom arrow */
+  background-size: 12px 7px;
+  -webkit-appearance: none;              /* remove default arrow */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.field select:focus {
+  border-color: var(--blue-mid);
+  outline: none;
+}
+
+/* ─────────────────────────────────────────────────────
+   Advanced-options toggle
+   ──────────────────────────────────────────────────── */
+.adv-toggle {
+  width: 100%;
+  margin: 1.25rem 0;               /* space above & below */
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--blue-mid);
+  border-radius: 999px;            /* pill */
+  background: #fff;
+  color: var(--blue-mid);
+  font: 600 0.95rem/1 "Open Sans", sans-serif;
+  letter-spacing: .2px;
+  cursor: pointer;
+  transition: background .18s, color .18s, box-shadow .18s;
+}
+
+.adv-toggle:hover,
+.adv-toggle:focus {
+  background: var(--blue-mid);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.12);
+}
+
+.adv-toggle:active {
+  transform: translateY(1px);
+}
+
+/* when advanced section is open, invert colours */
+.adv-toggle.open {
+  background: var(--blue-mid);
+  color: #fff;
+}
+
+
+/* ───────────────────────────────────────────────────────────
+   RESULT CARD
+   ─────────────────────────────────────────────────────────── */
+.kva-result {
+  max-width: 700px;
+  margin: 2.5rem auto;
+  padding: 1.6rem 1.9rem;
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+}
+
+.kva-result h2 {
+  margin: 0 0 1.25rem;
+  text-align: center;
+  font-size: 1.35rem;
+}
+
+/* — table skeleton — */
+.kva-result .sizing-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .95rem;
+}
+.kva-result .sizing-table tr + tr {
+  border-top: 1px solid #ececec;
+}
+.kva-result .sizing-table tr.alt {
+  background: #efeeec;
+}
+
+/* • label column (left) */
+.kva-result .sizing-table td:first-child {
+  padding: .8rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* • value column (right) */
+.kva-result .sizing-table td:last-child {
+  padding: .8rem 1.25rem .8rem 0; /* extra right air */
+  text-align: right;
+}
+
+/* velocity cell ---------------------------------------------- */
+.vel-cell {
+  display: flex;
+  justify-content: flex-end;   /* whole pair flush right */
+  align-items: center;
+  gap: .55rem;                 /* space between number & dropdown */
+}
+
+.vel-val {                     /* numeric value */
+  min-width: 4.5rem;           /* keeps it from shifting */
+  text-align: right;
+}
+
+.vel-cell select {
+  padding: .15rem .5rem;
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+
+/* ─── Override any earlier heading size ---------------------------- */
+.chart-heading {
+  font-size: 1.25rem !important;  /* 20 px — overrides prior 0.75rem */
+  font-weight: 700 !important;
+  letter-spacing: .6px;
+  margin: 2.2rem 0 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  color: #12476a;
+}
+
+/* optional: tighten paragraph following a heading */
+.chart-heading + p,
+.chart-heading + ul {
+  margin-top: .6rem;
 }

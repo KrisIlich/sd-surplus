@@ -5,6 +5,7 @@ import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import "../styles/Guides.css";
 import Footer from "./Footer";
+import DownloadChartModal from './DownloadChartModal.js';
 
 /* --- images / icons for PVF ----------------------------------------- */
 import heroImg        from "../assets/pvf-offer-image2.png";
@@ -12,7 +13,13 @@ import iconSizing     from "../assets/icon-pvf-sizing.png";
 import iconTesting    from "../assets/icon-pvf-testing.png";
 import iconLifecycle  from "../assets/icon-pvf-lifecycle.png";
 import sellThumb      from "../assets/pvf-offer-image2.png";
-import boltChartImg   from "../assets/bolt-chart-asme-b16-5.png";   // ← NEW
+import boltChartImg   from "../assets/bolt-chart-asme-b16-5.png";  
+import transformerImg from "../assets/transformer-offer-image.png";
+import pvfImg         from "../assets/pvf-offer-image2.png";
+import electricalImg  from "../assets/electrical-offer-image2.png";
+import surplusImg     from "../assets/other-offer-image.png";
+
+
 
 /* --- static data for the three main PVF guides ----------------------- */
 const GUIDE_DATA = [
@@ -29,43 +36,55 @@ export default function PvfGuides() {
   const [subTab,   setSubTab]   = useState("chart");
   const [hasOverflow, setHasOverflow] = useState(false);
   const panelRef              = useRef(null);
+  const syncThumbRef = useRef(() => {});
+
+  /* --- use state for bolt chart download ----------------------------------------- */
+  const [modalOpen, setModalOpen] = useState(false);
 
 /* ================================================================
    ①  CUSTOM TRACK + THUMB (height & Y offset)
    ================================================================ */
-useEffect(() => {
-  const panel = panelRef.current;
-  if (!panel) return;
 
-  const track = panel.parentElement.querySelector(".scroll-track");
-  const thumb = track?.querySelector(".scroll-thumb");
-  if (!track || !thumb) return;
+/* ================================================================
+   ①  CUSTOM TRACK + THUMB  (height & Y offset)
+   ================================================================ */
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
 
-  /* helper that sizes the thumb and positions it */
-  const syncThumb = () => {
-    const { scrollTop, scrollHeight, clientHeight } = panel;
+    const track = panel.parentElement.querySelector(".scroll-track");
+    const thumb = track?.querySelector(".scroll-thumb");
+    if (!track || !thumb) return;
 
-    // --- size ---
-    const trackH  = track.clientHeight;
-    const thumbH  = Math.max((clientHeight / scrollHeight) * trackH, 40); // min 40 px
-    thumb.style.height = `${thumbH}px`;
+    /* helper that sizes the thumb and positions it */
+    const syncThumb = () => {
+      const { scrollTop, scrollHeight, clientHeight } = panel;
 
-    // --- position ---
-    const maxY = trackH - thumbH;                 // travel range
-    const pct  = scrollTop / (scrollHeight - clientHeight || 1);
-    thumb.style.top = `${pct * maxY}px`;
-  };
+      // — size —
+      const trackH = track.clientHeight;
+      const thumbH = Math.max((clientHeight / scrollHeight) * trackH, 40); // min 40 px
+      thumb.style.height = `${thumbH}px`;
 
-  // initial & listeners
-  syncThumb();
-  panel.addEventListener("scroll",  syncThumb);
-  window.addEventListener("resize", syncThumb);
+      // — position —
+      const maxY = trackH - thumbH;                 // travel range
+      const pct  = scrollTop / (scrollHeight - clientHeight || 1);
+      thumb.style.top = `${pct * maxY}px`;
+    };
 
-  return () => {
-    panel.removeEventListener("scroll",  syncThumb);
-    window.removeEventListener("resize", syncThumb);
-  };
-}, [active, subTab]);
+    /* make it visible to the drag-scroll effect */
+    syncThumbRef.current = syncThumb;
+
+    // initial + listeners
+    syncThumb();
+    panel.addEventListener('scroll',  syncThumb);
+    window.addEventListener('resize', syncThumb);
+
+    /* cleanup */
+    return () => {
+      panel.removeEventListener('scroll',  syncThumb);
+      window.removeEventListener('resize', syncThumb);
+    };
+  }, [active, subTab, hasOverflow]);           // ← same deps as before
 
   /* ================================================================
      ②   FADE / BLUR ANIMATION WHEN SWITCHING GUIDE
@@ -122,27 +141,39 @@ useEffect(() => {
     }
   }
 
-  /* drag-scroll (desktop + touch — pointer-events) */
-useEffect(() => {
-  const panel = panelRef.current;
-  if (!panel) return;
+  /* drag-scroll (desktop + touch — pointer events) */
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
 
-  let lastY = 0;
+    let lastY = 0;
 
-  const onPtrDown = (e) => {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;   // only left-click
+    const onPtrDown = (e) => {
+    /* 1 ─ ignore right / middle click (mouse only) */
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+    /* 2 ─ bail out only when the gesture begins on an interactive control */
+    if (
+      e.target.closest(
+        'button, a, input, textarea, select, [role="button"]'
+      )
+    ) {
+      return;                // let React deliver a normal click
+    }
+
+    /* 3 ─ continue with drag-scroll setup */
     lastY = e.clientY;
     panel.setPointerCapture(e.pointerId);
     panel.classList.add('drag-scroll');
     panel.style.cursor = 'grabbing';
-    e.preventDefault();                                       // block text-select
   };
 
   const onPtrMove = (e) => {
     if (!panel.hasPointerCapture(e.pointerId)) return;
-    const dy        = e.clientY - lastY;
-    panel.scrollTop -= dy;            // incremental delta
-    lastY            = e.clientY;
+    const dy = e.clientY - lastY;
+    panel.scrollTop -= dy;
+    lastY = e.clientY;
+    syncThumbRef.current();
     e.preventDefault();
   };
 
@@ -154,11 +185,10 @@ useEffect(() => {
     panel.style.cursor = '';
   };
 
-  panel.addEventListener('pointerdown',   onPtrDown, { passive: false });
-  panel.addEventListener('pointermove',   onPtrMove, { passive: false });
+  panel.addEventListener('pointerdown',   onPtrDown,   { passive: false });
+  panel.addEventListener('pointermove',   onPtrMove,   { passive: false });
   panel.addEventListener('pointerup',     endDrag);
   panel.addEventListener('pointercancel', endDrag);
-
   return () => {
     panel.removeEventListener('pointerdown',   onPtrDown);
     panel.removeEventListener('pointermove',   onPtrMove);
@@ -167,14 +197,6 @@ useEffect(() => {
   };
 }, []);
 
-
-  /* detect if scrollbar actually needed */
-  useEffect(() => {
-    const panel = panelRef.current;
-    if (!panel) return;
-    panel.scrollTop = 0;
-    setHasOverflow(panel.scrollHeight > panel.clientHeight);
-  }, [active, subTab]);
 
   
 
@@ -227,6 +249,19 @@ useEffect(() => {
         Quantity & Size of Bolts for Flanged Joints — ASME B 16.5
       </h3>
 
+      <p className="download-line">
+      Need a precise flange-bolt reference? Download the quantity and size of bolts chart for flanged joints.{' '}
+      
+      <div className = "chart-button">
+      <button
+        className = "cta-btn download-btn"
+        onClick={() => setModalOpen(true)}
+      >
+        Download the full ASME B16.5 sizing chart
+      </button>
+      </div>
+    </p>
+
       {/*  the wrapper that actually scrolls  */}
       <div className="bolt-chart__image-wrapper">
         <img
@@ -234,7 +269,6 @@ useEffect(() => {
           alt="Bolt quantity, diameter, stud length and ring number for ASME B16.5 flanges"
           className="bolt-chart-image"
           onLoad={(e) => {
-            /* tell React whether we need the custom scrollbar */
             const panel = e.target.closest(".selector-panel");
             if (panel) {
               const need = panel.scrollHeight > panel.clientHeight;
@@ -276,9 +310,6 @@ useEffect(() => {
     }
     return (<><SubTabBar options={tabs} />{content}</>);
   }
-
-  /* ...TestOverview, DiagnosticsWorkflow, MaintenanceIntervals
-      (unchanged – omitted here for brevity) ...                                               */
 
   function LifecyclePanel() {
     const tabs = [
@@ -336,8 +367,7 @@ useEffect(() => {
            <li><b>Seat Integrity</b> – ensure soft seats hold ≤0.01% leakage per industry guidelines.</li>
        </ul>
        <div className="btn-row" style={{ marginTop: "1rem" }}>
-           <a href="/pvf-calculator" className="cta-btn">Sizing Calculator</a>
-           <a href="/roi-calculator" className="cta-btn secondary">ROI Calculator</a>
+           <a href="/pvf-sizing" className="cta-btn">Sizing Calculator</a>
        </div>
        </>
    );
@@ -365,28 +395,47 @@ useEffect(() => {
 
 
    function MaintenanceIntervals() {
-   return (
-       <>
-       <h3 className="chart-heading">Recommended Maintenance Intervals</h3>
-       <table className="sizing-table">
-           <thead>
-           <tr>
-               <th>Component</th>
-               <th>Inspection</th>
-               <th>Re-seal</th>
-               <th>Full Overhaul</th>
-           </tr>
-           </thead>
-           <tbody>
-           <tr><td>Ball / Gate Valve</td>     <td>6 mo</td> <td>24 mo</td> <td>72 mo</td></tr>
-           <tr><td>Butterfly / Check Valve</td><td>12 mo</td><td>36 mo</td><td>84 mo</td></tr>
-           <tr><td>Pump Seals</td>            <td>3 mo</td> <td>18 mo</td> <td>60 mo</td></tr>
-           {/* …add more rows as needed… */}
-           </tbody>
-       </table>
-       </>
-   );
-   }
+  return (
+    <>
+      <h3 className="chart-heading">Recommended Maintenance Intervals</h3>
+
+      <table className="sizing-table">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Inspection&nbsp;<small>(visual / NDT)</small></th>
+            <th>Re-seal&nbsp;/ Minor Service</th>
+            <th>Full Overhaul&nbsp;/ Rebuild</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* ➊ Valves */}
+          <tr><td>Ball&nbsp;/ Gate Valve</td>              <td>6&nbsp;mo</td>  <td>24&nbsp;mo</td> <td>72&nbsp;mo</td></tr>
+          <tr><td>Butterfly&nbsp;/ Check Valve</td>        <td>12&nbsp;mo</td> <td>36&nbsp;mo</td> <td>84&nbsp;mo</td></tr>
+          <tr><td>Control Valve (ANSI 150-600)</td>        <td>6&nbsp;mo</td>  <td>18&nbsp;mo</td> <td>60&nbsp;mo</td></tr>
+          <tr><td>Pressure Safety Valve (PSV)</td>         <td>12&nbsp;mo</td> <td>—</td>         <td>60&nbsp;mo <small>(spring swap)</small></td></tr>
+
+          {/* ➋ Rotary / moving equipment */}
+          <tr><td>Pump Mechanical Seals</td>               <td>3&nbsp;mo</td>  <td>18&nbsp;mo</td> <td>60&nbsp;mo</td></tr>
+          <tr><td>Actuator (electric / pneumatic)</td>     <td>6&nbsp;mo</td>  <td>24&nbsp;mo</td> <td>72&nbsp;mo</td></tr>
+
+          {/* ➌ Static joints & filtration */}
+          <tr><td>Flange Gaskets (ASME PCC-1)</td>          <td>—</td>        <td>As-needed*</td> <td>60&nbsp;mo</td></tr>
+          <tr><td>Strainers / Y-Filters</td>               <td>1&nbsp;mo</td> <td>—</td>         <td>—</td></tr>
+          <tr><td>Instrumentation Taps / Manifolds</td>    <td>6&nbsp;mo</td>  <td>—</td>         <td>48&nbsp;mo</td></tr>
+        </tbody>
+      </table>
+
+      <p style={{ marginTop: '.6rem', fontSize: '.85rem' }}>
+      * Gasketed joints are normally inspected opportunistically at outage or
+      whenever broken. Replace whenever surfaces show creep relaxation per
+      <em>ASME&nbsp;PCC-1</em>. Adjust all intervals for temperature cycling,
+      vibration, and critical-service duty.
+    </p>
+    </>
+  );
+}
+
 
 
    /* ------------------------------------------------------------------
@@ -435,7 +484,7 @@ useEffect(() => {
            <li>Apply carbon credits for low-leakage upgrades</li>
            <li>Use ROI calculator for ESG alignment</li>
        </ul>
-       <a href="/sell-pvf-stock" className="cta-btn">
+       <a href="/sell-pvf" className="cta-btn">
            Sell Your PVF Inventory
        </a>
        </>
@@ -443,38 +492,29 @@ useEffect(() => {
    }
 
 
-   function CashflowModel() {
-   return (
-       <>
-       <h3 className="chart-heading">Repair vs Replace Cash-Flow Model</h3>
-       <table className="sizing-table">
-           <thead>
-           <tr>
-               <th>Line Item</th>
-               <th>Keep Running</th>
-               <th>Major Repair</th>
-               <th>New Replacement</th>
-               <th>Immediate Sale</th>
-           </tr>
-           </thead>
-           <tbody>
-           <tr><td>Seal Replacement</td>    <td>$2,000</td>  <td>$6,000</td>  <td>$10,000</td> <td>$4,000</td></tr>
-           <tr><td>Downtime Cost</td>       <td>$1,500</td>  <td>$5,000</td>  <td>$0</td>      <td>$0</td></tr>
-           <tr><td>Labor &amp; Parts</td>    <td>$500</td>    <td>$2,500</td>  <td>$0</td>      <td>$0</td></tr>
-           {/* …more rows as needed… */}
-           </tbody>
-       </table>
-       <ul className="roi-list">
-           <li>Embed carbon-savings credit where applicable</li>
-           <li>Model replacement COGS vs. overhaul CAPEX</li>
-       </ul>
-       <a href="/sell-pvf-stock" className="cta-btn">
-           Sell Your PVF Inventory
-       </a>
-       </>
-   );
-   }
+  function CashflowModel() {
+    return (
+      <>
+        <h3 className="chart-heading">Repair vs Replace — How to Decide</h3>
 
+        <ul className="roi-list">
+          <li><b>If parts fail every&nbsp;2 years or less, replace.</b> One premium component outlasts two reseal cycles and pays for itself by Year 2.</li>
+          <li><b>If shutdown costs more than $5 k a day, replace.</b> Lost throughput quickly dwarfs the purchase premium.</li>
+          <li><b>If you budget $50 k per skid for annual maintenance, replace.</b> Switching to spec-grade fittings cuts that line item by ~40 %.</li>
+          <li><b>If your capital hurdle rate is under 15 %, replace.</b> The full-upgrade path delivers ≈ 18 % IRR in most utility and midstream services.</li>
+          <li><b>If you can schedule service windows, consider one more repair.</b> Planned downtime lowers the “pain” of inexpensive reseals.</li>
+          <li><b>If corrosion pitting is visible, replace.</b> Wall-loss drives leaks faster than any gasket refresh can stop.</li>
+          <li><b>If the asset is in a non-critical loop, repair.</b> Cheap parts plus easy access make light fixes the economical choice.</li>
+          <li><b>If you expect to sell the unit within 5 years, replace.</b> Stainless and alloy components hold ≈ 12 % salvage value that you recoup at disposal.</li>
+          <li><b>Bottom line:</b> Two or more unscheduled repairs in a five-year window is the tipping point—budget for full replacement.</li>
+        </ul>
+
+        <a href="/sell-pvf" className="cta-btn">
+          Ready to Monetize Your Surplus?
+        </a>
+      </>
+    );
+  }
 
    function CarbonImpact() {
    return (
@@ -490,7 +530,7 @@ useEffect(() => {
            <li>Include compliance-credit revenues</li>
            <li>Apply ESG scoring for investor reporting</li>
        </ul>
-       <a href="/sell-pvf-stock" className="cta-btn">
+       <a href="/sell-pvf" className="cta-btn">
            Sell Your PVF Inventory
        </a>
        </>
@@ -504,7 +544,7 @@ useEffect(() => {
      RENDER
      =================================================================== */
   return (
-    <div className="kva-page">
+    <><div className="kva-page">
       {/* ---------- HERO ---------- */}
       <section className="guides-hero">
         <div className="guides-hero__text">
@@ -516,7 +556,7 @@ useEffect(() => {
           </p>
           <div className="cta-button-div">
             <a href="#guides" className="cta-btn">Browse Guides</a>
-            <a href="/sell-pvf-stock" className="cta-btn secondary">Sell Your PVF Inventory</a>
+            <a href="/sell-pvf" className="cta-btn secondary">Sell Your PVF Inventory</a>
           </div>
         </div>
         <div className="guides-hero__image">
@@ -580,17 +620,33 @@ useEffect(() => {
       </section>
 
       {/* ---------- CTA GRID ---------- */}
-      <section id="cta" className="quote-cta bg-white">
-        <h2>Ready to Monetise PVF Inventory?</h2>
+       {/* CTA GRID */}
+      <section className="quote-cta bg-white">
+        <h2>Ready to Sell Your Equipment?</h2>
         <div className="cta-grid">
-          <a href="/sell-pvf-stock" className="cta-tile">
-            <img src={sellThumb} alt="Sell PVF items" />
-            <span>Get a Cash Offer</span>
+          <a className="cta-tile" href="/sell-transformers">
+            <img src={transformerImg} alt="Transformers"/><span>Transformers</span>
+          </a>
+          <a className="cta-tile" href="/sell-PVF">
+            <img src={pvfImg} alt="PVF"/><span>PVF</span>
+          </a>
+          <a className="cta-tile" href="/sell-electrical">
+            <img src={electricalImg} alt="Electrical"/><span>Electrical</span>
+          </a>
+          <a className="cta-tile" href="/sell-surplus">
+            <img src={surplusImg} alt="Other"/><span>Other Equipment</span>
           </a>
         </div>
       </section>
 
       <Footer />
+
     </div>
+    <DownloadChartModal
+      open={modalOpen}
+      onClose={() => setModalOpen(false)}
+      fileSrc="/assets/bolt-chart-asme-b16-5.png"   
+      fileName="bolt-chart-asme-b16-5.png"
+    /></>
   );
 }

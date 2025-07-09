@@ -12,6 +12,10 @@ import iconSub   from "../assets/icon-substation.png";
 import iconOem   from "../assets/icon-oem.png";
 import iconTest  from "../assets/icon-testing.png";
 import sellThumb from "../assets/transformer-offer-image.png";
+import transformerImg from "../assets/transformer-offer-image.png";
+import pvfImg         from "../assets/pvf-offer-image2.png";
+import electricalImg  from "../assets/electrical-offer-image2.png";
+import surplusImg     from "../assets/other-offer-image.png";
 
 /* --- static data for the three main guides -------------------------- */
 const GUIDE_DATA = [
@@ -20,7 +24,7 @@ const GUIDE_DATA = [
     icon: iconSub,
     title: "Selection & Sizing",
     blurb:
-      "Determine pad-mount vs walk-in designs, kVA tables, and primary/secondary voltage picks per IEEE C57."
+      "Determine designs, kVA tables, and primary/secondary voltage picks per IEEE C57."
   },
   {
     id: "test",
@@ -398,13 +402,21 @@ export default function TransformerGuides() {
         </div>
       </section>
 
-      {/* ---------- CTA GRID ---------- */}
-      <section id="cta" className="quote-cta bg-white">
-        <h2>Ready to Monetise Surplus Transformers?</h2>
+      {/* CTA GRID */}
+      <section className="quote-cta bg-white">
+        <h2>Ready to Sell Your Equipment?</h2>
         <div className="cta-grid">
-          <a href="/sell-transformers" className="cta-tile">
-            <img src={sellThumb} alt="Sell transformers" />
-            <span>Get a Cash Offer</span>
+          <a className="cta-tile" href="/sell-transformers">
+            <img src={transformerImg} alt="Transformers"/><span>Transformers</span>
+          </a>
+          <a className="cta-tile" href="/sell-PVF">
+            <img src={pvfImg} alt="PVF"/><span>PVF</span>
+          </a>
+          <a className="cta-tile" href="/sell-electrical">
+            <img src={electricalImg} alt="Electrical"/><span>Electrical</span>
+          </a>
+          <a className="cta-tile" href="/sell-surplus">
+            <img src={surplusImg} alt="Other"/><span>Other Equipment</span>
           </a>
         </div>
       </section>
