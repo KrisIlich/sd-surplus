@@ -52,4 +52,23 @@
   .carousel-control svg {
     display: block;
   }
+
+    @media (max-width: 975px) {
+    .logo-item{
+      width: 150px;
+    }
+  }
   
+
+  @media (max-width: 750px) {
+    .logo-item{
+      width: 125px;
+    }
+  }
+
+  
+  @media (max-width: 750px) {
+    .logo-item{
+      width: 125px;
+    }
+  }

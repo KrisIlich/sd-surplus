@@ -35,15 +35,13 @@ function GetOfferCTA({ onOfferClick }) {
     <section className="get-offer-cta">
       <div className="offer-left">
         <h2>
-          Get an offer on
-          <br /> your surplus
-          <br /> transformers
+          Get an offer on your surplus transformers
         </h2>
         <p>
           We’ll send you a no‑obligation quote fast—just tell us what
           transformers you have, and we’ll handle the rest. Click on
           <em>Get an Offer</em> and fill out the inquiry form or call toll‑free at
-          888‑123‑4567.
+          <a href="tel:8008852369" className="phone-link"> 800-885-2369</a>
         </p>
         <span className="btn-offer-wrap">
           <button className="btn-offer" onClick={onOfferClick}>

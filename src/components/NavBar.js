@@ -381,7 +381,7 @@ function handleItemClick() {
                 PERSISTENT FOOTER  (phone + CTA)
             ─────────────────────────────────────────── */}
             
-                        <div className="mobile-cta-wrapper" data-mobile-cta>
+                <div className="mobile-cta-wrapper" data-mobile-cta>
                 <a href="tel:8008852369" className="phone-link">
                 <div className="phone-wrapper">
                     <img src={phoneIcon} alt="" className="phone-icon" />

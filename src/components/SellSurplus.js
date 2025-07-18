@@ -36,10 +36,10 @@ function GetOfferCTA({onOfferClick}) {
     return (
       <section className="get-offer-cta">
         <div className="offer-left">
-          <h2>Get an offer on<br/> your industrial<br/> surplus equipment</h2>
+          <h2>Get an offer on your industrial surplus equipment</h2>
           <p>
             We’ll send you a no-obligation quote fast, just tell us what you have,
-            and we’ll handle the rest. Click on get an offer and fill out the inquiry form or call toll free at 888-123-4567.
+            and we’ll handle the rest. Click on get an offer and fill out the inquiry form or call toll free at <a href="tel:8008852369" className="phone-link"> 800-885-2369</a>
           </p>
           <span className="btn-offer-wrap">
             <button className="btn-offer" onClick={onOfferClick}>

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { Link } from 'react-router-dom';
 import '../styles/EducationalSection.css';
@@ -9,6 +9,7 @@ import imgPVFGuide    from '../assets/ed-pvf.png';
 
 export default function EducationalSection() {
   const sectionRef = useRef(null);
+  const rowRef     = useRef(null)
 
   const posts = [
     {
@@ -31,32 +32,44 @@ export default function EducationalSection() {
     }
   ];
 
-  /* keep the card‑fade animation exactly as before */
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.edu-card',
-        { opacity: 0, filter: 'blur(20px)', scale: 0.5 },
-        {
-          opacity: 1, filter: 'blur(0)', scale: 1,
-          duration: 0.3, stagger: 0.03,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start:   'top 55%',
-            toggleActions: 'play none none none'
+    useEffect(() => {
+      const ctx = gsap.context(() => {
+        gsap.to('.edu-card',{
+          opacity:1, filter:'blur(0)', scale:1,
+          duration:.3, stagger:.03,
+          scrollTrigger:{
+            trigger:sectionRef.current,
+            start:'top 55%',
+            toggleActions:'play none none none'
           }
-        }
-      );
-    }, sectionRef);
-    return () => ctx.revert();
+        });
+      }, sectionRef);
+      return () => ctx.revert();
+    }, []);
+
+    // keep the scroller parked at the far‑left on mount & whenever we enter mobile
+  useLayoutEffect(() => {
+    const row = rowRef.current;
+    if (!row) return;
+
+    const snapLeft = () => {
+      if (window.innerWidth <= 650) {
+        row.scrollLeft = 0;            // instant – happens before paint
+      }
+    };
+
+    snapLeft();                        // run on mount
+    window.addEventListener('resize', snapLeft);
+    return () => window.removeEventListener('resize', snapLeft);
   }, []);
+
 
   return (
     <section className="edu-section" ref={sectionRef}>
       <h1 className="edu-heading">Discover, Learn & Thrive with S&amp;D</h1>
 
       {/* ▼‑‑‑ now flex, not grid ‑‑‑▼ */}
-      <div className="edu-card-row">
+      <div className="edu-card-row" ref={rowRef}>
         {posts.map(({ img, title, desc, link }, idx) => (
           <Link key={idx} to={link} className="edu-card">
             <img src={img} alt={title} />
