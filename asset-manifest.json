@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sd-surplus/static/css/main.e2b8e2cf.css",
-    "main.js": "/sd-surplus/static/js/main.37dda586.js",
+    "main.css": "/sd-surplus/static/css/main.a927b815.css",
+    "main.js": "/sd-surplus/static/js/main.e3af095d.js",
     "static/js/453.712dcafb.chunk.js": "/sd-surplus/static/js/453.712dcafb.chunk.js",
     "static/media/bannerVideo.mp4": "/sd-surplus/static/media/bannerVideo.dde932770b46a22f73a2.mp4",
     "static/media/transformer-hero.png": "/sd-surplus/static/media/transformer-hero.50a6cc81cff6d6b3a1b5.png",
@@ -74,12 +74,12 @@
     "static/media/chat.svg": "/sd-surplus/static/media/chat.cc813bbe4997b1137712309b85f667aa.svg",
     "index.html": "/sd-surplus/index.html",
     "static/media/chevron-right.svg": "/sd-surplus/static/media/chevron-right.e7d1c5958ea417f711c20acaf385e71e.svg",
-    "main.e2b8e2cf.css.map": "/sd-surplus/static/css/main.e2b8e2cf.css.map",
-    "main.37dda586.js.map": "/sd-surplus/static/js/main.37dda586.js.map",
+    "main.a927b815.css.map": "/sd-surplus/static/css/main.a927b815.css.map",
+    "main.e3af095d.js.map": "/sd-surplus/static/js/main.e3af095d.js.map",
     "453.712dcafb.chunk.js.map": "/sd-surplus/static/js/453.712dcafb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e2b8e2cf.css",
-    "static/js/main.37dda586.js"
+    "static/css/main.a927b815.css",
+    "static/js/main.e3af095d.js"
   ]
 }
