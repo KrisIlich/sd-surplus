@@ -1,109 +1,182 @@
-/* 1) Section wrapper + heading */
-.edu-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 8rem;
-    background-color: #F4F3F4;
-    width: 100%;
-    padding-bottom: 12rem;
+/* ──────────────────────────────────────────────
+   1. Section wrapper + heading
+   ──────────────────────────────────────────── */
+.edu-section{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+  padding:20px 20px 12rem;
+  background:#F4F3F4;
+}
+
+.edu-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;
+  letter-spacing:.03em;
+  color:#2f4858;
+  margin:0 0 2rem;
+  text-align:center;
+  padding-top:2rem;
+}
+
+/* ──────────────────────────────────────────────
+   2. Flex container (replaces .edu-card-grid)
+   ──────────────────────────────────────────── */
+.edu-card-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:2rem 3rem;
+  max-width:1200px;
+  width:100%;
+}
+
+/* ──────────────────────────────────────────────
+   3. Individual card
+   ──────────────────────────────────────────── */
+.edu-card{
+  flex:0 1 25%;          /* shrink‑to‑fit but no smaller than 300 px  */
+  max-width:400px;         /* same cap you had before                   */
+  display:flex;
+  flex-direction:column;
+  background:#fafafa;
+  border-radius:12px;
+  box-shadow:rgba(45,35,66,.1) 0 4px 8px;
+  overflow:hidden;
+  opacity:0;               /* for GSAP */
+  filter:blur(20px);       /* for GSAP */
+  transform:scale(1.1);    /* for GSAP */
+}
+.edu-card:hover{
+  transform:translateY(-4px);
+  box-shadow:rgba(45,35,66,.15) 0 8px 16px;
+}
+
+/* image */
+.edu-card img{
+  width:100%;
+  height:300px;
+  object-fit:cover;
+}
+
+/* body */
+.edu-card-body{
+  padding:1.5rem;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+/* tag */
+.edu-tag{
+  font:600 .85rem/1 'Open Sans',sans-serif;
+  text-transform:uppercase;
+  color:#888;
+  margin-bottom:.5rem;
+}
+
+/* title & desc */
+.edu-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.25rem;
+  letter-spacing:.03em;
+  color:#2f4858;
+  margin:0 0 .75rem;
+}
+.edu-desc{
+  flex:1;
+  font:.9rem/1.4 'Open Sans',sans-serif;
+  color:#555;
+  margin:0 0 1rem;
+}
+
+/* read‑more */
+.learn-more{
+  font:600 .9rem/1 'Open Sans',sans-serif;
+  color:#33658A;
+  transition:color .2s;
+}
+.learn-more:hover{ color:#20415a; }
+
+/* ──────────────────────────────────────────────
+   4. Responsiveness
+   ──────────────────────────────────────────── */
+
+/* Stack two‑up-ish before mobile */
+@media(max-width:1200px){
+  .edu-card{ flex:0 1 25%; }
+}
+
+/* Pure horizontal carousel at ≤650 px */
+@media(max-width:650px){
+  .edu-card-row{
+    flex-wrap:nowrap;           /* one long row       */
+    overflow-x:auto;            /* side‑scroll        */
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+    gap:1rem;
+    padding-bottom:1rem;        /* room for scrollbar */
+    justify-content: flex-start;
   }
-  .edu-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    color: #2f4858;
-    margin-bottom: 2rem;
-    text-align: center;
-    letter-spacing: 0.03em;
-    margin-bottom: 5rem;
+  .edu-card{
+    flex:0 0 45%;               /* show one‑and‑a‑bit */
+    max-width:none;
+    scroll-snap-align:start;
   }
-  
-  /* 2) 3-column responsive grid */
-  .edu-card-grid {
-    display: grid;
-    width: 100%;
-    max-width: 1200px;
-    gap: 2rem 3rem;
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(300px, 1fr)
-    );
-    justify-items: center;
+}
+
+/* --- extra comfort at ≤ 500 px ----------------------------- */
+@media (max-width:500px){
+
+  /* give the row 16 px padding on both sides
+     and tell scroll‑snap to treat that as the ‘edge’ */
+  .edu-card-row{
+    padding-inline:1rem;          /* 16 px left & right */
+    scroll-padding-left:0rem;     /* start snapping after the padding */
   }
-  
-  /* 3) Individual card, vertical layout */
-  .edu-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 400px;
-    background: #fafafa;
-    border-radius: 12px;
-    box-shadow: rgba(45, 35, 66, .1) 0 4px 8px;
-    overflow: hidden;
-    opacity: 0;
-    filter:  blur(20px);
-    transform: scale(1.1);
-    transition: none; /* GSAP will drive the animation */
+
+  /* optional: let each card breathe a bit more on tiny screens */
+  .edu-card{
+    flex:0 0 75%;                 /* shows a sliver of the next card */
   }
-  .edu-card:hover {
-    transform: translateY(-4px);
-    box-shadow: rgba(45, 35, 66, .15) 0 8px 16px;
-  }
-  
-  /* 4) Top image */
-  .edu-card-image {
-    width: 100%;
-    height: 300px;       /* adjust as you like */
-    object-fit: cover;
-  }
-  
-  /* 5) Body/content */
-  .edu-card-body {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  
-  /* 6) Type label */
-  .edu-card-type {
-    font-family: 'Open Sans', sans-serif;
-    font-size: .85rem;
-    font-weight: 600;
-    color: #888;
-    text-transform: uppercase;
-    margin-bottom: .5rem;
-  }
-  
-  /* 7) Title */
-  .edu-card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.25rem;
-    color: #2f4858;
-    margin: 0 0 .75rem;
-    letter-spacing: 0.03em;
-  }
-  
-  /* 8) Description */
-  .edu-card-desc {
-    flex: 1;
-    font-family: 'Open Sans', sans-serif;
-    font-size: .9rem;
-    line-height: 1.4;
-    color: #555;
-    margin: 0 0 1rem;
-  }
-  
-  /* 9) Read link */
-  .edu-learn-more {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
-    color: #33658A;
-    text-decoration: none;
-    transition: color .2s ease;
-  }
-  .edu-learn-more:hover {
-    color: #20415a;
-  }
-  
+
+  /* optional: slightly tighter inner padding so text never hugs the edges */
+  .edu-card-body{ padding: 1rem; }
+}
+
+
+
+/* -------------------------------------------------
+   TYPOGRAPHY – fluid sizes with clamp()
+   ------------------------------------------------- */
+
+/* 1. Section headline */
+.edu-heading{
+  /* min: 1.4rem · ideal: 6vw · max: 2.75rem */
+  font-size: clamp(1.1rem, 6vw + .2rem, 2.5rem);
+}
+
+/* 2. Card title */
+.edu-title{
+  /* min: 1.05rem · ideal: 4.8vw · max: 1.35rem */
+  font-size: clamp(1.05rem, 4.8vw + .1rem, 1rem);
+}
+
+/* 3. Card description */
+.edu-desc{
+  /* min: .85rem · ideal: 3.5vw · max: .95rem */
+  font-size: clamp(.75rem, 3.5vw + .1rem, .5rem);
+}
+
+/* 4. “Read article →” link */
+.learn-more{
+  /* min: .8rem · ideal: 3.2vw · max: .9rem */
+  font-size: clamp(.7rem, 3.2vw + .05rem, .9rem);
+}
+
+/* 5. Optional tag text */
+.edu-tag{
+  /* min: .75rem · ideal: 2.8vw · max: .85rem */
+  font-size: clamp(.65rem, 2.8vw + .05rem, .85rem);
+}

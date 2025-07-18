@@ -1,97 +1,155 @@
-/* container + heading */
-.page-card-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 7rem;
-  }
-  .cards-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 5rem;
-    color: #2f4858;
-    letter-spacing: 0.03em;
-  }
-  
-  /* grid */
-  .product-card-grid {
-    display: grid;
-    width: 100%;
-    max-width: 1200px;                            /* keeps everything from stretching too wide */
-    gap: 2rem 3rem;                               /* row-gap / col-gap */
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(380px, 1fr)                         /* each card at least 280px, at most 1fr */
-    );
-    justify-items: center;                        /* center cards in their tracks */
-  }
-  
- /* src/styles/ProductCards.css */
+/* ──────────────────────────────────────────────
+   0.  Section wrapper + heading (unchanged)
+────────────────────────────────────────────── */
+.page-card-grid{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+}
+.cards-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size: clamp(1rem, 4vw + .2rem, 3rem);
+  text-align:center;
+  margin-bottom:2rem;
+  color:#2f4858;
+  letter-spacing:.03em;
+  padding: 20px;
+}
 
-/* …keep everything above this the same… */
+/* ──────────────────────────────────────────────
+   1.  FLEX container  (replaces .product-card-grid)
+────────────────────────────────────────────── */
+.product-card-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:2rem 3rem;        /* row‑gap / col‑gap */
+  max-width:1200px;
+  width:100%;
+  margin:0 auto;
+  padding-bottom:4rem;
+}
 
-.product-card {
-    display: flex;
-    flex-direction: row;
-    width: 500px;               /* fix card width to ~400px */
-    height: 200px;              /* keep the same height */
-    background: #fafafa;
-    border-radius: 12px;
-    box-shadow: rgba(45, 35, 66, .1) 0 4px 8px;
-    overflow: hidden;
-    transition: transform .2s ease, box-shadow .2s ease;
-    opacity:      0;
-    filter:       blur(20px);
-    transform:    scale(1.1);
+/* ──────────────────────────────────────────────
+   2.  Card – desktop defaults
+────────────────────────────────────────────── */
+.product-card{
+  flex:0 1 480px;       /* shrink‑wrap to ≥ 380 px, grow up to 1fr   */
+  max-width:500px;      /* don’t sprawl on ultrawide monitors        */
+  height:200px;
+
+  display:flex;
+  background:#fafafa;
+  border-radius:12px;
+  box-shadow:rgba(45,35,66,.1) 0 4px 8px;
+  overflow:hidden;
+  transition:transform .2s ease, box-shadow .2s ease;
+
+  /* GSAP start state */
+  opacity:0; filter:blur(20px); transform:scale(1.1);
+}
+.product-card:hover{
+  transform:translateY(-4px);
+  box-shadow:rgba(45,35,66,.15) 0 8px 16px;
+}
+
+/* thumbnail */
+.card-image{
+  flex:0 0 40%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* body */
+.card-body{
+  flex:1 1 60%;
+  padding:1.5rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.card-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.25rem;
+  margin:0 0 .75rem;
+  color:#2f4858;
+  letter-spacing:.03em;
+}
+.card-desc{
+  font:.9rem/1.35 'Open Sans',sans-serif;
+  color:#555;
+}
+
+
+/* keep two tiles per row between 651 px and 900 px */
+@media (max-width: 900px) and (min-width: 651px){
+  .product-card{
+    flex: 0 0 calc(50% - 1.5rem);  /* 1.5 rem = half of the 3 rem gap  */
   }
-  .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: rgba(45, 35, 66, .15) 0 8px 16px;
+}
+
+/* ──────────────────────────────────────────────
+   4.  MINI‑TILES  ·  two‑across at ≤ 650 px
+────────────────────────────────────────────── */
+@media(max-width:1000px){
+  .product-card-row{
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:1rem;
+    padding:0 20px 60px;
   }
-  
-  /* constrain the left image to roughly 40% of the card’s width */
-  .card-image {
-    flex: 0 0 40%;
-    height: 100%;
-    object-fit: cover;
+
+  .product-card{
+    flex:0 0 calc(50% - 1.5rem); /* two tiles per row */
+    max-width:none;
+    max-height:80px;
+    background:#F4F3F4;
   }
-  
-  /* give the card-body the remaining space and center it vertically */
-  .card-body {
-    flex: 1;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+  .card-image{ flex:0 0 20%; }
+  .card-body{
+    flex:1 1 80%;
+    padding:.6rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    min-width:0;          /* allow text to wrap */
   }
-  
-  /* you can remove the old width/height rules on .card-image */
-  
-  .card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.25rem;
-    margin: 0 0 .75rem;
-    color: #2f4858;
-    letter-spacing: 0.03em;
+  .card-title{ font-size:.9rem; }
+  .card-desc{ display:none; }
+}
+
+/* ──────────────────────────────────────────────
+   5.  ULTRA‑SMALL tweaks  ·  ≤ 430 px
+────────────────────────────────────────────── */
+@media(max-width:435px){
+  .product-card-row{ gap:.55rem; }
+
+  .product-card{
+    flex:0 0 calc(50% - 0.375rem);
+    max-height:58px;
   }
-  .card-desc {
-    font-family: 'Open Sans', sans-serif;
-    font-size: .9rem;
-    color: #555;
-    flex: 1;
-    margin-bottom: 1rem;
+
+  .card-image{ flex:0 0 18%; }
+  .card-body{ padding:.4rem; }
+  .card-title{ font-size:.75rem; }
+}
+
+/* ──────────────────────────────────────────────
+   5.  ULTRA‑SMALL tweaks  ·  ≤ 430 px
+────────────────────────────────────────────── */
+@media(max-width:430px){
+  .product-card-row{ gap:.55rem; }
+
+  .product-card{
+    flex:0 0 calc(48% - .0rem);
+    max-height:58px;
   }
-  
-  /* link */
-  .learn-more {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
-    text-decoration: none;
-    color: #33658A;
-    transition: color .2s ease;
-  }
-  .learn-more:hover {
-    color: #20415a;
-  }
-  
+
+  .card-image{ flex:0 0 18%; }
+  .card-body{ padding:.2em; }
+  .card-title{ font-size:.75rem; }
+}
+

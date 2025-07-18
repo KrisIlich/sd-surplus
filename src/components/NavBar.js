@@ -3,9 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import "../styles/NavBar.css";
 import logo from "../assets/logo.png";
+import phoneIcon from "../assets/icons/phone.png"
 import {Link, useNavigate} from 'react-router-dom';
 import { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
+import { ArrowLeft } from 'lucide-react';
 
 
 
@@ -25,6 +27,7 @@ const mobileRef = useRef(null);
 const burgerRef   = useRef(null);
 const tlRef = useRef(null);
 const navigate = useNavigate();
+const panel = mobileRef.current;
 
 
 const closeDrawer = () => {
@@ -40,7 +43,6 @@ const MOBILE_ITEMS = {
     { label: 'Transformers',    to: '/sell-transformers' },
     { label: 'Pipes • Valves • Fittings', to: '/sell-pvf' },
     { label: 'Electrical',      to: '/sell-electrical'  },
-    { label: 'Sell Your Surplus', to: '/sell-surplus'   }
   ],
   resources: [
     { label: 'Transformer Guide',  to: '/transformer-guides' },
@@ -56,6 +58,44 @@ const MOBILE_ITEMS = {
   ]
 };
 
+useLayoutEffect(() => {
+  if (panel) gsap.set(panel, { xPercent: 100 });   // drawer lives off‑canvas
+}, []);
+
+/////////////////lock body
+useEffect(() => {
+  let scrollY = 0;
+
+  if (mobileOpen) {
+    scrollY = window.scrollY;
+    // lock the page at current scroll
+    document.body.style.position = 'fixed';
+    document.body.style.top      = `-${scrollY}px`;
+    document.body.style.left     = '0';
+    document.body.style.right    = '0';
+    // HIDE the scrollbar
+    document.documentElement.style.overflow = 'hidden';
+  } else {
+    // unlock
+    document.body.style.position = '';
+    document.body.style.top      = '';
+    document.body.style.left     = '';
+    document.body.style.right    = '';
+    // restore scrollbar
+    document.documentElement.style.overflow = '';
+    // jump back to where you were
+    window.scrollTo(0, scrollY);
+  }
+
+  return () => {
+    // cleanup on unmount
+    document.body.style.position            = '';
+    document.body.style.top                 = '';
+    document.body.style.left                = '';
+    document.body.style.right               = '';
+    document.documentElement.style.overflow = '';
+  };
+}, [mobileOpen]);
 
 useEffect(() => {
     function handleScroll() {
@@ -95,42 +135,37 @@ function handleItemClick() {
     /* ------------------------------------------------------------------
         GSAP – fire when the drawer opens, reverse when it closes
         -------------------------------------------------------------------*/
-        useEffect(() => {
-        if (!mobileOpen) return;            // run only when the drawer is opening
-        if (!mobileRef.current) return;
+ useEffect(() => {
+  if (!mobileRef.current) return;
+  if (!window.matchMedia('(max-width:1050px)').matches) return;
 
-        // 1) get fresh nodes (top-level or current submenu)
-        const items = mobileRef.current.querySelectorAll('[data-mobile-item]');
-        if (!items.length) return;
+  const panel = mobileRef.current;
 
-        // 2) clean up any previous tween
-        tlRef.current?.kill();
+  /* 1️⃣  Always slide the drawer itself */
+  gsap.to(panel, {
+    xPercent: mobileOpen ? 0 : 100,
+    duration: 0.45,
+    ease: 'power3.out',
+  });
 
-        // 3) set start-values, then animate in
-        gsap.set(items, { x: 250, autoAlpha: 0 });
+  /* 2️⃣  MAIN LIST — no animation, just make sure it’s visible */
+  if (!mobileMenuKey) {
+    const items = panel.querySelectorAll('[data-mobile-item]');
+    const cta   = panel.querySelector('[data-mobile-cta]');
+    gsap.set([...items, cta], { autoAlpha: 1, y: 0 });
+    return;                       // stop; no further tween
+  }
 
-        tlRef.current = gsap.to(items, {
-            x: 0,
-            autoAlpha: 1,
-            duration: 1.55,
-            stagger: 0.07,
-            ease: 'power4.out',
-        });
-
-        // 4) optional: tidy up when component unmounts
-        return () => tlRef.current?.kill();
-        }, [mobileOpen, mobileMenuKey]);   // ← rebuild whenever either changes
-
-        useEffect(() => {
-        const tl = tlRef.current;
-        if (!tl) return;
-
-        if (mobileOpen) {
-            tl.restart();   // rewinds to frame 0 *and* plays forward
-        } else {
-            tl.reverse();   // sweeps everything back off-canvas
-        }
-        }, [mobileOpen]);
+  /* 3️⃣  SUBMENU — keep the sweep‑in */
+  const sub = panel.querySelector('.mobile-sub');
+  if (sub) {
+    gsap.fromTo(
+      sub,
+      { xPercent: 100 },
+      { xPercent: 0, duration: 0.5, ease: 'expo.out' }
+    );
+  }
+}, [mobileOpen, mobileMenuKey]);
 
 
             
@@ -163,55 +198,24 @@ function handleItemClick() {
   }, [mobileOpen]);
 
 
-  /* ------------------------------------------------------------------
-    GSAP – solo bounce for the CTA
-    -------------------------------------------------------------------*/
-    useEffect(() => {
-    if (!mobileOpen) {
-        // drawer is closed → make sure CTA is hidden & tiny
-        const cta = mobileRef.current?.querySelector('[data-mobile-cta]');
-        if (cta) gsap.set(cta, { scale: 0, autoAlpha: 0 });
-        return;
-    }
-
-    // drawer just opened
-    const menuLinks = mobileRef.current?.querySelectorAll('[data-mobile-item]');
-    const cta       = mobileRef.current?.querySelector('[data-mobile-cta]');
-    if (!cta || !menuLinks?.length) return;
-
-    /*  — when should the bounce start? —
-        main link tween:
-            duration  = 1.55 s
-            stagger   = 0.07 s
-            linkCount = menuLinks.length
-        last link finishes at:
-            1.55 + (linkCount - 1) * 0.07
-        add a hair (0.05 s) so the CTA begins *after* that */
-    const delay =
-      1 + (menuLinks.length - 1) * 0.07 + 0.05;
-
-    // build the little pop
-    gsap.set(cta, { scale: 0, autoAlpha: 0 });
-
-    gsap
-        .timeline()
-        .to(
-        cta,
-        {
-            scale: 1.1,
-            autoAlpha: 1,
-            duration: 0.25,
-            ease: 'power2.out',
-            delay,          // wait until links are in place
+        /* ────────────────────────────────────────────────────────
+        AUTO‑CLOSE drawer when window exceeds 1050 px
+        ──────────────────────────────────────────────────────── */
+        useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth > 1050) {
+            // 1) force the panel off‑canvas
+            gsap.set(mobileRef.current, { xPercent: 100 });
+            // 2) reset React state so future clicks work as expected
+            setMobileOpen(false);
+            setMobileMenuKey(null);
+            }
         }
-        )
-        .to(cta, {
-        scale: 1,
-        duration: 0.15,
-        ease: 'power2.out',
-        });
-    }, [mobileOpen, mobileMenuKey]);   // rebuild whenever the drawer (or submenu) opens
 
+        handleResize();                    // run once on mount
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+        }, []);
 
 
     return (
@@ -264,17 +268,24 @@ function handleItemClick() {
             </div>
 
             {/* ───────── Hamburger Icon ───────── */}
+            <div className="mobile-icon-wrapper">
+            {mobileOpen && mobileMenuKey && (
+                <button className="back-btn" onClick={() => setMobileMenuKey(null)}>
+                <ArrowLeft className="back-icon" />
+                </button>
+            )}
             <div
-            ref={burgerRef}
-            className={`menu-icon ${mobileOpen ? 'is-active' : ''}`}   // ← add is-active class
-            onClick={e => {
-                e.stopPropagation();          // <-- keeps a close click from re-opening
+                ref={burgerRef}
+                className={`menu-icon ${mobileOpen ? 'is-active' : ''}`}
+                onClick={e => {
+                e.stopPropagation();
                 setMobileOpen(p => !p);
-            }}
+                }}
             >
             <span className="menu-icon__line menu-icon__line-left"></span>
             <span className="menu-icon__line"></span>
             <span className="menu-icon__line menu-icon__line-right"></span>
+                </div>
             </div>
             
 
@@ -283,27 +294,29 @@ function handleItemClick() {
                 ref={mobileRef}  
                 className={`mobile-menu ${mobileOpen ? "open" : ""}`}
             >
+            
+           {/* ───────────────────────────────────────────
+                SLIDING ZONE  (main list + sub‑menu)
+            ─────────────────────────────────────────── */}
+            <div className="mobile-content">
 
-           {/*  STEP 1 – top level  */}
-            {!mobileMenuKey && (
-            <>
-                <ul className="mobile-top-list">
+            {/* STEP 1 – top‑level menu  */}
+            <ul className="mobile-top-list">
                 {['home', 'products', 'resources', 'who'].map((key) => (
-                    <li key={key}>
+                <li key={key}>
                     <button
-                        data-mobile-item
-                        className="mobile-top"
-                        onClick={() => {
+                    data-mobile-item
+                    className="mobile-top"
+                    onClick={() => {
                         if (key === 'home') {
-                            closeDrawer();
-                            navigate('/')
-                            
+                        closeDrawer();
+                        navigate('/');
                         } else {
-                            setMobileMenuKey(key);  // open submenu
+                        setMobileMenuKey(key);   // opens sub‑menu
                         }
-                        }}
+                    }}
                     >
-                        {key === 'home'
+                    {key === 'home'
                         ? 'Home'
                         : key === 'products'
                         ? 'Products & Services'
@@ -311,35 +324,71 @@ function handleItemClick() {
                         ? 'Resources'
                         : 'Who We Are'}
                     </button>
-                    </li>
+                </li>
                 ))}
-                </ul>
-            </>
-            )}
-            {/*  STEP 2 – second level  */}
+            </ul>
+
+            {/* STEP 2 – sub‑menu (slides over main list) */}
             {mobileMenuKey && (
                 <div className="mobile-sub">
-                <button className="back-btn" onClick={()=>setMobileMenuKey(null)}>
-                    ← Back
-                </button>
-                {MOBILE_ITEMS[mobileMenuKey].map(({label,to})=>(
-                    <Link
-                    data-mobile-item
-                    key={label}
-                    to={to}
-                    onClick={()=>{
-                        closeDrawer();
-                        navigate('/')
+                {/* header row: arrow + title */}
+                <div className="mobile-sub-header">
+                    <button
+                    className="sub-back-btn"
+                    aria-label="Go back"
+                    onClick={() => {
+                        const sub = mobileRef.current?.querySelector('.mobile-sub');
+                        if (sub) {
+                        gsap.to(sub, {
+                            xPercent: 100,          // slide out to right
+                            duration: 0.5,
+                            ease: 'expo.in',
+                            onComplete: () => setMobileMenuKey(null), // show main list
+                        });
+                        } else {
+                        setMobileMenuKey(null);
+                        }
                     }}
                     >
-                    {label}
-                    </Link>
-                ))}
+                    <ArrowLeft size={24} />
+                    </button>
+                    <span className="sub-title">
+                    {mobileMenuKey.charAt(0).toUpperCase() + mobileMenuKey.slice(1)}
+                    </span>
                 </div>
-                
+
+                {/* sub‑links */}
+                <div className="submenu-list">
+                    {MOBILE_ITEMS[mobileMenuKey].map(({ label, to }) => (
+                    <Link
+                        key={label}
+                        to={to}
+                        data-mobile-item
+                        onClick={() => {
+                        closeDrawer();
+                        navigate(to);
+                        }}
+                    >
+                        {label}
+                    </Link>
+                    ))}
+                </div>
+                </div>
             )}
+            </div>
+
+            {/* ───────────────────────────────────────────
+                PERSISTENT FOOTER  (phone + CTA)
+            ─────────────────────────────────────────── */}
             
-               <div className="mobile-cta-wrapper" data-mobile-cta>
+                        <div className="mobile-cta-wrapper" data-mobile-cta>
+                <a href="tel:8008852369" className="phone-link">
+                <div className="phone-wrapper">
+                    <img src={phoneIcon} alt="" className="phone-icon" />
+                    <p>(800) 885-2369</p>
+                </div>
+                </a>
+
                 <Link
                     to="/sell-surplus"
                     className="cta-link"
@@ -359,8 +408,15 @@ function handleItemClick() {
                 onClick={closeDrawer}
             />
             )}
+            
 
             <div id="nav-bar-right-section">
+                <a href="tel:8008852369" className="phone-link">
+                <div className="phone-wrapper-expanded-menu">
+                    <img src={phoneIcon} alt="" className="phone-icon" />
+                    <p>(800) 885-2369</p>
+                </div>
+                </a>
                 <div id="nav-bar-cta">
                     <Link to="/sell-surplus" className="cta-link">
                         <button>SELL YOUR SURPLUS</button>

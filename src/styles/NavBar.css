@@ -1,25 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 
 #nav-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    height: 100px;
-    overflow-y: visible;
-    margin: 0 auto;
-    background-color: #F4F3F4;
-    padding:0;
-    position: fixed;
-    top: 0;
-    z-index: 10;
-    transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 100px;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  margin: 0 auto;
+  background-color: #f4f3f4;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  transition: all 0.3s ease-in-out;
 }
 
 #nav-bar.shrink {
-  background-color: #F4F3F4;
+  background-color: #f4f3f4;
   height: 60px; /* smaller height */
 }
 
@@ -39,132 +38,129 @@
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 #nav-bar-logo {
-    display:flex;
-    align-items: center;
-    margin: 0.5em;
-    margin-left: 30px;
-    color: #2F4858;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 0.5em;
+  margin-left: 30px;
+  color: #2f4858;
+  cursor: pointer;
 }
 
 #logo-span {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
-    margin-left: 10px; 
-    letter-spacing: -0.01em;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 24px;
+  margin-left: 10px;
+  letter-spacing: -0.01em;
 }
 
 #nav-bar-logo img {
-    width: 40px;
-    border-radius: 8px;
+  width: 40px;
+  border-radius: 8px;
 }
 
 #nav-bar-links {
-    display:flex;
-    flex-direction: row;
-    gap: 0em;
-    margin: 0;
-    align-items: center;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 550;
-    font-size: 12px;
-    color: #2F4858;
-    letter-spacing: -0.01em;
+  display: flex;
+  flex-direction: row;
+  gap: 0em;
+  margin: 0;
+  align-items: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 550;
+  font-size: 12px;
+  color: #2f4858;
+  letter-spacing: -0.01em;
 }
 
-
 #nav-bar-links span {
-    display: flex;
-    align-self: center;
-    cursor: pointer;
+  display: flex;
+  align-self: center;
+  cursor: pointer;
 }
 
 .nav-item-wrapper.is-active .nav-link {
-    color: #d18426; /* your orange color */
-  }
-  
+  color: #d18426; /* your orange color */
+}
 
-.nav-item-wrapper.is-active .nav-bar-link span{
-    color: #d18426;
+.nav-item-wrapper.is-active .nav-bar-link span {
+  color: #d18426;
 }
 
 #nav-bar-cta {
-    margin: 1em;
-    margin-right: 50px; 
+  margin: 1em;
+  margin-right: 50px;
 }
 
 #nav-bar-cta button {
-    height: 40px;
-    width: 225px;
-    font-size: 11px;
-    background-color: #33658A;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.16em;
-    font-weight: 700;
-    border-radius: 8px;
-    border: none;
-    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .7) 0 7px 13px -3px,rgba(58, 65, 111, .8) 0 -3px 0 inset;
-    font-stretch: extra-condensed;
-    cursor: pointer;
+  height: 40px;
+  width: 225px;
+  font-size: 11px;
+  background-color: #33658a;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.7) 0 7px 13px -3px, rgba(58, 65, 111, 0.8) 0 -3px 0 inset;
+  font-stretch: extra-condensed;
+  cursor: pointer;
 }
 
-  
-  #nav-bar-cta button:hover {
-    background-color: #d68f3c;
-    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #8594a3 0 -3px 0 inset;
+#nav-bar-cta button:hover {
+  background-color: #d68f3c;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #8594a3 0 -3px 0 inset;
+}
 
-  }
-  
-  #nav-bar-cta button:active {
-    box-shadow: #797979 0 3px 7px inset;
-    transform: translateY(3px);
-  }
-
+#nav-bar-cta button:active {
+  box-shadow: #797979 0 3px 7px inset;
+  transform: translateY(3px);
+}
 
 #nav-bar-left-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
 }
 
 #nav-bar-right-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
 }
 
 .nav-item-wrapper {
-    display: flex;
-    position: relative;
-    padding: 0 .5em;
-    height: 100px;
-
+  display: flex;
+  position: relative;
+  padding: 0 0.5em;
+  height: 100px;
 }
 
 .dropdown-menu {
-    position: absolute;
-    justify-content: center;
-    height: auto;
-    top: 100px;
-    left: 0;
-    right: 0;
-    background-color: #F4F3F4;
-    border-top: 0.03px solid #e6e6e6;
-    padding: 0;
-    padding-bottom: 0px;
-    padding-bottom: 20px;
-    transition: top 0.3s ease-in-out, transform 150ms ease-in-out; 
+  position: absolute;
+  justify-content: center;
+  height: auto;
+  top: 100px;
+  left: 0;
+  right: 0;
+  background-color: #f4f3f4;
+  border-top: 0.03px solid #e6e6e6;
+  padding: 0;
+  padding-bottom: 0px;
+  padding-bottom: 20px;
+  transition: top 0.3s ease-in-out, transform 150ms ease-in-out;
 }
 
 .dropdown-inner {
-  padding: 0;       
+  padding: 0;
   display: flex;
   gap: 1.5em;
 }
@@ -175,77 +171,74 @@ a {
   min-width: 150px;
 }
 
-
 .dropdown-row {
-    display: flex;
-    justify-content: flex-start; /* spread columns across row */
-    gap: 1em;                        /* space between columns */
-    max-width: 1200px;
-    margin: 0;
-  }
+  display: flex;
+  justify-content: flex-start; /* spread columns across row */
+  gap: 1em; /* space between columns */
+  max-width: 1200px;
+  margin: 0;
+}
 
-  .dropdown-column {
-    display: flex;
-    flex-direction: column;
-    max-width: 150px;
-    font-family: 'Open Sans', sans-serif;
-    color: #2F4858;
-    gap: 0em;
-  }
-  
-  .dropdown-column h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 0.04em;
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    color: #2F4858;
-    padding-left: 10px;
-  }
-  
-  .dropdown-button {
-    background: none;     /* or a color if you prefer */
-    border: none;
-    padding-left: 10px;      /* spacing similar to old <p> margin */
-    font-size: 13px;
-    font-family: 'Open Sans', sans-serif;
-    cursor: pointer;
-    text-align: left;
-    outline: none;
-    display: block;       /* makes them stack vertically */
-    width: 150px;
-    height: 40px;
-    border-radius: 12px;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Optional hover/focus states */
-  .dropdown-button:hover,
-  .dropdown-button:focus {
-    color: #d18426;  /* your orange color */
-    background-color: rgb(233, 233, 233);
-    transition: background-color 0.1s ease-in-out;
-  }
-  
-  .dropdown-button:active {
-    transform: translateY(1px);
-  }
+.dropdown-column {
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+  font-family: "Open Sans", sans-serif;
+  color: #2f4858;
+  gap: 0em;
+}
 
-  .dropdown-menu.inactive {
-    display: none;
-  }
+.dropdown-column h3 {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.04em;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #2f4858;
+  padding-left: 10px;
+}
 
- 
-  
-  .dropdown-column p:hover {
-    color: #d18426;
-  }
+.dropdown-button {
+  background: none; /* or a color if you prefer */
+  border: none;
+  padding-left: 10px; /* spacing similar to old <p> margin */
+  font-size: 13px;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  display: block; /* makes them stack vertically */
+  width: 150px;
+  height: 40px;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+}
 
-  .nav-item-wrapper.is-open .nav-link {
-    color: #d18426; /* same orange */
-  }
+/* Optional hover/focus states */
+.dropdown-button:hover,
+.dropdown-button:focus {
+  color: #d18426; /* your orange color */
+  background-color: rgb(233, 233, 233);
+  transition: background-color 0.1s ease-in-out;
+}
+
+.dropdown-button:active {
+  transform: translateY(1px);
+}
+
+.dropdown-menu.inactive {
+  display: none;
+}
+
+.dropdown-column p:hover {
+  color: #d18426;
+}
+
+.nav-item-wrapper.is-open .nav-link {
+  color: #d18426; /* same orange */
+}
 
 /* -------------------------------------------
    React Transition Group Classes
@@ -291,19 +284,24 @@ a {
   right: 0;
   bottom: 0;
   background: rgba(38, 38, 38, 0.8);
-  z-index: 4;  /* behind the menu but above page content */
+  z-index: 4; /* behind the menu but above page content */
 }
 
 /* make the whole logo area clickable with no under-line */
-.logo-link{display:inline-block;text-decoration:none;color:inherit}
+.logo-link {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
 
 /* remove default <Link> focus ring around the button */
-.cta-link:focus{outline:none}
+.cta-link:focus {
+  outline: none;
+}
 
 #nav-bar-logo {
   cursor: pointer;
 }
-
 
 /* ───────────────────────────────────────────────
    Hamburger icon → full-screen mobile menu
@@ -311,141 +309,455 @@ a {
 ─────────────────────────────────────────────── */
 
 /* ---------- icon default ---------- */
-.menu-icon{
-  --size:30px;                      /* keep easy to tweak */
+.menu-icon {
+  --size: 30px; /* keep easy to tweak */
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right:1.25rem;                       /* shove to right edge */
-  width:var(--size);
-  height:var(--size);
-  z-index:1000;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  right: 1.25rem; /* shove to right edge */
+  width: var(--size);
+  height: var(--size);
+  z-index: 1000;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.menu-icon__line{
-  display:block;
+.menu-icon__line {
+  display: block;
   width: var(--bar-w, 32px);
-  height:1px;
-  margin-bottom:4px;
-  background:#2F4858;               /* navy you use elsewhere */
+  height: 1px;
+  margin-bottom: 4px;
+  background: #2f4858; /* navy you use elsewhere */
   transform: scaleY(2);
-  transition:transform .25s ease, background-color .25s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease;
 }
 /* the short bars */
-.menu-icon__line-left  { --bar-w:16px }
-.menu-icon__line-right { --bar-w:16px; margin-left: auto }
+.menu-icon__line-left {
+  --bar-w: 16px;
+}
+.menu-icon__line-right {
+  --bar-w: 16px;
+  margin-left: auto;
+}
 
 /* ---------- mobile panel (initially hidden) ---------- */
-.mobile-menu{
-  position:fixed; top:0; right:0; height:100vh;
-  width:clamp(260px,30vw,420px);
-  background:#F4F3F4;
-  transform:translateX(100%);   /* start just outside */
-  transition: transform .45s cubic-bezier(.25,.8,.25,1);
-  box-shadow:-24px 0 48px rgba(0,0,0,.15);
-  display:flex; flex-direction:column;
-  padding-top:120px;
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  background: #f4f3f4;
+  display: flex;
+  flex-direction: column;
+  padding-top: 120px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* top-level list */
-.mobile-menu ul.mobile-top-list{
-  list-style:none;
-  padding:0;
-  margin:0;
-  width:100%;
+.mobile-menu ul.mobile-top-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  padding-bottom: 40px;
 }
-.mobile-menu .mobile-top{
-  width:100%;
-  background:none;
-  border:none;
-  padding:18px 0;
-  font:800 18px/1 "Open Sans", sans-serif;
-  color:#2F4858;
-  text-transform:uppercase;
-  letter-spacing:.02em;
+.mobile-menu .mobile-top {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 18px 0;
+  font: 800 18px/1 "Open Sans", sans-serif;
+  color: #2f4858;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   text-align: left;
   padding-left: 1rem;
 }
-.mobile-menu .mobile-top:hover{background:#eaeaea}
+.mobile-menu .mobile-top:hover {
+  background: #eaeaea;
+}
 
 /* second-level links */
-.mobile-sub{
-  width:100%;
-  padding:0 0 40px;
-  text-align:left;
-  padding-left: 1rem;
+.mobile-sub {
+  width: 100%;
+  padding: 0 0 20px;
+  text-align: left;
 }
-.mobile-sub .back-btn{
-  background:none;
-  border:none;
-  font:800 16px/1 "Open Sans", sans-serif;
-;
-  margin:0 0 20px;
-  color:#2F4858;
+.mobile-sub .back-btn {
+  background: none;
+  border: none;
+  font: 800 16px/1 "Open Sans", sans-serif;
+  margin: 0 0 20px;
+  color: #2f4858;
 }
-.mobile-sub a{
-  display:block;
-  padding:14px 0;
-  font:600 17px/1 'Open Sans',sans-serif;
-  color:#2F4858;
-  text-decoration:none;
+.mobile-sub a {
+  display: block;
+  padding: 14px 0;
+  font: 600 16px/1 "Open Sans", sans-serif;
+  color: #2f4858;
+  text-decoration: none;
 }
-.mobile-sub a:hover{background:#eaeaea}
+.mobile-sub a:hover {
+  background: #eaeaea;
+}
 
-.mobile-backdrop{
-  position:fixed;
-  inset:0;                     /* full viewport */
-  z-index:998;                 /* just under the drawer (999) */
-  background:transparent;      /* invisible but catches clicks */
+.mobile-backdrop {
+  position: fixed;
+  inset: 0; /* full viewport */
+  z-index: 998; /* just under the drawer (999) */
+  background: transparent; /* invisible but catches clicks */
 }
 
 /* ──────────────────────────────────
    OPEN (nav-active) state
    – Just the icon, nothing else
    ──────────────────────────────────*/
-.menu-icon.is-active .menu-icon__line        { transform: rotate(-45deg) scaleY(2); }
-.menu-icon.is-active .menu-icon__line-left  { transform: translateX(2.2px)  rotate(45deg)  scaleY(2); }
-.menu-icon.is-active .menu-icon__line-right { transform: translateX(-2.2px) rotate(45deg)  scaleY(2); }
+.menu-icon.is-active .menu-icon__line {
+  transform: rotate(-45deg) scaleY(2);
+}
+.menu-icon.is-active .menu-icon__line-left {
+  transform: translateX(2.2px) rotate(45deg) scaleY(2);
+}
+.menu-icon.is-active .menu-icon__line-right {
+  transform: translateX(-2.2px) rotate(45deg) scaleY(2);
+}
 
 /* ---------- hide desktop items under 1000px ---------- */
-@media (max-width:1000px){
+@media (max-width: 1050px) {
   #nav-bar-links,
-  #nav-bar-cta{display:none}
+  #nav-bar-cta {
+    display: none;
+  }
 }
 
-@media (min-width: 1001px){
-  .menu-icon{display:none}
-  .mobile-menu{display: none;}
+@media (min-width: 1051px) {
+  .menu-icon {
+    display: none;
+  }
+  .mobile-menu {
+    display: none;
+  }
 }
-
 
 /* === quick fix === */
 
-.mobile-menu.open { transform: translateX(0); }
+.mobile-menu.open {
+  transform: translateX(0);
+}
 
-.mobile-menu{ z-index: 999; }   /* above #nav-bar (z-index:10) */
-.mobile-backdrop{ z-index: 998; }
+.mobile-menu {
+  z-index: 999;
+} /* above #nav-bar (z-index:10) */
+.mobile-backdrop {
+  z-index: 998;
+}
 
+.mobile-cta-wrapper {
+  width: 90%;
+  margin-top: auto 0; /* pin to drawer foot */
+}
+.mobile-cta-wrapper .cta-link {
+  display: block;
+  width: 100%;
+  background: #33658a;
+  color: #fff;
+  text-align: center;
+  padding: 14px 0;
+  font: 700 13px/1 "Montserrat", sans-serif;
+  letter-spacing: 0.16em;
+  border-radius: 8px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.7) 0 7px 13px -3px, rgba(58, 65, 111, 0.8) 0 -3px 0 inset;
+}
+.mobile-cta-wrapper .cta-link:hover {
+  background: #d68f3c;
+}
+
+.mobile-cta-wrapper {
+  width: 100%;
+  margin-top: auto;
+  padding-bottom: 40px;
+}
+
+.phone-wrapper {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 20px;
+  font: 600 16px/1 "Open Sans", sans-serif;
+  color: #2f4858;
+}
+
+.phone-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.phone-wrapper-expanded-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.phone-wrapper-expanded-menu p {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font: 600 16px/1 "Open Sans", sans-serif;
+  color: #2f4858;
+}
+
+.phone-wrapper-expanded-menu,
+.phone-wrapper {
+  display: flex;
+  align-items: center; /* center icon + text vertically */
+  gap: 0.5rem; /* small space between them */
+}
+
+.phone-wrapper-expanded-menu p,
+.phone-wrapper p {
+  margin: 0; /* remove default top/bottom margins */
+  line-height: 1.2; /* tighten the line-height for perfect centering */
+}
+
+/* Mobile icon wrapper (back arrow + hamburger) */
+.mobile-icon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* adapt spacing */
+}
+/* Adjust back button */
+.mobile-icon-wrapper .back-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #2f4858;
+}
+.mobile-icon-wrapper .back-btn:hover {
+  color: #d18426;
+}
+.mobile-icon-wrapper .back-btn:active {
+  color: #d68f3c;
+}
+
+@media (max-width: 1050px) {
+  .phone-wrapper-expanded-menu {
+    display: none;
+  }
+}
+
+/* ── reuse the panel’s padding for perfect alignment ── */
+.sub-back-btn {
+  position: absolute;
+  top: 30px; /* same as .mobile-menu’s padding-top */
+  left: 15px; /* same as .mobile-menu’s padding-left */
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #2f4858;
+  z-index: 1001;
+  transition: color 0.15s ease, transform 0.1s ease;
+  font-weight: 500;
+}
+
+/* match the icon size of your menu‑icon (≈30px) */
+.sub-back-btn svg {
+  width: 35px;
+  height: 35px;
+}
+
+.sub-back-btn:hover {
+  color: #d18426;
+}
+.sub-back-btn:active {
+  color: #d68f3c;
+  transform: translateY(2px);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile menu – separators + right‑arrow indicators
+───────────────────────────────────────────────────────────── */
+
+/* 1) separator lines between items */
+.mobile-top-list li + li,
+.mobile-sub a + a {
+  border-top: 1px solid #e0e0e0; /* light gray divider */
+}
+
+/* 2) pad each item so there’s room for the arrow */
+.mobile-top-list li button,
+.mobile-sub a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+}
+
+/* 3) add the chevron on the far right */
+.mobile-top-list li button::after,
+.mobile-sub a::after {
+  content: "›"; /* single chevron */
+  font-size: 1.2rem;
+  color: #2f4858; /* your navy brand color */
+  line-height: 1;
+}
+
+/* ──────────────────────────────────────────────────────────
+   keep the drawer fixed (was: relative)
+   ────────────────────────────────────────────────────────── */
+.mobile-menu {
+  position: fixed; /* ← restore this */
+  top: 0;
+  right: 0;
+  width: width 100%;
+  height: 100vh;
+  background: #f4f3f4;
+  /* no other hiding rules here — GSAP owns the transform */
+}
+
+/* main list (static) */
+.mobile-top-list {
+  position: relative;
+  z-index: 1;
+}
+
+/* sub‑menu overlays the drawer */
+.mobile-sub {
+  position: absolute;
+  background: #f4f3f4;
+  inset: 0;
+  z-index: 2;
+}
+
+/* ───────────────────────────────────────────────
+   Sub‑menu header spacing  (arrow + title row)
+─────────────────────────────────────────────── */
+.mobile-sub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* arrow  ←   title   →  X */
+  height: 56px; /* same as each list row */
+  padding: 0 1.25rem; /* side padding */
+}
+
+.mobile-sub-header .sub-back-btn {
+  /* arrow */
+  flex: 0 0 auto;
+  padding: 0; /* zero out padding so arrow centers */
+}
+
+.mobile-sub-header .sub-title {
+  /* title text */
+  flex: 1 1 auto;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+/* adjust X icon padding so it lines up */
+.mobile-sub-header .close-btn {
+  flex: 0 0 auto;
+  padding: 0;
+}
+
+/* give the list its own margin so first item doesn’t overlap header */
+.mobile-sub ul,
+.mobile-sub .submenu-list {
+  margin-top: 56px; /* exactly one row height */
+}
+
+/* 1️⃣  Push the header down, remove its bottom border */
+.mobile-sub-header {
+  padding: 8.25rem 1.25rem 0; /* extra top space, no bottom padding */
+  border-bottom: none; /* kill the line under the header */
+}
+
+/* 2️⃣  Separator lines between <Link> items, inset 20 px */
+.submenu-list {
+  display: flex;
+  flex-direction: column;
+}
+.submenu-list a + a {
+  /* every link except the first */
+  position: relative;
+  padding-top: 1rem; /* vertical spacing */
+}
+
+
+/* mobile drawer layout */
+.mobile-menu{
+  display:flex;
+  flex-direction:column;
+}
+
+/* phone + CTA stay pinned at the bottom */
+.phone-wrapper,
 .mobile-cta-wrapper{
-  width:100%;
-  margin-top:auto 0;           /* pin to drawer foot */
-  padding:1.25rem;
+  flex:0 0 auto;
+  padding:1.25rem 1.5rem;
+  z-index: 3;
 }
-.mobile-cta-wrapper .cta-link{
-  display:block;
-  width:100%;
-  background:#33658A;
-  color:#fff;
-  text-align:center;
-  padding:14px 0;
-  font:700 13px/1 'Montserrat',sans-serif;
-  letter-spacing:.16em;
-  border-radius:8px;
-  box-shadow:rgba(45,35,66,.4) 0 2px 4px,
-             rgba(45,35,66,.7) 0 7px 13px -3px,
-             rgba(58,65,111,.8) 0 -3px 0 inset;
+
+/* sub‑menu overlays the main list */
+.mobile-sub{
+  position:absolute;
+  inset:0;
+  z-index:1;
 }
-.mobile-cta-wrapper .cta-link:hover{background:#d68f3c}
+
+
+/* ─────────────────────────────────────────────────────────────
+   INTERACTION STATES  – mobile drawer
+───────────────────────────────────────────────────────────── */
+
+/* 1️⃣  MAIN + SUB‑MENU ITEMS  (hover + press) */
+.mobile-top-list li button,
+.submenu-list a{
+  transition: background 0.15s ease;
+}
+.mobile-top-list li button:hover,
+.mobile-top-list li button:active,
+.submenu-list a:hover,
+.submenu-list a:active{
+  background:#F0F0F0;          /* light gray press feedback */
+}
+
+/* 2️⃣  CTA  (“SELL YOUR SURPLUS”) – orange on press */
+.mobile-cta-wrapper .cta-btn{
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.mobile-cta-wrapper .cta-btn:active{
+  background:#d18426;          /* brand orange */
+  transform:translateY(2px);
+}
+
+/* 3️⃣  PHONE BAR  – subtle tint on press */
+.phone-wrapper:active{
+  background:#F7F7F7;
+}
+
+/* 4️⃣  SUB‑MENU HEADER – bolder & larger */
+.mobile-sub-header .sub-title{
+  font-size:1.15rem;
+  font-weight:600;
+  color:#2F4858;
+}
+
+/* 5️⃣  HAMBURGER / X  – orange when active */
+.menu-icon:active .menu-icon__line{
+  background:#d18426;
+}
+
+/* back‑arrow icon tint on press */
+.sub-back-btn:active{
+  color:#d18426;
+}

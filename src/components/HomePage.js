@@ -74,6 +74,7 @@ function HomeBanner() {
         } 
   }
   
+  
     return (
         <div id="home-banner-container">
               <video 
@@ -110,7 +111,7 @@ function HomeBanner() {
                         defaultValue="transformers"
                       >
                         <option value="transformers">TRANSFORMERS</option>
-                        <option value="pvf">PIPES, VALVES, FITTINGS</option>
+                        <option value="pvf">PVF</option>
                         <option value="electrical">ELECTRICAL</option>
                         <option value="other">OTHER EQUIPMENT</option>
                       </select>
@@ -120,7 +121,7 @@ function HomeBanner() {
                       id="quote-button"
                       onClick={handleQuoteClick}
                     >
-                      GET QUOTE
+                      Get Quote
                     </button>
                   </div>
                 </div>
@@ -134,9 +135,40 @@ function MissionStatement() {
   const wrapperRef = useRef(null)
 
   useEffect(() => {
+  // clean up any old triggers
+  ScrollTrigger.getAll().forEach(t => t.kill());
+
+  ScrollTrigger.matchMedia({
+    // ───── MOBILE ONLY (≤ 1000px) ─────
+    "(max-width: 1000px)": () => {
+      gsap.to("#mission-statement-container", {
+        scrollTrigger: {
+          trigger: "#mission-statement-container",
+          start: "top 65%",      // when top of card hits 65% down the viewport
+          end:   "bottom top",   // until its bottom hits the very top
+          scrub: true,           // tie to scroll
+        },
+        y:   -60,                // drift up by 50px
+        transformOrigin: "center bottom",
+        ease: "none",
+      });
+    },
+
+    // ───── DESKTOP (ignored) ─────
+    "(min-width: 1001px)": () => {
+      // no mobile scroll effect on full‑screen
+    }
+  });
+
+  // cleanup on unmount
+  return () => ScrollTrigger.getAll().forEach(t => t.kill());
+}, []);
+
+/*
+  useEffect(() => {
     let ctx = gsap.context(() => {
       gsap.to(bgRef.current, {
-        scaleY: 1.2 ,                     
+        scaleY: 1.4 ,                     
         transformOrigin: 'top center',
         ease: 'none',
         scrollTrigger: {
@@ -151,6 +183,8 @@ function MissionStatement() {
 
     return () => ctx.revert()
   }, [])
+
+    */
 
   return (
     <div
@@ -174,6 +208,7 @@ function MissionStatement() {
     </div>
   )
 }
+
 
 function LargeContent() {
   const containerRef = useRef(null);
@@ -334,7 +369,7 @@ function LargeContent() {
 
         <div className="text-cta-container">
           <div className="cta-text">
-            <h1>Sell Equipment with Confidence</h1>
+            <h1>Sell with Confidence</h1>
             <p>Customers value our service and trust us for our professionalism, delivering fast, accurate quotes and expert support for electrical transformers, PVF, and electrical equipment, all while keeping projects powered and on schedule.</p>
           </div>
           <div className="cta-button-div">
@@ -345,13 +380,12 @@ function LargeContent() {
 
           <ReviewCarousel />
           <div className="logo-text">
-            A vast dealer network ready to move your surplus equipment, trusted by the biggest companies in the world
+            A vast dealer network ready to move your surplus equipment, trusted by the biggest companies in the world.
           </div>
           <LogoCarousel />
       </div>
-
-      <ProductCards />
-      <EducationalSection />
+        <ProductCards />
+        <EducationalSection />
     </div>
   );
 } 
@@ -414,8 +448,7 @@ function ReviewCarousel() {
                 <h5 className="review-title">Testimonial</h5>
                 <h3 className="review-quote">"I was impressed by how smooth the entire process was."</h3>
                 <p>
-                  Customer John Doe reveals how his team used S&D Industrial Surplus to
-                  offload their equipment seamlessly.
+                  Another placeholder text about how S&D made it easy to sell equipment.
                 </p>
               </div>
             </div>

@@ -4,8 +4,15 @@
   box-sizing: border-box;
 }
 
+html,body{
+  max-width: 100%;
+  overflow-x: hidden;   /* stops any future rogue element */
+}
+
 home-container {
     background-color: #0a3759;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 #home-banner-container {
@@ -211,8 +218,8 @@ home-container {
   border-radius: 0 4px 4px 0;
   padding: 0.5em 1em;
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 0.16em;
+  font-family: 'Open sans', sans-serif;
+  letter-spacing: 0.05em;
   font-weight: 700;
   font-size: 1rem;
   transition: background-color 0.2s, box-shadow 0.1s;
@@ -337,7 +344,11 @@ home-container {
   width: 600px;
   z-index: 2;
   border-radius: 12px;
-  box-shadow: rgba(45, 35, 66, .4) 0 4px 22px,rgba(45, 35, 66, .7) 0 7px 13px -3px,rgba(58, 65, 111, .8) 0 -3px 0 inset;
+  box-shadow:
+    /* primary depth */
+    4px 8px 12px -4px rgba(0, 0, 0, 0.8),
+    /* directional accent on bottom‑right */
+    4px 4px 6px -2px rgba(0, 0, 0, 0.3);
 }
 
 #right-image {
@@ -346,6 +357,7 @@ home-container {
   width: auto;
   height: 600px;
   z-index: 1;
+  border-radius: 12px;
 }
 
 #left-image {
@@ -374,7 +386,7 @@ home-container {
 
 @media (max-width: 1600px) {
   #left-image {
-    top: 30%;
+    top: 41%;
     left: 10%;
   }
   #right-image {
@@ -383,36 +395,24 @@ home-container {
   }
 }
 
-/* 2) Tweak your offsets for medium screens */
 @media (max-width: 1200px) {
   #left-image {
     top: 35%;
-    left: 15%;
+    left: 10%;
   }
   #right-image {
     top: 15%;
-    right: 10%;
+    right: 15%;
   }
+  .images-row {
+  position: relative;
+  height: 750px;
+  margin: 0;
+}
 }
 
-/* 3) Below ~800px, go “mobile” and stack them normally */
-@media (max-width: 800px) {
-  .images-row {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;           /* remove that huge padding */
-    gap: 1.5rem;          /* some breathing room */
-  }
-  #left-image,
-  #right-image {
-    position: static;     /* so they flow in the flex container */
-    width: 80%;           /* or whatever makes sense in your design */
-    max-width: 400px;
-    margin: 0 auto;
-  }
-}
+
+
 
 
 /*--------------------------------------------*/
@@ -426,7 +426,7 @@ home-container {
   align-items: center;
   justify-content: center;
   height: 300px;
-  width: 800px;
+  width: 60%;
   padding: 0;
 }
 
@@ -520,10 +520,14 @@ padding-bottom: 10px;
   align-items: center;
   height: 1800px;
   background: #efefef;
-  width: 93%;
+  width: 90%;
   border-radius: 16px;
   margin: 0px;
-  box-shadow: -17px -7px 16px 0 #FFFFFF, 7px 7px 10px -4px rgba(165, 187, 207, 0.57);
+  box-shadow:
+    /* primary depth */
+    0px 8px 12px -4px rgba(0, 0, 0, 0.4),
+    /* directional accent on bottom‑right */
+    4px 4px 6px -2px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
 }
 
@@ -560,6 +564,7 @@ padding-bottom: 10px;
   width: clamp(200px, 20vw, 350px);
   height: auto;
   z-index: 1;
+  border-radius: 12px;
 }
 
 #image-three {
@@ -568,10 +573,12 @@ padding-bottom: 10px;
   width: clamp(300px, 30vw, 450px);
   height: auto;
   z-index: 2;
-  border-radius: 8px;
-  box-shadow: rgba(45, 35, 66, .4) 0 4px 22px,
-              rgba(45, 35, 66, .7) 0 7px 13px -3px,
-              rgba(58, 65, 111, .8) 0 -3px 0 inset;
+  border-radius: 12px;
+  box-shadow:
+    /* primary depth */
+    4px 8px 12px -4px rgba(0, 0, 0, 0.8),
+    /* directional accent on bottom‑right */
+    4px 4px 6px -2px rgba(0, 0, 0, 0.3);
 }
 
 /* 1) Tweak offsets for slightly smaller desktops */
@@ -593,16 +600,16 @@ padding-bottom: 10px;
 /* 1) Tweak offsets for slightly smaller desktops */
 @media (max-width: 1600px) {
   #image-one {
-    top: 40%;
-    left: 50%;
+    top: 28%;
+    left: 55%;
   }
   #image-two {
-    top: 12%;
+    top: 15%;
     left: 17%;
   }
   #image-three {
-    top: 22%;
-    left: 30%;
+    top: 31%;
+    left: 33%;
   }
 }
 
@@ -610,38 +617,24 @@ padding-bottom: 10px;
 @media (max-width: 1200px) {
   #image-one {
     top: 28%;
-    left: 40%;
+    left: 55%;
   }
   #image-two {
     top: 15%;
-    left: 18%;
+    left: 17%;
   }
   #image-three {
-    top: 25%;
-    left: 28%;
-  }
-}
-
-/* 3) Mobile: stack them vertically in a flex container */
-@media (max-width: 800px) {
-  .trio-images-row {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    height: auto;
+    top: 31%;
+    left: 33%;
   }
 
-  #image-one,
-  #image-two,
-  #image-three {
-    position: static;
-    width: 80%;
-    max-width: 350px;
-    margin: 0 auto;
-  }
+  .trio-div {
+  display: flex;
+  width: 100%;
+  height: 600px;
 }
+}
+
 /* The text + button CTA inside #floating-container */
 #floating-container-cta {
   text-align: center;
@@ -696,7 +689,7 @@ padding-bottom: 10px;
   display: none; /* Chrome/Safari */
 }
 
-/* Responsive card widths with clamp() */
+
 .review-card {
   display: flex;
   flex-direction: row;
@@ -719,7 +712,7 @@ padding-bottom: 10px;
   height: 80px;          /* fixed height for uniformity */
   object-fit: cover;      /* to maintain aspect ratio without distortion */
   display: block;
-}
+} 
 
 /* The textual content of the card */
 .review-content {
@@ -762,4 +755,471 @@ padding-bottom: 10px;
   font-family: 'Open sans', sans-serif;
   padding: 0;
   margin: -20px;
+}
+
+
+
+/* =========================================================================
+   HOME‑BANNER  –  new mobile layout  ( ≤ 1000 px )
+   =========================================================================*/
+@media (max-width: 1000px) {
+
+  /* CARD SHELL -------------------------------------------------------- */
+  #home-banner-container{
+    position: relative;
+    width: 92%;
+    max-width: 550px;
+    height: 500px;
+    margin: 1rem auto;        
+    left: 0; right: 0;         
+    box-sizing: border-box;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 26px rgba(0,0,0,.15);
+    margin-top: 120px;
+  }
+
+
+  /* FULL‑BLEED VIDEO -------------------------------------------------- */
+  #home-banner-video{
+    position: absolute;
+    inset: 0;                    /* top/right/bottom/left: 0 */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;           /* fill card, maintain aspect */
+  }
+  #home-banner-overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(48, 48, 48, 0.5);  /* keep text readable */
+  }
+
+  /* HEADLINE ---------------------------------------------------------- */
+  #home-banner-text{
+    position: relative;          /* sits above the video */
+    z-index: 1;
+    top: 28%;                    /* push upward */
+    transform: translateY(-28%);
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: clamp(1.2rem, 4.8vw, 1.6rem);
+    line-height: 1.15;
+  }
+
+  /* HIDE LONG SUB‑COPY ------------------------------------------------ */
+  #home-form-text{ display: none; }
+
+  /* FORM WRAPPER ------------------------------------------------------ */
+  #home-form-container{
+    position: relative;
+    z-index: 1;                  /* above video */
+    margin: auto;
+  }
+
+  #home-form{
+  display:flex;              /* row by default */
+  background:rgba(255,255,255,.10);
+  border-radius:8px;
+}
+
+#equipment-form-box{
+  display:flex;
+  max-width: 300px;
+  height: 55px;
+  flex:0 0 auto;             /* shrink to content */
+}
+
+#sell-label{
+  font-size:1rem;          /* smaller text */
+  letter-spacing:0.075em;
+  white-space:nowrap;
+}
+
+#equipment-select{
+  flex:1 1 auto;             /* grow & shrink as space allows */
+  min-width:0;               /* let it compress */
+  font-size:1rem;
+  max-width: 150px;
+}
+
+#quote-button{
+  flex:0 0 35%;              /* reserve space, but allow wrap if tiny */
+  font-size:.95rem;
+  padding:0;
+  white-space:nowrap;
+  letter-spacing: 0;
+  padding-bottom: 3px;
+}
+}
+
+
+/* ======================================================================
+   OVERFLOW HOT‑FIX  –  Educational + Product cards
+   =================================================================== */
+
+/* 1️⃣ make the big sections border‑box and trim the side‑padding */
+.edu-section,
+.page-card-container{
+  box-sizing: border-box !important;   /* override inherit */
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* 2️⃣ responsive card widths – never wider than the screen */
+.edu-card,
+.product-card{
+  width: 100%;
+  max-width: 500px;          /* keeps the nice desktop size */
+}
+
+/* 3️⃣ let the grid shrink earlier */
+.product-card-grid{
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)       /* was 380px – plays nicer with phones */
+  );
+}
+
+
+
+/*───────────────────────────────
+  MISSION STATEMENT - Small Media Card
+────────────────────────────────*/
+@media (max-width: 1000px){
+
+#mission-statement-container{
+  /* card frame */
+  width: 92%;
+  max-width: 550px;
+  margin: 3rem auto;
+  padding: 2.25rem 1.25rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.14);
+  position: relative;
+  overflow: hidden;          /* clip animated bg */
+  text-align: center;
+  z-index: 2;
+}
+
+/* keep your animated blue bg, but match the corners */
+.mission-bg{
+  border-radius: inherit;    /* picks up the 14 px */
+}
+
+/* let text stay centred and fluid */
+#mission-text{
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+  /* headline */
+  #mission-statement-container h1{
+    font-size: clamp(1.0rem, 5vw, 1.8rem);   /* was 2.5 rem :contentReference[oaicite:2]{index=2} */
+    line-height: 1.2;
+  }
+
+  /* paragraph */
+  #mission-statement-container p{
+    font-size: 0.95rem;                       /* was 1.3 rem :contentReference[oaicite:3]{index=3} */
+    line-height: 1.45;
+  }
+
+  /* narrow the text block so lines wrap sooner */
+  #mission-text{
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   Double images-div
+   ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1000px) {
+
+  .images-row { height: 500px; }
+
+  #left-image {
+    top: 38%;
+    left: 22%;
+    width: clamp(200px, 45vw, 250px);
+  }
+  #right-image {
+    top: 8%;
+    right: 20%;
+    width: clamp(300px, 35vw, 400px);
+  }
+}
+
+@media (max-width: 810px) {
+
+  .images-row { height: 500px; }
+
+  #left-image {
+    top: 38%;
+    left: 20%;
+    width: clamp(200px, 45vw, 250px);
+  }
+  #right-image {
+    top: 8%;
+    right: 19%;
+    width: clamp(300px, 35vw, 400px);
+  }
+}
+
+  @media (max-width: 700px) {
+
+  .images-row { height: 400px; }
+
+  #left-image {
+    top: 45%;
+    left: 15%;
+  }
+  #right-image {
+    top: 8%;
+    right: 11%;
+  }
+}
+
+
+  @media (max-width: 600px) {
+
+  .images-row { height: 400px; }
+
+  #left-image {
+    top: 45%;
+    left: 5%;
+    width: clamp(150px, 45vw, 220px);
+  }
+  #right-image {
+    top: 8%;
+    right: 5%;
+    width: clamp(250px, 35vw, 350px);
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   cta-container popup text for smaller media
+   ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .text-cta-container{
+    width: 90%
+}
+
+.cta-text {
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+}
+
+.text-cta-container h1 {
+font-size: 1.5rem;
+color: #474747;
+margin-bottom: 0.5em;
+font-family: 'open sans', sans-serif;
+font-weight: 600;
+margin: 0;
+padding: 0;
+}
+
+.text-cta-container p {
+align-items: center;
+font-family: 'Open sans', sans-serif;
+font-size: .8rem;
+margin-bottom: 1.5em;
+margin: 0;
+padding: 0;
+padding-bottom: 10px;
+}
+
+}
+
+@media (max-width: 440px) {
+  .cta-button {
+    width: 150px;
+    padding: 8px 8px;
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   triple image div for smaller media
+   ─────────────────────────────────────────────────────────────── */
+
+
+/* 2) Medium screens: adjust again */
+@media (max-width: 1000px) {
+
+  .text-cta-container {
+    margin-top: 30px;
+  }
+
+  .trio-images-row {
+    margin-top: 45px;
+  }
+  #floating-container {
+    height: 1580px;
+  }
+
+  #image-one {
+  width: clamp(200px, 35vw, 350px);
+}
+
+#image-two {
+  width: clamp(150px, 35vw, 175px);
+}
+
+#image-three {
+  width: clamp(200px, 35vw, 300px);
+}
+
+  #image-one {
+    top: 28%;
+    left: 55%;
+  }
+  #image-two {
+    top: 15%;
+    left: 17%;
+  }
+  #image-three {
+    top: 31%;
+    left: 33%;
+  }
+}
+
+@media (max-width: 700px) {
+  #image-one {
+    top: 28%;
+    left: 40%;
+  }
+  #image-two {
+    top: 15%;
+    left: 18%;
+  }
+  #image-three {
+    top: 25%;
+    left: 28%;
+  }
+}
+
+@media (max-width: 699px) {
+
+    .trio-div{
+      height: 400px;
+    }
+
+    #image-one {
+      width: clamp(170px, 35vw, 250px);
+    }
+
+    #image-two {
+      width: clamp(100px, 35vw, 135px);
+    }
+
+    #image-three {
+      width: clamp(180px, 35vw, 250px);
+    }
+
+  #image-one {
+    top: 38%;
+    left: 55%;
+  }
+  #image-two {
+    top: 8%;
+    left: 5%;
+  }
+  #image-three {
+    top: 32%;
+    left: 28%;
+  }
+}
+
+@media (max-width: 395px) {
+
+    .trio-div{
+      height: 400px;
+    }
+
+    #image-one {
+      width: clamp(170px, 35vw, 250px);
+    }
+
+    #image-two {
+      width: clamp(100px, 35vw, 135px);
+    }
+
+    #image-three {
+      width: clamp(180px, 35vw, 250px);
+    }
+
+  #image-one {
+    top: 38%;
+    left: 51%;
+  }
+  #image-two {
+    top: 8%;
+    left: 5%;
+  }
+  #image-three {
+    top: 32%;
+    left: 23%;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────
+   REVIEW‑CARDS Mobile Responsiveness (≤ 1000 px)
+──────────────────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  /* keep the scroller but give it some side padding */
+  .review-wrapper {
+    padding: 0;
+    padding: 30px 20px;
+  }
+
+  /* shrink each card to roughly 80% of the viewport */
+  .review-card {
+    flex: 0 0 50vw;         /* each card is 80% of view width */
+    height: auto;        /* never exceed 80% */
+    min-width: 60vw;
+    padding: 12px;          /* a touch tighter */
+    border-radius: 6px;
+    margin-right: 0.75rem;  /* space between cards */
+  }
+
+  /* title smaller but still uppercase */
+  .review-title {
+    font-size: .7rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* quote text scales down slightly */
+  .review-quote {
+    font-size: 1rem;
+    line-height: 1.3;
+    max-width: 50vw;
+  }
+
+  /* body copy tighter */
+  .review-content p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    max-width: 50vw;
+    padding: 0;
+  }
+}
+
+#floating-container .logo-text {
+  /* remove the old negative margin */
+  margin: 1rem auto;          /* center under whatever comes above */
+  padding: 0 1rem;            /* give a bit of side breathing room */
+  max-width: 100%;            /* never overflow its parent */
+  box-sizing: border-box;     /* include padding in that max-width */
+  text-align: center;         /* if you want centered copy */
+  color: #767676;             /* keep your existing color */
+  font-family: 'Open Sans', sans-serif;
 }

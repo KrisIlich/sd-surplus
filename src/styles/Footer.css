@@ -26,10 +26,14 @@
 .footer-col {
   flex: 0 0 160px;                  /* fixed base width */
 }
-.footer-col h4 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem;
-  margin-bottom: 1rem;
+.footer-col h4{
+  font-family:'Bebas Neue',sans-serif;
+  /* auto‑scales from 1.05 rem on tiny phones up to 1.4 rem on desktop */
+  font-size:clamp(1.05rem, 2.6vw + .2rem, 1.4rem);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:#E6EFFC;             /* brighter against the navy */
+  margin-bottom:1rem;
 }
 .footer-col ul {
   list-style: none;
@@ -127,5 +131,29 @@
   .footer-social-row {
     justify-content: center;
     gap: 1rem;
+  }
+}
+
+
+/* —————————————————————————— */
+/*  Mobile stack @ ≤ 550 px   */
+/* —————————————————————————— */
+@media(max-width:570px){
+
+  /* stack the three groups one after another,
+     each taking full width with a subtle divider */
+  .footer-top{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2rem;                /* extra breathing room */
+  }
+
+  .footer-col{
+    flex:1 1 100%;
+  }
+
+  .footer-col:not(:last-child){
+    border-bottom:1px solid rgba(255,255,255,.15);
+    padding-bottom:1.5rem;
   }
 }

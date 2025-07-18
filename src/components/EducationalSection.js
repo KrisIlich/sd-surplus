@@ -1,13 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { Link } from 'react-router-dom';
 import '../styles/EducationalSection.css';
-import imgRoi      from '../assets/ed-roi.png';
+
+import imgRoi         from '../assets/ed-roi.png';
 import imgMaintenance from '../assets/ed-maintenance.png';
-import imgPVFGuide from '../assets/ed-pvf.png';
+import imgPVFGuide    from '../assets/ed-pvf.png';
 
 export default function EducationalSection() {
   const sectionRef = useRef(null);
-
 
   const posts = [
     {
@@ -24,64 +25,48 @@ export default function EducationalSection() {
     },
     {
       title: 'Ultimate Guide to PVF Selection & Installation',
-      desc:  'Everything you need to know about choosing, sizing, and installing industrial pipes, valves and fittings.',
+      desc:  'Everything you need to know about choosing, sizing, and installing industrial pipes, valves & fittings.',
       img:   imgPVFGuide,
       link:  '/blog/pvf-selection-installation'
     }
   ];
 
+  /* keep the card‑fade animation exactly as before */
   useEffect(() => {
-    let ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray('.edu-card');
-
-      gsap.fromTo(cards,
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.edu-card',
+        { opacity: 0, filter: 'blur(20px)', scale: 0.5 },
         {
-          opacity: 0,
-          filter:  'blur(20px)',
-          scale:   0.5
-        },
-        {
-          opacity:    1,
-          filter:     'blur(0px)',
-          scale:      1,
-          duration:   0.3,
-          ease:       'none',
-          stagger:    0.03,
+          opacity: 1, filter: 'blur(0)', scale: 1,
+          duration: 0.3, stagger: 0.03,
           scrollTrigger: {
-            trigger:      sectionRef.current,
-            start:        'top 55%',
-            toggleActions:'play none none none'
+            trigger: sectionRef.current,
+            start:   'top 55%',
+            toggleActions: 'play none none none'
           }
         }
       );
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
     <section className="edu-section" ref={sectionRef}>
-      <h1 className="edu-heading">
-        Discover, Learn & Thrive with S&amp;D
-      </h1>
+      <h1 className="edu-heading">Discover, Learn & Thrive with S&amp;D</h1>
 
-      <div className="edu-card-grid">
-        {posts.map((post, idx) => (
-          <article className="edu-card" key={idx}>
-            <img
-              src={post.img}
-              alt={post.title}
-              className="edu-card-image"
-            />
+      {/* ▼‑‑‑ now flex, not grid ‑‑‑▼ */}
+      <div className="edu-card-row">
+        {posts.map(({ img, title, desc, link }, idx) => (
+          <Link key={idx} to={link} className="edu-card">
+            <img src={img} alt={title} />
             <div className="edu-card-body">
-              <span className="edu-card-type">Article</span>
-              <h2 className="edu-card-title">{post.title}</h2>
-              <p className="edu-card-desc">{post.desc}</p>
-              <a href={post.link} className="edu-learn-more">
-                Read article &rarr;
-              </a>
+              <span className="edu-tag">Article</span>
+              <h3 className="edu-title">{title}</h3>
+              <p  className="edu-desc">{desc}</p>
+              <span className="learn-more">Read article →</span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

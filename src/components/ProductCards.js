@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import '../styles/ProductCards.css';
 import gsap from 'gsap';
+import { Link } from "react-router-dom";
 
 // placeholder images – swap these out with your real assets
 import padmountImg        from '../assets/cards/padmount.png';
@@ -14,7 +15,7 @@ import switchgearImg      from '../assets/cards/switchgear.png';
 
 const ITEMS = [
   {
-    title: '3-Phase Padmounted Transformer',
+    title: 'Padmounted Transformer',
     img: padmountImg,
     desc: 'Highly efficient, outdoor-rated 3-phase padmount transformers for distribution networks.',
     link: '/articles/3-phase-padmount'  
@@ -101,23 +102,22 @@ export default function ProductCards() {
   }, []);
 
 
-  return (
-    <section className="page-card-container" ref={containerRef}>
+   return (
+    <section className="page-card-grid" ref={containerRef}>
       <h1 className="cards-heading">
         S&amp;D Industrial Surplus purchases across industries
       </h1>
-      <div className="product-card-grid">
+
+      {/* ▼‑‑‑ flex row instead of grid ‑‑‑▼ */}
+      <div className="product-card-row">
         {ITEMS.map(({ title, img, desc, link }) => (
-          <div className="product-card" key={title}> 
+          <Link to={link} className="product-card" key={title}>
             <img src={img} alt={title} className="card-image" />
             <div className="card-body">
               <h2 className="card-title">{title}</h2>
-              <p className="card-desc">{desc}</p>
-              <a href={link} className="learn-more">
-                Learn more&nbsp;→
-              </a>
+              <p  className="card-desc">{desc}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
